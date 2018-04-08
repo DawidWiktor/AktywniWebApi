@@ -183,11 +183,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dawid\\Desktop\\WebApi\\Aktywni.Core\\Aktywni.Core.csproj",
+      "projectUniqueName": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj",
       "projectName": "Aktywni.Core",
-      "projectPath": "C:\\Users\\Dawid\\Desktop\\WebApi\\Aktywni.Core\\Aktywni.Core.csproj",
+      "projectPath": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj",
       "packagesPath": "C:\\Users\\Dawid\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dawid\\Desktop\\WebApi\\Aktywni.Core\\obj\\",
+      "outputPath": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
