@@ -1,0 +1,9 @@
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Core\bin\Debug\netstandard2.0\Aktywni.Core.deps.json
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Core\bin\Debug\netstandard2.0\Aktywni.Core.dll
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Core\bin\Debug\netstandard2.0\Aktywni.Core.pdb
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.csprojResolveAssemblyReference.cache
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.csproj.CoreCompileInputs.cache
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.AssemblyInfoInputs.cache
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.AssemblyInfo.cs
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.dll
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.pdb

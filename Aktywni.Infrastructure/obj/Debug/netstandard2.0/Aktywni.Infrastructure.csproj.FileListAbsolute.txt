@@ -1,0 +1,11 @@
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Infrastructure.deps.json
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Infrastructure.dll
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Infrastructure.pdb
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Core.dll
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Core.pdb
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.AssemblyInfo.cs
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.csproj.CopyComplete
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.dll
+C:\Users\Dawid\Desktop\WebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.pdb
