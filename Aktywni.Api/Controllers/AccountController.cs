@@ -1,18 +1,26 @@
+using System;
 using System.Threading.Tasks;
+using Aktywni.Infrastructure.Commands.User;
+using Aktywni.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aktywni.Api.Controllers
 {
     public class AccountController : Controller
     {
-        //public Task<IActionResult> Get() => ;
-
-     /*   [HttpPost("register")]
-        public Task<IActionResult> Post()
+        private IUserService _userService;
+        public AccountController(IUserService userService)
         {
-
-        }*/
+            _userService = userService;
+        }
+      //  public Task<IActionResult> Get() => Json(new User(123, ""));
         
+        [HttpPost("register")]
+        public async Task<IActionResult> Post(Register command)
+        {
+            await _userService.RegisterAsync(Guid.NewGuid(), command.Login, command.Email, command.Password);
+            return Created("/account", null);
+        }
      /*   [HttpPost("login")]
         public Task<IActionResult> Post()
         {

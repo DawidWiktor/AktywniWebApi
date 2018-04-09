@@ -4784,7 +4784,8 @@
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "Aktywni.Core": "1.0.0",
-          "AutoMapper": "6.2.2"
+          "AutoMapper": "6.2.2",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "2.0.3"
         },
         "compile": {
           "bin/placeholder/Aktywni.Infrastructure.dll": {}
@@ -12607,6 +12608,7 @@
       "Aktywni.Infrastructure >= 1.0.0",
       "AutoMapper >= 6.2.2",
       "Microsoft.AspNetCore.All >= 2.0.6",
+      "Microsoft.AspNetCore.Authentication.JwtBearer >= 2.0.3",
       "Microsoft.NETCore.App >= 2.0.0"
     ]
   },
@@ -12662,6 +12664,10 @@
           "Microsoft.AspNetCore.All": {
             "target": "Package",
             "version": "[2.0.6, )"
+          },
+          "Microsoft.AspNetCore.Authentication.JwtBearer": {
+            "target": "Package",
+            "version": "[2.0.3, )"
           },
           "Microsoft.NETCore.App": {
             "target": "Package",

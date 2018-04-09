@@ -13,6 +13,7 @@ namespace Aktywni.Infrastructure.Services
         {
             _userRepository = userRepository;
         }
+
         async Task IUserService.RegisterAsync(Guid Id, string login, string email, string password)
         {
             var user = await _userRepository.GetAsync(login);
@@ -24,6 +25,21 @@ namespace Aktywni.Infrastructure.Services
             await _userRepository.AddAsync(user);
             
         }
+
+        public async Task LoginRegister(string login, string password)
+        { 
+            var user = await _userRepository.GetAsync(login);
+            if(user == null)
+            {
+                throw new Exception("Błędy login lub błędne hasło.");
+            }
+            if(user.Password != password)
+            {
+                throw new Exception("Błędy login lub błędne hasło.");
+            }
+            
+        }
+
 
       
     }
