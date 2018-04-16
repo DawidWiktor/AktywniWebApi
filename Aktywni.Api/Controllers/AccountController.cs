@@ -21,10 +21,8 @@ namespace Aktywni.Api.Controllers
             await _userService.RegisterAsync(Guid.NewGuid(), command.Login, command.Email, command.Password);
             return Created("/account", null);
         }
-     /*   [HttpPost("login")]
-        public Task<IActionResult> Post()
-        {
-
-        }*/
+        [HttpPost("login")]
+        public async Task<IActionResult> Post(Login command)
+            => Json(await _userService.LoginAsync(command.UserLogin, command.Password))
     }
 }

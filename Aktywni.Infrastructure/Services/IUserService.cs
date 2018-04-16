@@ -1,11 +1,12 @@
 using System;
 using System.Threading.Tasks;
+using Aktywni.Infrastructure.DTO;
 
 namespace Aktywni.Infrastructure.Services
 {
     public interface IUserService
     {
         Task RegisterAsync(Guid Id, string login, string email, string password);
-        Task LoginRegister(string login, string password);
+        Task<TokenDTO> LoginAsync(string login, string password);
     }
 }

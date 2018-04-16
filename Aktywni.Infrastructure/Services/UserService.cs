@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Aktywni.Core.Domain;
 using Aktywni.Core.Repositories;
+using Aktywni.Infrastructure.DTO;
 using Aktywni.Infrastructure.Services;
 
 namespace Aktywni.Infrastructure.Services
@@ -9,9 +10,11 @@ namespace Aktywni.Infrastructure.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        private readonly IJwtHandler _jwtHandler;
+        public UserService(IUserRepository userRepository, IJwtHandler jwtHandler)
         {
             _userRepository = userRepository;
+            _jwtHandler = jwtHandler;
         }
 
         async Task IUserService.RegisterAsync(Guid Id, string login, string email, string password)
@@ -26,7 +29,7 @@ namespace Aktywni.Infrastructure.Services
             
         }
 
-        public async Task LoginRegister(string login, string password)
+        public async Task<TokenDTO> LoginAsync(string login, string password)
         { 
             var user = await _userRepository.GetAsync(login);
             if(user == null)
@@ -37,10 +40,16 @@ namespace Aktywni.Infrastructure.Services
             {
                 throw new Exception("Błędy login lub błędne hasło.");
             }
+            var jwt = _jwtHandler.CreateToken(user.Id, user.Role);
             
+            return new TokenDTO
+            {
+                Token = jwt.Token,
+                Expires = jwt.Expires,
+                Role = user.Role
+            };
         }
 
-
-      
+        
     }
 }
