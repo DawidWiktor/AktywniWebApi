@@ -26,6 +26,7 @@
           "Aktywni.Infrastructure": "1.0.0",
           "AutoMapper": "6.2.2",
           "Microsoft.AspNetCore.All": "2.0.6",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "2.0.3",
           "Microsoft.NETCore.App": "2.0.0"
         },
         "runtime": {
@@ -3828,7 +3829,8 @@
       "Aktywni.Infrastructure/1.0.0": {
         "dependencies": {
           "Aktywni.Core": "1.0.0",
-          "AutoMapper": "6.2.2"
+          "AutoMapper": "6.2.2",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "2.0.3"
         },
         "runtime": {
           "Aktywni.Infrastructure.dll": {}

@@ -15,6 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using Aktywni.Infrastructure.Settings;
+using Aktywni.Infrastructure.Repositories;
+using Aktywni.Core.Repositories;
 
 namespace Aktywni.Api
 {
@@ -31,7 +33,9 @@ namespace Aktywni.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddAuthorization();     
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
             services.AddSingleton<IJwtHandler, JwtHandler>();
@@ -48,7 +52,7 @@ namespace Aktywni.Api
                 {
                     ValidIssuer = Configuration.GetSection("jwt:issuer").Value,
                     ValidateAudience = false,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("jwt:key").Value,))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("jwt:key").Value))
                 };
                 options.SaveToken = true;
             });

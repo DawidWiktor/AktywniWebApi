@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using Aktywni.Core.Domain;
 using Aktywni.Core.Repositories;
 using Aktywni.Infrastructure.DTO;
+using Aktywni.Infrastructure.Extensions;
 using Aktywni.Infrastructure.Services;
+using AutoMapper;
 
 namespace Aktywni.Infrastructure.Services
 {
@@ -11,10 +13,20 @@ namespace Aktywni.Infrastructure.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IJwtHandler _jwtHandler;
-        public UserService(IUserRepository userRepository, IJwtHandler jwtHandler)
+        private readonly IMapper _mapper;
+        public UserService(IUserRepository userRepository, IJwtHandler jwtHandler, IMapper mapper)
         {
             _userRepository = userRepository;
             _jwtHandler = jwtHandler;
+            _mapper = mapper;
+        }
+
+        public async Task<AccountDTO> GetAccountAsync(Guid userId)
+        {
+            System.Diagnostics.Debug.WriteLine("userid " + userId);
+            var user = await _userRepository.GetOrFailasync(userId);
+            System.Diagnostics.Debug.WriteLine("login " + user.Login);
+            return _mapper.Map<AccountDTO>(user);
         }
 
         async Task IUserService.RegisterAsync(Guid Id, string login, string email, string password)
@@ -31,10 +43,12 @@ namespace Aktywni.Infrastructure.Services
 
         public async Task<TokenDTO> LoginAsync(string login, string password)
         { 
+            
+            
             var user = await _userRepository.GetAsync(login);
             if(user == null)
             {
-                throw new Exception("Błędy login lub błędne hasło.");
+                throw new Exception("Błędy login lub błędne hasł1o.");
             }
             if(user.Password != password)
             {
