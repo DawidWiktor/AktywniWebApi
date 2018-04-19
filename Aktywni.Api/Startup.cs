@@ -33,7 +33,7 @@ namespace Aktywni.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddAuthorization();     
+             
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddSingleton(AutoMapperConfig.Initialize());
@@ -42,7 +42,8 @@ namespace Aktywni.Api
             
             services.AddAuthentication(options =>
             {
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
               
@@ -66,7 +67,7 @@ namespace Aktywni.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-           
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

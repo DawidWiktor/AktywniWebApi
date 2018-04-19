@@ -16,7 +16,7 @@ namespace Aktywni.Api.Controllers
         }
 
         [HttpGet]
-       // [Authorize]
+        [Authorize]
         public async Task<IActionResult> GetAction()
             => Json(await _userService.GetAccountAsync(UserId)); 
         
