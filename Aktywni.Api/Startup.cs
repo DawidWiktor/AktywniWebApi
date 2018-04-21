@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication;
 using Aktywni.Infrastructure.Settings;
 using Aktywni.Infrastructure.Repositories;
 using Aktywni.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aktywni.Api
 {
@@ -40,6 +41,9 @@ namespace Aktywni.Api
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
             services.AddSingleton<IJwtHandler, JwtHandler>();
             
+           /* services.AddDbContext<testApi>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("testApi")));*/
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
