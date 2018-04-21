@@ -4,6 +4,7 @@ using Aktywni.Core.Domain;
 using Aktywni.Core.Repositories;
 using Aktywni.Infrastructure.DTO;
 using Aktywni.Infrastructure.Extensions;
+using Aktywni.Infrastructure.Model;
 using Aktywni.Infrastructure.Services;
 using AutoMapper;
 
@@ -31,6 +32,12 @@ namespace Aktywni.Infrastructure.Services
 
         async Task IUserService.RegisterAsync(Guid Id, string login, string email, string password)
         {
+            using(var db = new AktywniDBContext())
+            {
+                var usr = db.Users;
+                foreach (Users item in usr)
+                    System.Diagnostics.Debug.WriteLine(item.Name + " " + item.UserId);
+            }
             var user = await _userRepository.GetAsync(login);
             if(user != null)
             {
