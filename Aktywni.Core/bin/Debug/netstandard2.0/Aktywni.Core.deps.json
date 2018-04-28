@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "6d8c8a11dbb2f8b1722d3c476a7d7d473ed43515"
+    "signature": "c35acf341a2cc16c36106d647db0581274f88360"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,6 +9,7 @@
     ".NETStandard,Version=v2.0/": {
       "Aktywni.Core/1.0.0": {
         "dependencies": {
+          "CryptoHelper": "3.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.5",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.2",
@@ -16,6 +17,27 @@
         },
         "runtime": {
           "Aktywni.Core.dll": {}
+        }
+      },
+      "CryptoHelper/3.0.2": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "2.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/CryptoHelper.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.Internal/2.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.KeyDerivation/2.0.1": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.Internal": "2.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {}
         }
       },
       "Microsoft.CSharp/4.4.0": {
@@ -490,6 +512,27 @@
       "serviceable": false,
       "sha512": ""
     },
+    "CryptoHelper/3.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6xFZdEnhuOmX58TgZAeb20MbddsL8/nR/4CnWhmjMXv9gfpOxD+1bBU7IDtYq2Q8rZJUT6xYWdhW16bKriU2Mw==",
+      "path": "cryptohelper/3.0.2",
+      "hashPath": "cryptohelper.3.0.2.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.Internal/2.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zmERIuyMufMcEOf0nLM9ApgH4VHhUnFGzmrgp2mkFL5unXfzDFg7Itdq4PsKMjrBZScGt3ayN0ct7F5ttdZ1eA==",
+      "path": "microsoft.aspnetcore.cryptography.internal/2.0.1",
+      "hashPath": "microsoft.aspnetcore.cryptography.internal.2.0.1.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation/2.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rLj4xn0dwWslmk2LSrLUNlJ8pGDspj8MQ6EyLQO+saGobnGXhJa+k92d6X0w2qhZddHhLebXurRFlyKOpdkWNQ==",
+      "path": "microsoft.aspnetcore.cryptography.keyderivation/2.0.1",
+      "hashPath": "microsoft.aspnetcore.cryptography.keyderivation.2.0.1.nupkg.sha512"
+    },
     "Microsoft.CSharp/4.4.0": {
       "type": "package",
       "serviceable": true,
@@ -640,7 +683,7 @@
     "Remotion.Linq/2.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
+      "sha512": "sha512-CfXTbkGe46hOzTmL4a4y5/5cMnPhcCmDl8VIKqFtYX3mELrvIwiAOGAWd6DGLcJOHDXK+t7ACrKNvDMXgQ5L9Q==",
       "path": "remotion.linq/2.1.1",
       "hashPath": "remotion.linq.2.1.1.nupkg.sha512"
     },

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using CryptoHelper;
 
 namespace Aktywni.Core.Model
 {
     public partial class Users
     {
+        private static readonly Regex NameRegex = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$");
         public Users()
         {
             EventsAdminNavigation = new HashSet<Events>();
@@ -25,9 +28,10 @@ namespace Aktywni.Core.Model
             MessageUser = new HashSet<MessageUser>();
             ObjectComments = new HashSet<ObjectComments>();
             Objects = new HashSet<Objects>();   
-            Login = login;
-            Email = email;
-            Password = password;
+            SetLogin(login);
+            SetEmail(email);
+            SetPassword(password);
+            SetRoleUser();
             //TODO: zmien na true
             IsActive = true;
 
@@ -55,6 +59,92 @@ namespace Aktywni.Core.Model
         public ICollection<MessageUser> MessageUser { get; set; }
         public ICollection<ObjectComments> ObjectComments { get; set; }
         public ICollection<Objects> Objects { get; set; }
+
+         public void SetLogin(string login) 
+        {
+            if(!NameRegex.IsMatch(login))
+            {
+                throw new Exception("Nieprawidłowa nazwa użytkownika.");
+            }
+
+            if (String.IsNullOrEmpty(login))
+            {
+                throw new Exception("Nieprawidłowa nazwa użytkownika.");
+            }
+
+            Login = login;
+            DateLastActive = DateTime.UtcNow;
+        }
+
+        public void SetName(string username) 
+        {
+            if(!NameRegex.IsMatch(username))
+            {
+                throw new Exception("Nieprawidłowa nazwa użytkownika.");
+            }
+
+            if (String.IsNullOrEmpty(username))
+            {
+                throw new Exception("Nieprawidłowa nazwa użytkownika.");
+            }
+
+            Name = username;
+            DateLastActive = DateTime.UtcNow;
+        }
+
+         public void SetEmail(string email) 
+        {
+            if (string.IsNullOrWhiteSpace(email)) 
+            {
+               throw new Exception("Nieprawidłowy adres e-mail.");
+            }
+            if (Email == email) 
+            {
+                return;
+            }
+
+            Email = email;
+            DateLastActive = DateTime.UtcNow;
+        }
+
+        public void SetRole(string role)
+        {
+            if (string.IsNullOrWhiteSpace(role))
+            {
+                throw new Exception("Rola nie może byc pusta.");
+            }
+            if (Role == role)
+            {
+                return;
+            }
+            Role = role;
+            DateLastActive = DateTime.UtcNow;
+        }
+        public void SetRoleUser()
+        {
+            Role = "uzytkownik";
+        }
+        public void SetPassword(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                throw new Exception("Hasło nie może byc puste.");
+            }
+            if (password.Length < 4) 
+            {
+                throw new Exception("Hasło musi składać się z minimum 4 znaków.");
+            }
+            if (password.Length > 100) 
+            {
+                throw new Exception("Hasło nie może przekraczać 100 znaków.");
+            }
+            if (Password == password)
+            {
+                return;
+            }
+            Password = Crypto.HashPassword(password);
+            DateLastActive = DateTime.UtcNow;
+        }
 
         public void ActiveUser()
         {

@@ -24,6 +24,18 @@
           "lib/netstandard1.3/AutoMapper.dll": {}
         }
       },
+      "CryptoHelper/3.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/CryptoHelper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/CryptoHelper.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authentication/2.0.3": {
         "type": "package",
         "dependencies": {
@@ -90,6 +102,18 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.KeyDerivation/2.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.Internal": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {}
         }
       },
       "Microsoft.AspNetCore.DataProtection/2.0.2": {
@@ -2027,6 +2051,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "CryptoHelper": "3.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.5",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.2"
@@ -2056,6 +2081,17 @@
         "lib/netstandard1.1/AutoMapper.xml",
         "lib/netstandard1.3/AutoMapper.dll",
         "lib/netstandard1.3/AutoMapper.xml"
+      ]
+    },
+    "CryptoHelper/3.0.2": {
+      "sha512": "6xFZdEnhuOmX58TgZAeb20MbddsL8/nR/4CnWhmjMXv9gfpOxD+1bBU7IDtYq2Q8rZJUT6xYWdhW16bKriU2Mw==",
+      "type": "package",
+      "path": "cryptohelper/3.0.2",
+      "files": [
+        "cryptohelper.3.0.2.nupkg.sha512",
+        "cryptohelper.nuspec",
+        "lib/netstandard2.0/CryptoHelper.dll",
+        "lib/netstandard2.0/CryptoHelper.xml"
       ]
     },
     "Microsoft.AspNetCore.Authentication/2.0.3": {
@@ -2111,6 +2147,17 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.Internal.xml",
         "microsoft.aspnetcore.cryptography.internal.2.0.2.nupkg.sha512",
         "microsoft.aspnetcore.cryptography.internal.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation/2.0.1": {
+      "sha512": "rLj4xn0dwWslmk2LSrLUNlJ8pGDspj8MQ6EyLQO+saGobnGXhJa+k92d6X0w2qhZddHhLebXurRFlyKOpdkWNQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.cryptography.keyderivation/2.0.1",
+      "files": [
+        "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.xml",
+        "microsoft.aspnetcore.cryptography.keyderivation.2.0.1.nupkg.sha512",
+        "microsoft.aspnetcore.cryptography.keyderivation.nuspec"
       ]
     },
     "Microsoft.AspNetCore.DataProtection/2.0.2": {
@@ -2802,7 +2849,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
+      "sha512": "CfXTbkGe46hOzTmL4a4y5/5cMnPhcCmDl8VIKqFtYX3mELrvIwiAOGAWd6DGLcJOHDXK+t7ACrKNvDMXgQ5L9Q==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [
@@ -6606,6 +6653,7 @@
     ".NETStandard,Version=v2.0": [
       "Aktywni.Core >= 1.0.0",
       "AutoMapper >= 6.2.2",
+      "CryptoHelper >= 3.0.2",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 2.0.3",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer.Design >= 1.1.5",
@@ -6661,6 +6709,10 @@
           "AutoMapper": {
             "target": "Package",
             "version": "[6.2.2, )"
+          },
+          "CryptoHelper": {
+            "target": "Package",
+            "version": "[3.0.2, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",

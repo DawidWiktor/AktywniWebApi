@@ -24,6 +24,18 @@
           "lib/netstandard1.3/AutoMapper.dll": {}
         }
       },
+      "CryptoHelper/3.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "2.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/CryptoHelper.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/CryptoHelper.dll": {}
+        }
+      },
       "Libuv/1.10.0": {
         "type": "package",
         "dependencies": {
@@ -4800,6 +4812,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
+          "CryptoHelper": "3.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.5",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.2"
@@ -4817,6 +4830,7 @@
         "dependencies": {
           "Aktywni.Core": "1.0.0",
           "AutoMapper": "6.2.2",
+          "CryptoHelper": "3.0.2",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "2.0.3",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.5",
@@ -4847,6 +4861,17 @@
         "lib/netstandard1.1/AutoMapper.xml",
         "lib/netstandard1.3/AutoMapper.dll",
         "lib/netstandard1.3/AutoMapper.xml"
+      ]
+    },
+    "CryptoHelper/3.0.2": {
+      "sha512": "6xFZdEnhuOmX58TgZAeb20MbddsL8/nR/4CnWhmjMXv9gfpOxD+1bBU7IDtYq2Q8rZJUT6xYWdhW16bKriU2Mw==",
+      "type": "package",
+      "path": "cryptohelper/3.0.2",
+      "files": [
+        "cryptohelper.3.0.2.nupkg.sha512",
+        "cryptohelper.nuspec",
+        "lib/netstandard2.0/CryptoHelper.dll",
+        "lib/netstandard2.0/CryptoHelper.xml"
       ]
     },
     "Libuv/1.10.0": {
@@ -7649,7 +7674,7 @@
       ]
     },
     "Newtonsoft.Json/10.0.1": {
-      "sha512": "ebWzW9j2nwxQeBo59As2TYn7nYr9BHicqqCwHOD1Vdo+50HBtLPuqdiCYJcLdTRknpYis/DSEOQz5KmZxwrIAg==",
+      "sha512": "y5444OAdfUZ1RwsHFISk7Q9tamV6HiY6eFCYnUp0i6pLxiNtXFN3gHcpz2GVcgksfBhvKovvHYxA2r/rzs13Ww==",
       "type": "package",
       "path": "newtonsoft.json/10.0.1",
       "files": [
@@ -7686,7 +7711,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
+      "sha512": "CfXTbkGe46hOzTmL4a4y5/5cMnPhcCmDl8VIKqFtYX3mELrvIwiAOGAWd6DGLcJOHDXK+t7ACrKNvDMXgQ5L9Q==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [

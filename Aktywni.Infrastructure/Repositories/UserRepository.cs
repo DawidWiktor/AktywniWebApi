@@ -20,14 +20,11 @@ namespace Aktywni.Infrastructure.Repositories
           => await _dbContext.Users.SingleOrDefaultAsync(x => x.UserId == Id);
 
         public async Task<Users> GetAsync(string login)
-       {
-           Users user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Login == login);
-           return user;
-       }
-       //     => await _dbContext.Users.SingleOrDefaultAsync(x => x.Login == login);
+           => await _dbContext.Users.SingleOrDefaultAsync(x => x.Login == login);
 
         public async Task AddAsync(Users user)
         {
+            System.Diagnostics.Debug.WriteLine(" u " + user.Login + " " +user.Password  + " len " + user.Password.Length);
             _dbContext.Users.Add(user);
             await _dbContext.SaveChangesAsync();
         }

@@ -6,6 +6,7 @@ using Aktywni.Infrastructure.Extensions;
 using Aktywni.Core.Model;
 using Aktywni.Infrastructure.Services;
 using AutoMapper;
+using CryptoHelper;
 
 namespace Aktywni.Infrastructure.Services
 {
@@ -48,7 +49,7 @@ namespace Aktywni.Infrastructure.Services
             {
                 throw new Exception("Błędy login lub błędne hasł1o.");
             }
-            if(user.Password != password)
+            if(!Crypto.VerifyHashedPassword(user.Password, password))
             {
                 throw new Exception("Błędy login lub błędne hasło.");
             }
