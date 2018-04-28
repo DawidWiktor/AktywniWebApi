@@ -32,5 +32,33 @@ namespace Aktywni.Api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Post([FromBody]Login command)
             => Json(await _userService.LoginAsync(command.UserLogin, command.Password));
+        
+        [HttpPut("changeEmail")]
+        public async Task<IActionResult> Put([FromBody]ChangeEmail command)
+        {
+            await _userService.ChangeEmailAsync(UserId, command.Email);
+            return NoContent();
+        }
+
+        [HttpPut("changePassword")]
+        public async Task<IActionResult> Put([FromBody]ChangePassword command)
+        {
+            await _userService.ChangePasswordAsync(UserId, command.CurrentPassword, command.NewPassword);
+            return NoContent();
+        }
+
+        [HttpPut("changePersonalData")]
+        public async Task<IActionResult> Put([FromBody]ChangePersonalData command)
+        {
+            await _userService.ChangePersonalDataAsync(UserId, command.Name, command.Surname, command.City);
+            return NoContent();
+        }
+
+        [HttpPut("changeDescription")]
+        public async Task<IActionResult> Put([FromBody]ChangeDescription command)
+        {
+            await _userService.ChangeDescription(UserId, command.Description);
+            return NoContent();
+        }
     }
 }

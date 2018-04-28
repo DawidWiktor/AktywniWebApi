@@ -27,7 +27,7 @@ namespace Aktywni.Core.Model
             FriendsFriendToNavigation = new HashSet<Friends>();
             MessageUser = new HashSet<MessageUser>();
             ObjectComments = new HashSet<ObjectComments>();
-            Objects = new HashSet<Objects>();   
+            Objects = new HashSet<Objects>();
             SetLogin(login);
             SetEmail(email);
             SetPassword(password);
@@ -47,7 +47,7 @@ namespace Aktywni.Core.Model
         public string Email { get; protected set; }
         public string City { get; protected set; }
         public string Role { get; protected set; }
-        public string Describe { get; protected set; }
+        public string Description { get; protected set; }
         public int? Rating { get; protected set; }
         public int? NumOfRating { get; protected set; }
         public string Link { get; protected set; }
@@ -60,9 +60,9 @@ namespace Aktywni.Core.Model
         public ICollection<ObjectComments> ObjectComments { get; set; }
         public ICollection<Objects> Objects { get; set; }
 
-         public void SetLogin(string login) 
+        public void SetLogin(string login)
         {
-            if(!NameRegex.IsMatch(login))
+            if (!NameRegex.IsMatch(login))
             {
                 throw new Exception("Nieprawidłowa nazwa użytkownika.");
             }
@@ -76,34 +76,42 @@ namespace Aktywni.Core.Model
             DateLastActive = DateTime.UtcNow;
         }
 
-        public void SetName(string username) 
+        public void SetName(string name)
         {
-            if(!NameRegex.IsMatch(username))
-            {
-                throw new Exception("Nieprawidłowa nazwa użytkownika.");
-            }
-
-            if (String.IsNullOrEmpty(username))
-            {
-                throw new Exception("Nieprawidłowa nazwa użytkownika.");
-            }
-
-            Name = username;
+            Name = name;
             DateLastActive = DateTime.UtcNow;
         }
 
-         public void SetEmail(string email) 
+        public void SetSurname(string surname)
         {
-            if (string.IsNullOrWhiteSpace(email)) 
+            Surname = surname;
+            DateLastActive = DateTime.UtcNow;
+        }
+
+        public void SetCity(string city)
+        {
+            City = city;
+            DateLastActive = DateTime.UtcNow;
+        }
+
+        public void SetEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
             {
-               throw new Exception("Nieprawidłowy adres e-mail.");
+                throw new Exception("Nieprawidłowy adres e-mail.");
             }
-            if (Email == email) 
+            if (Email == email)
             {
                 return;
             }
 
             Email = email;
+            DateLastActive = DateTime.UtcNow;
+        }
+
+        public void SetDescription(string description)
+        {
+            Description = description;
             DateLastActive = DateTime.UtcNow;
         }
 
@@ -130,11 +138,11 @@ namespace Aktywni.Core.Model
             {
                 throw new Exception("Hasło nie może byc puste.");
             }
-            if (password.Length < 4) 
+            if (password.Length < 4)
             {
                 throw new Exception("Hasło musi składać się z minimum 4 znaków.");
             }
-            if (password.Length > 100) 
+            if (password.Length > 100)
             {
                 throw new Exception("Hasło nie może przekraczać 100 znaków.");
             }

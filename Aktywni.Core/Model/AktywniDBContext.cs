@@ -40,7 +40,7 @@ namespace Aktywni.Core.Model
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("nchar(100)");
+                    .HasColumnType("nvarchar(100)");
             });
 
             modelBuilder.Entity<Events>(entity =>
@@ -55,7 +55,7 @@ namespace Aktywni.Core.Model
 
                 entity.Property(e => e.ObjectId).HasColumnName("ObjectID");
 
-                entity.Property(e => e.Visibility).HasColumnType("nchar(10)");
+                entity.Property(e => e.Visibility).HasColumnType("nvarchar(10)");
 
                 entity.Property(e => e.WhoCreatedId).HasColumnName("WhoCreatedID");
 
@@ -169,23 +169,23 @@ namespace Aktywni.Core.Model
 
                 entity.Property(e => e.City)
                     .IsRequired()
-                    .HasColumnType("nchar(50)");
+                    .HasColumnType("nvarchar(50)");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("nchar(100)");
+                    .HasColumnType("nvarchar(100)");
 
                 entity.Property(e => e.NumOfRating).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.PostCode)
                     .IsRequired()
-                    .HasColumnType("nchar(10)");
+                    .HasColumnType("nvarchar(10)");
 
                 entity.Property(e => e.Rating).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Street)
                     .IsRequired()
-                    .HasColumnType("nchar(10)");
+                    .HasColumnType("nvarchar(10)");
 
                 entity.HasOne(d => d.AdministratorNavigation)
                     .WithMany(p => p.Objects)
@@ -200,31 +200,31 @@ namespace Aktywni.Core.Model
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.City).HasColumnType("nchar(50)");
+                entity.Property(e => e.City).HasColumnType("nvarchar(50)");
 
                 entity.Property(e => e.DateLastActive).HasColumnType("datetime");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasColumnType("nchar(100)");
+                    .HasColumnType("nvarchar(100)");
 
                 entity.Property(e => e.Login)
                     .IsRequired()
-                    .HasColumnType("nchar(50)");
+                    .HasColumnType("nvarchar(50)");
 
-                entity.Property(e => e.Name).HasColumnType("nchar(50)");
+                entity.Property(e => e.Name).HasColumnType("nvarchar(50)");
 
                 entity.Property(e => e.NumOfRating).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasColumnType("nchar(50)");
+                    .HasColumnType("nvarchar(50)");
 
                 entity.Property(e => e.Rating).HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Role).HasColumnType("nchar(20)");
+                entity.Property(e => e.Role).HasColumnType("nvarchar(20)");
 
-                entity.Property(e => e.Surname).HasColumnType("nchar(50)");
+                entity.Property(e => e.Surname).HasColumnType("nvarchar(50)");
             });
         }
     }

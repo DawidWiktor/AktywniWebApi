@@ -19,7 +19,6 @@ namespace Aktywni.Infrastructure.Services
         }
         public JwtDTO CreateToken(int userID, string role)
         {
-            System.Diagnostics.Debug.WriteLine("token " + userID + " d " + role);
             var now = DateTime.UtcNow;
             var claims = new Claim[]
             {
