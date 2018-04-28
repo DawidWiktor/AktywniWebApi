@@ -57,7 +57,14 @@ namespace Aktywni.Api.Controllers
         [HttpPut("changeDescription")]
         public async Task<IActionResult> Put([FromBody]ChangeDescription command)
         {
-            await _userService.ChangeDescription(UserId, command.Description);
+            await _userService.ChangeDescriptionAsync(UserId, command.Description);
+            return NoContent();
+        }
+
+        [HttpPut("delete")]
+        public async Task<IActionResult> delete()
+        {
+            await _userService.RemoveAccountAsync(UserId);
             return NoContent();
         }
     }

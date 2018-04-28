@@ -7,6 +7,7 @@ using Aktywni.Core.Model;
 using Aktywni.Infrastructure.Services;
 using AutoMapper;
 using CryptoHelper;
+using System.Collections.Generic;
 
 namespace Aktywni.Infrastructure.Services
 {
@@ -24,7 +25,7 @@ namespace Aktywni.Infrastructure.Services
 
         public async Task<AccountDTO> GetAccountAsync(int userId)
         {
-            var user = await _userRepository.GetOrFailasync(userId);  
+            var user = await _userRepository.GetAsync(userId);  
             return _mapper.Map<Users, AccountDTO>(user);
         }
 
@@ -65,6 +66,11 @@ namespace Aktywni.Infrastructure.Services
             };
         }
 
+        public async Task<IEnumerable<AccountDTO>> BrowseAsync(int userID)
+        {
+            var users = await _userRepository.GetAllAsync();    
+            return _mapper.Map<IEnumerable<Users>, IEnumerable<AccountDTO>>(users);
+        }
         public async Task ChangeEmailAsync(int userID, string email)
         {
             var user = await _userRepository.GetAsync(userID);
@@ -108,7 +114,7 @@ namespace Aktywni.Infrastructure.Services
             await _userRepository.UpdateAsync(user);
         }
 
-        public async Task ChangeDescription(int userID, string description)
+        public async Task ChangeDescriptionAsync(int userID, string description)
         {
             var user = await _userRepository.GetAsync(userID);
             if(user == null)
@@ -116,6 +122,17 @@ namespace Aktywni.Infrastructure.Services
                 throw new Exception("Błędy login.");
             }
             user.SetDescription(description);
+            await _userRepository.UpdateAsync(user);
+        }
+
+        public async Task RemoveAccountAsync(int userID)
+        {
+            var user = await _userRepository.GetAsync(userID);
+            if(user == null)
+            {
+                throw new Exception("Błędy login.");
+            }
+            user.DisactiveUser();
             await _userRepository.UpdateAsync(user);
         }
     }

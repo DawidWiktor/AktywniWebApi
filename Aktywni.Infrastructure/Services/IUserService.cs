@@ -12,7 +12,8 @@ namespace Aktywni.Infrastructure.Services
         Task ChangeEmailAsync(int userID, string email);
         Task ChangePasswordAsync(int userID, string currentPassword, string newPassword);
         Task ChangePersonalDataAsync(int userID, string name, string surname, string city);
-        Task ChangeDescription(int userID, string description);
+        Task ChangeDescriptionAsync(int userID, string description);
+        Task RemoveAccountAsync(int userID);
 
     }
 }

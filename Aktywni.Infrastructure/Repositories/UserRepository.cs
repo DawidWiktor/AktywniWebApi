@@ -22,6 +22,8 @@ namespace Aktywni.Infrastructure.Repositories
         public async Task<Users> GetAsync(string login)
            => await _dbContext.Users.SingleOrDefaultAsync(x => x.Login == login);
 
+        public async Task<IEnumerable<Users>> GetAllAsync()
+            => await _dbContext.Users.ToListAsync();
         public async Task AddAsync(Users user)
         {
             System.Diagnostics.Debug.WriteLine(" u " + user.Login + " " +user.Password  + " len " + user.Password.Length);
@@ -42,15 +44,6 @@ namespace Aktywni.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<Users> GetOrFailasync(int id)
-        {
-            var user = await GetAsync(id);
-            if (user == null)
-            {
-                throw new Exception($"Użytkownik o id: {id} nie istnieje");
-            }
-            return user;
-        }
-
+        
     }
 }
