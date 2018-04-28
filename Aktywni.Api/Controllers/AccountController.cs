@@ -26,15 +26,7 @@ namespace Aktywni.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Post([FromBody]Register command)
         {
-            string connectionString = _configuration.GetConnectionString("testApi");
-            SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand com = new SqlCommand("Select count(*) from Users", connection);
-            var count = (int)com.ExecuteScalar();
-            System.Diagnostics.Debug.WriteLine("otrzymano : " + count);
-            connection.Close();
-
-            await _userService.RegisterAsync(Guid.NewGuid(), command.Login, command.Email, command.Password);
+            await _userService.RegisterAsync(command.Login, command.Email, command.Password);
             return Created("/account", null);
         }
         [HttpPost("login")]

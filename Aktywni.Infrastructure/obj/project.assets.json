@@ -2026,6 +2026,11 @@
       "Aktywni.Core/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
+          "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.5",
+          "Microsoft.EntityFrameworkCore.Tools": "2.0.2"
+        },
         "compile": {
           "bin/placeholder/Aktywni.Core.dll": {}
         },

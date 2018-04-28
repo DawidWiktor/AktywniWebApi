@@ -1,15 +1,16 @@
 using System;
 using System.Threading.Tasks;
-using Aktywni.Core.Domain;
+using Aktywni.Core.Model;
 
 namespace Aktywni.Core.Repositories
 {
     public interface IUserRepository
     {
-         Task<User> GetAsync(Guid Id);
-         Task<User> GetAsync(string login); 
-         Task AddAsync(User user);
-         Task UpdateAsync(User user);
-         Task DeleteAsync(User user);
+         Task<Users> GetAsync(int Id);
+         Task<Users> GetAsync(string login); 
+         Task AddAsync(Users user);
+         Task UpdateAsync(Users user);
+         Task DeleteAsync(int Id);
+         Task<Users> GetOrFailasync(int id);
     }
 }

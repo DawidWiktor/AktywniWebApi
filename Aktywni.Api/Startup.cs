@@ -18,6 +18,7 @@ using Aktywni.Infrastructure.Settings;
 using Aktywni.Infrastructure.Repositories;
 using Aktywni.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Aktywni.Core.Model;
 
 namespace Aktywni.Api
 {
@@ -41,8 +42,8 @@ namespace Aktywni.Api
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
             services.AddSingleton<IJwtHandler, JwtHandler>();
             
-           /* services.AddDbContext<testApi>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("testApi")));*/
+            services.AddDbContext<AktywniDBContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("testApi")));
 
             services.AddAuthentication(options =>
             {

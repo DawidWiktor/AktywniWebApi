@@ -1,10 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using Aktywni.Core.Domain;
 using Aktywni.Core.Repositories;
 using Aktywni.Infrastructure.DTO;
 using Aktywni.Infrastructure.Extensions;
-using Aktywni.Infrastructure.Model;
+using Aktywni.Core.Model;
 using Aktywni.Infrastructure.Services;
 using AutoMapper;
 
@@ -22,36 +21,28 @@ namespace Aktywni.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public async Task<AccountDTO> GetAccountAsync(Guid userId)
+        public async Task<AccountDTO> GetAccountAsync(int userId)
         {
-            System.Diagnostics.Debug.WriteLine("userid " + userId);
+           
             var user = await _userRepository.GetOrFailasync(userId);
-            System.Diagnostics.Debug.WriteLine("login " + user.Login);
+           
             return _mapper.Map<AccountDTO>(user);
         }
 
-        async Task IUserService.RegisterAsync(Guid Id, string login, string email, string password)
+        public async Task RegisterAsync(string login, string email, string password)
         {
-            using(var db = new AktywniDBContext())
-            {
-                var usr = db.Users;
-                foreach (Users item in usr)
-                    System.Diagnostics.Debug.WriteLine(item.Name + " " + item.UserId);
-            }
             var user = await _userRepository.GetAsync(login);
             if(user != null)
             {
                 throw new Exception($"Użytkownik o {login} już istnieje.");
             }
-            user = new User(Id, login, "uzytkownik", email, password, "salt");
+            user = new Users(login, email, password);
             await _userRepository.AddAsync(user);
             
         }
 
         public async Task<TokenDTO> LoginAsync(string login, string password)
         { 
-            
-            
             var user = await _userRepository.GetAsync(login);
             if(user == null)
             {
@@ -61,7 +52,7 @@ namespace Aktywni.Infrastructure.Services
             {
                 throw new Exception("Błędy login lub błędne hasło.");
             }
-            var jwt = _jwtHandler.CreateToken(user.Id, user.Role);
+            var jwt = _jwtHandler.CreateToken(user.UserId, user.Role);
             
             return new TokenDTO
             {

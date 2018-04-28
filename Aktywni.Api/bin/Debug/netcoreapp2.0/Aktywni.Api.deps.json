@@ -3847,6 +3847,11 @@
         }
       },
       "Aktywni.Core/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
+          "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.5",
+          "Microsoft.EntityFrameworkCore.Tools": "2.0.2"
+        },
         "runtime": {
           "Aktywni.Core.dll": {}
         },

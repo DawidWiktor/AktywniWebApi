@@ -5,6 +5,6 @@ namespace Aktywni.Infrastructure.Services
 {
     public interface IJwtHandler
     {
-         JwtDTO CreateToken(Guid userID, string role);
+         JwtDTO CreateToken(int userID, string role);
     }
 }

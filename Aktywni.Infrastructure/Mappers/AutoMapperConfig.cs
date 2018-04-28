@@ -1,4 +1,4 @@
-using Aktywni.Core.Domain;
+using Aktywni.Core.Model;
 using Aktywni.Infrastructure.DTO;
 using AutoMapper;
 
@@ -9,7 +9,7 @@ namespace Aktywni.Infrastructure.Mappers
         public static IMapper Initialize()
          => new MapperConfiguration(cfg =>
          {
-             cfg.CreateMap<User, AccountDTO>();
+             cfg.CreateMap<Users, AccountDTO>();
          }).CreateMapper();
     }
 }

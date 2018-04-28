@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace Aktywni.Infrastructure.Model
+namespace Aktywni.Core.Model
 {
     public partial class AktywniDBContext : DbContext
     {
@@ -15,6 +15,10 @@ namespace Aktywni.Infrastructure.Model
         public virtual DbSet<Objects> Objects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
+        public AktywniDBContext(DbContextOptions<AktywniDBContext> options) : base(options)
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

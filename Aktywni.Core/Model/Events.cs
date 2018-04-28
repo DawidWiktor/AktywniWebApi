@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Aktywni.Infrastructure.Model
+namespace Aktywni.Core.Model
 {
     public partial class Events
     {

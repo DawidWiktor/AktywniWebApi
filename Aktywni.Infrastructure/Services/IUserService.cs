@@ -6,8 +6,8 @@ namespace Aktywni.Infrastructure.Services
 {
     public interface IUserService
     {
-        Task<AccountDTO> GetAccountAsync(Guid userID);
-        Task RegisterAsync(Guid Id, string login, string email, string password);
+        Task<AccountDTO> GetAccountAsync(int userID);
+        Task RegisterAsync(string login, string email, string password);
         Task<TokenDTO> LoginAsync(string login, string password);
     }
 }

@@ -17,9 +17,9 @@ namespace Aktywni.Infrastructure.Services
         {
             _jwtSettings = jwtSettings.Value;
         }
-        public JwtDTO CreateToken(Guid userID, string role)
+        public JwtDTO CreateToken(int userID, string role)
         {
-            
+            System.Diagnostics.Debug.WriteLine("con " + userID + " " + role);
             var now = DateTime.UtcNow;
             var claims = new Claim[]
             {
