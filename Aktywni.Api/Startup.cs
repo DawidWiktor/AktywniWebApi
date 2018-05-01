@@ -37,6 +37,7 @@ namespace Aktywni.Api
             services.AddMvc();
              
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IFriendService, FriendService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddSingleton(AutoMapperConfig.Initialize());

@@ -65,7 +65,7 @@ namespace Aktywni.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut("delete")]
+        [HttpDelete("delete")]
         [Authorize]
         public async Task<IActionResult> delete()
         {
