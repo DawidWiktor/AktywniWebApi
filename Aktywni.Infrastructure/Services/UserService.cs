@@ -97,7 +97,7 @@ namespace Aktywni.Infrastructure.Services
             {
                 throw new Exception("Błędne hasło.");
             }
-            user.SetPassword(Crypto.HashPassword(newPassword));
+            user.SetPassword(newPassword);
             await _userRepository.UpdateAsync(user);
         }
 

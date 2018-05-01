@@ -24,9 +24,12 @@ namespace Aktywni.Infrastructure.Repositories
 
         public async Task<IEnumerable<Users>> GetAllAsync()
             => await _dbContext.Users.ToListAsync();
+
+        public async Task<IEnumerable<Users>> GetAllAsync(string fragmentLogin)
+            => await _dbContext.Users.Where(x => x.Login.Contains(fragmentLogin)).ToListAsync();
+
         public async Task AddAsync(Users user)
         {
-            System.Diagnostics.Debug.WriteLine(" u " + user.Login + " " +user.Password  + " len " + user.Password.Length);
             _dbContext.Users.Add(user);
             await _dbContext.SaveChangesAsync();
         }

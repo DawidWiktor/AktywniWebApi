@@ -34,6 +34,7 @@ namespace Aktywni.Api.Controllers
             => Json(await _userService.LoginAsync(command.UserLogin, command.Password));
         
         [HttpPut("changeEmail")]
+        [Authorize]
         public async Task<IActionResult> Put([FromBody]ChangeEmail command)
         {
             await _userService.ChangeEmailAsync(UserId, command.Email);
@@ -41,6 +42,7 @@ namespace Aktywni.Api.Controllers
         }
 
         [HttpPut("changePassword")]
+        [Authorize]
         public async Task<IActionResult> Put([FromBody]ChangePassword command)
         {
             await _userService.ChangePasswordAsync(UserId, command.CurrentPassword, command.NewPassword);
@@ -48,6 +50,7 @@ namespace Aktywni.Api.Controllers
         }
 
         [HttpPut("changePersonalData")]
+        [Authorize]
         public async Task<IActionResult> Put([FromBody]ChangePersonalData command)
         {
             await _userService.ChangePersonalDataAsync(UserId, command.Name, command.Surname, command.City);
@@ -55,6 +58,7 @@ namespace Aktywni.Api.Controllers
         }
 
         [HttpPut("changeDescription")]
+        [Authorize]
         public async Task<IActionResult> Put([FromBody]ChangeDescription command)
         {
             await _userService.ChangeDescriptionAsync(UserId, command.Description);
@@ -62,6 +66,7 @@ namespace Aktywni.Api.Controllers
         }
 
         [HttpPut("delete")]
+        [Authorize]
         public async Task<IActionResult> delete()
         {
             await _userService.RemoveAccountAsync(UserId);

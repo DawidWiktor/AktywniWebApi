@@ -7,11 +7,12 @@ namespace Aktywni.Core.Repositories
 {
     public interface IUserRepository
     {
-         Task<Users> GetAsync(int Id);
-         Task<Users> GetAsync(string login);
-         Task<IEnumerable<Users>> GetAllAsync(); 
-         Task AddAsync(Users user);
-         Task UpdateAsync(Users user);
-         Task DeleteAsync(int Id);
+         Task<Users> GetAsync(int Id);       // pobierz użytkownika o danym Id
+         Task<Users> GetAsync(string login); // pobierz użytkownika o danym loginie
+         Task<IEnumerable<Users>> GetAllAsync();  // pobierz wszystkich użytkowników
+         Task<IEnumerable<Users>> GetAllAsync(string fragmentLogin); // pobierz użytkowników, którzy w loginie mają fragmentLogin
+         Task AddAsync(Users user);     // dodaj użytkownika
+         Task UpdateAsync(Users user);  // zaktualizuj danego użytkownika
+         Task DeleteAsync(int Id);      // dezaktywuj użytkownika
     }
 }
