@@ -1,9 +1,11 @@
+using System;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Aktywni.Infrastructure.Commands.User;
 using Aktywni.Infrastructure.Services;
-using AutoMapper.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Aktywni.Api.Controllers
 {
@@ -22,7 +24,7 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetAction()                    // wszyscy znajomi
             => Json(await _friendService.GetAllFriendsAsync(UserId)); 
         
-        [HttpGet]
+        [HttpPost("details")]
         public async Task<IActionResult> GetAction([FromBody]AddFriend command)
             => Json(await _friendService.GetFriendAsync(UserId, command.friendID));
         
@@ -40,7 +42,7 @@ namespace Aktywni.Api.Controllers
             return NoContent();
         }
 
-        [HttpDelete("deleteFriend")]
+        [HttpDelete("delete")]
         public async Task<IActionResult> Delete([FromBody]AddFriend command)
         {
             await _friendService.RemoveFriendAsync(UserId, command.friendID);

@@ -10,6 +10,8 @@ namespace Aktywni.Infrastructure.Mappers
          => new MapperConfiguration(cfg =>
          {
              cfg.CreateMap<Users, AccountDTO>();
+             cfg.CreateMap<Users, FriendDTO>();
+             cfg.CreateMap<Friends, FriendDTO>();
          }).CreateMapper();
     }
 }

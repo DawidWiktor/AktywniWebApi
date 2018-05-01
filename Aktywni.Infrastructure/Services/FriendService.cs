@@ -5,6 +5,7 @@ using Aktywni.Core.Model;
 using Aktywni.Core.Repositories;
 using Aktywni.Infrastructure.DTO;
 using AutoMapper;
+using Aktywni.Infrastructure.Extensions;
 
 namespace Aktywni.Infrastructure.Services
 {
@@ -12,22 +13,23 @@ namespace Aktywni.Infrastructure.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IFriendRepository _friendRepository;
-        private readonly IJwtHandler _jwtHandler;
         private readonly IMapper _mapper;
-        public FriendService(IUserRepository userRepository, IFriendRepository friendRepository, IJwtHandler jwtHandler, IMapper mapper)
+        public FriendService(IUserRepository userRepository, IFriendRepository friendRepository, IMapper mapper)
         {
             _userRepository = userRepository;
             _friendRepository = friendRepository;
-            _jwtHandler = jwtHandler;
             _mapper = mapper;
         }
 
         public async Task<FriendDTO> GetFriendAsync(int myID, int friendID)
         {
-            var user = await _userRepository.GetAsync(friendID);
             var friend = await _friendRepository.GetAsync(myID, friendID);
+            if(friend == null)
+                throw new Exception("Brak znajomego");
+
+            var user = await _userRepository.GetAsync(friendID);
             FriendDTO friendDTO = _mapper.Map<Users, FriendDTO>(user);
-            return _mapper.Map<Friends, FriendDTO>(friend, friendDTO);
+            return _mapper.MergeInto<FriendDTO>(user, friend);
         }
 
         public async Task<IEnumerable<FriendDTO>> GetAllFriendsAsync(int myID)
@@ -36,9 +38,15 @@ namespace Aktywni.Infrastructure.Services
             var friends = await _friendRepository.GetAllAsync(myID);
             foreach (Friends item in friends)
             {
-                var user = await _userRepository.GetAsync(item.FriendFrom);
+                int friendID;
+                if (myID == item.FriendTo)
+                    friendID = item.FriendFrom;
+                else
+                    friendID = item.FriendTo;
+
+                var user = await _userRepository.GetAsync(friendID);
                 FriendDTO friendDTO = _mapper.Map<Users, FriendDTO>(user);
-                friendDTO = _mapper.Map<Friends, FriendDTO>(item);
+                friendDTO = _mapper.MergeInto<FriendDTO>(user, item);
                 listFriends.Add(friendDTO);
             }
             return listFriends;
@@ -50,9 +58,15 @@ namespace Aktywni.Infrastructure.Services
             var friends = await _friendRepository.GetFromTextAsync(myID, textInput);
             foreach (Friends item in friends)
             {
-                var user = await _userRepository.GetAsync(item.FriendFrom);
+                int friendID;
+                if (myID == item.FriendTo)
+                    friendID = item.FriendFrom;
+                else
+                    friendID = item.FriendTo;
+
+                var user = await _userRepository.GetAsync(friendID);
                 FriendDTO friendDTO = _mapper.Map<Users, FriendDTO>(user);
-                friendDTO = _mapper.Map<Friends, FriendDTO>(item);
+                friendDTO = _mapper.MergeInto<FriendDTO>(user, item);
                 listFriends.Add(friendDTO);
             }
             return listFriends;
@@ -71,7 +85,7 @@ namespace Aktywni.Infrastructure.Services
         public async Task AcceptInvitationAsync(int myID, int friendID)
         {
             var friend = await _friendRepository.GetAsync(myID, friendID);
-            if (friend == null)
+            if (friend == null || friend.FriendFrom == myID)
             {
                 throw new Exception($"Brak zaproszenia od użytkownika.");
             }

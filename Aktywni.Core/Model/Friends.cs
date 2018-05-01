@@ -13,6 +13,10 @@ namespace Aktywni.Core.Model
         public Users FriendFromNavigation { get; set; }
         public Users FriendToNavigation { get; set; }
 
+        public Friends()
+        {
+            
+        }
         public Friends(int friendFrom, int friendTo, bool isAccepted)
         {
             if(friendFrom != friendTo)
