@@ -36,7 +36,6 @@ namespace Aktywni.Infrastructure.Repositories
 
         public async Task UpdateAsync(Users user)
         {
-
             _dbContext.Users.Update(user);
             await _dbContext.SaveChangesAsync();
         }
@@ -46,7 +45,5 @@ namespace Aktywni.Infrastructure.Repositories
             user.ActiveUser();
             await _dbContext.SaveChangesAsync();
         }
-
-        
     }
 }

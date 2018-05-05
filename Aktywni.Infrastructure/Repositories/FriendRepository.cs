@@ -16,16 +16,16 @@ namespace Aktywni.Infrastructure.Repositories
         }
 
         public async Task<Friends> GetAsync(int myId, int FriendId)
-            => await _dbContext.Friends.SingleOrDefaultAsync(x=> (x.FriendFrom == myId && x.FriendTo == FriendId) || (x.FriendFrom == FriendId && x.FriendTo == myId));
+            => await _dbContext.Friends.SingleOrDefaultAsync(x => (x.FriendFrom == myId && x.FriendTo == FriendId) || (x.FriendFrom == FriendId && x.FriendTo == myId));
 
         public async Task<Friends> GetAsync(string myLogin, string friendLogin)
-           {
-               throw new System.NotImplementedException();
-               //   => await _dbContext.Friends.SingleOrDefaultAsync(x => x.Login == login);
-           }
+        {
+            throw new System.NotImplementedException();
+            //   => await _dbContext.Friends.SingleOrDefaultAsync(x => x.Login == login);
+        }
 
         public async Task<IEnumerable<Friends>> GetAllAsync(int myId)
-            => await _dbContext.Friends.Where(x=> x.FriendTo == myId || x.FriendFrom == myId).ToListAsync();
+            => await _dbContext.Friends.Where(x => x.FriendTo == myId || x.FriendFrom == myId).ToListAsync();
 
         public async Task<IEnumerable<Friends>> GetFromTextAsync(int myId, string textInput)
         {
