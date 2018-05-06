@@ -1,4 +1,4 @@
-namespace Aktywni.Infrastructure.Commands.User
+namespace Aktywni.Infrastructure.Commands.Friend
 {
     public class AddFriend
     {
