@@ -15,7 +15,6 @@ C:\Users\Dawid\Desktop\WebApi\Aktywni.Api\obj\Debug\netcoreapp2.0\Aktywni.Api.dl
 C:\Users\Dawid\Desktop\WebApi\Aktywni.Api\obj\Debug\netcoreapp2.0\Aktywni.Api.pdb
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\obj\Debug\netcoreapp2.0\Aktywni.Api.dll
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\obj\Debug\netcoreapp2.0\Aktywni.Api.pdb
-C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\obj\Debug\netcoreapp2.0\Aktywni.Api.csprojResolveAssemblyReference.cache
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\obj\Debug\netcoreapp2.0\Aktywni.Api.csproj.CoreCompileInputs.cache
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\obj\Debug\netcoreapp2.0\Aktywni.Api.AssemblyInfoInputs.cache
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\obj\Debug\netcoreapp2.0\Aktywni.Api.AssemblyInfo.cs
@@ -29,3 +28,4 @@ C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\bin\Debug\netcoreapp2.
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\bin\Debug\netcoreapp2.0\Aktywni.Infrastructure.pdb
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\bin\Debug\netcoreapp2.0\Aktywni.Core.pdb
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\obj\Debug\netcoreapp2.0\Aktywni.Api.csproj.CopyComplete
+C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Api\obj\Debug\netcoreapp2.0\Aktywni.Api.csprojAssemblyReference.cache
