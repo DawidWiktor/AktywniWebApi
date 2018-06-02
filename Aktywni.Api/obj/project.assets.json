@@ -7696,7 +7696,7 @@
       ]
     },
     "Newtonsoft.Json/10.0.1": {
-      "sha512": "y5444OAdfUZ1RwsHFISk7Q9tamV6HiY6eFCYnUp0i6pLxiNtXFN3gHcpz2GVcgksfBhvKovvHYxA2r/rzs13Ww==",
+      "sha512": "ebWzW9j2nwxQeBo59As2TYn7nYr9BHicqqCwHOD1Vdo+50HBtLPuqdiCYJcLdTRknpYis/DSEOQz5KmZxwrIAg==",
       "type": "package",
       "path": "newtonsoft.json/10.0.1",
       "files": [
@@ -7733,7 +7733,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "CfXTbkGe46hOzTmL4a4y5/5cMnPhcCmDl8VIKqFtYX3mELrvIwiAOGAWd6DGLcJOHDXK+t7ACrKNvDMXgQ5L9Q==",
+      "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [
@@ -11064,7 +11064,7 @@
       ]
     },
     "System.Runtime.Serialization.Formatters/4.3.0": {
-      "sha512": "2w2jJiNBw7dadzebCOy4EHHW0La4Wn4x5Yg/48Zg6G3tIzux40SSnY7dFkq14NaxRc660KrbbBJ6I3KeVgcLng==",
+      "sha512": "KT591AkTNFOTbhZlaeMVvfax3RqhH1EJlcwF50Wm7sfnBLuHiOeZRRKrr1ns3NESkM20KPZ5Ol/ueMq5vg4QoQ==",
       "type": "package",
       "path": "system.runtime.serialization.formatters/4.3.0",
       "files": [
@@ -11091,7 +11091,7 @@
       ]
     },
     "System.Runtime.Serialization.Json/4.0.2": {
-      "sha512": "pe/1UoN7uyXmlrubat0SqPjQcO8xrjlWt6MkSlKnCiihETup3TnsDSRkJ3zBHJRhrkvAHtOxoZcrtS+AJKZCgw==",
+      "sha512": "+7DIJhnKYgCzUgcLbVTtRQb2l1M0FP549XFlFkQM5lmNiUBl44AfNbx4bz61xA8PzLtlYwfmif4JJJW7MPPnjg==",
       "type": "package",
       "path": "system.runtime.serialization.json/4.0.2",
       "files": [
@@ -12499,7 +12499,7 @@
       ]
     },
     "System.Xml.XmlDocument/4.3.0": {
-      "sha512": "8Eu7TBONSy9ZPqMKxuk2f63at5nDK1p+XYVLFk0wtPMQA5N9ANv34+m4uqsWRMLVTje9or2YFNXijwzuIPSYFw==",
+      "sha512": "lJ8AxvkX7GQxpC6GFCeBj8ThYVyQczx2+f/cWHJU8tjS7YfI6Cv6bon70jVEgs2CiFbmmM8b9j1oZVx0dSI2Ww==",
       "type": "package",
       "path": "system.xml.xmldocument/4.3.0",
       "files": [
@@ -12726,23 +12726,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dawid\\.nuget\\packages\\": {},
+    "C:\\Users\\dawid\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Api\\Aktywni.Api.csproj",
+      "projectUniqueName": "c:\\AktywniWebApi\\Aktywni.Api\\Aktywni.Api.csproj",
       "projectName": "Aktywni.Api",
-      "projectPath": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Api\\Aktywni.Api.csproj",
-      "packagesPath": "C:\\Users\\Dawid\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Api\\obj\\",
+      "projectPath": "c:\\AktywniWebApi\\Aktywni.Api\\Aktywni.Api.csproj",
+      "packagesPath": "C:\\Users\\dawid\\.nuget\\packages\\",
+      "outputPath": "c:\\AktywniWebApi\\Aktywni.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Dawid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dawid\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12755,8 +12755,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj"
+            "c:\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj": {
+              "projectPath": "c:\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj"
             }
           }
         }

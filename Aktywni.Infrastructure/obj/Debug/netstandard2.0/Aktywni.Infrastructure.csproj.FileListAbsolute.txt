@@ -21,3 +21,15 @@ C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Infrastructure\bin\Debug\n
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Core.pdb
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.csproj.CopyComplete
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.csprojAssemblyReference.cache
+C:\AktywniWebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Infrastructure.deps.json
+C:\AktywniWebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Infrastructure.dll
+C:\AktywniWebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Infrastructure.pdb
+C:\AktywniWebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Core.dll
+C:\AktywniWebApi\Aktywni.Infrastructure\bin\Debug\netstandard2.0\Aktywni.Core.pdb
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.csprojAssemblyReference.cache
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.csproj.CoreCompileInputs.cache
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.AssemblyInfoInputs.cache
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.AssemblyInfo.cs
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.csproj.CopyComplete
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.dll
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Debug\netstandard2.0\Aktywni.Infrastructure.pdb

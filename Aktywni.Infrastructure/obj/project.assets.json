@@ -2849,7 +2849,7 @@
       ]
     },
     "Remotion.Linq/2.1.1": {
-      "sha512": "CfXTbkGe46hOzTmL4a4y5/5cMnPhcCmDl8VIKqFtYX3mELrvIwiAOGAWd6DGLcJOHDXK+t7ACrKNvDMXgQ5L9Q==",
+      "sha512": "IJn0BqkvwEDpP+2qjvci7n4/a9f7DhKESLWb2/uG4xQh3rTkGTBUz69bI4IivCoKkTFAqjXxYDZw2K/npohjsw==",
       "type": "package",
       "path": "remotion.linq/2.1.1",
       "files": [
@@ -6662,23 +6662,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dawid\\.nuget\\packages\\": {},
+    "C:\\Users\\dawid\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj",
+      "projectUniqueName": "c:\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj",
       "projectName": "Aktywni.Infrastructure",
-      "projectPath": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj",
-      "packagesPath": "C:\\Users\\Dawid\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Infrastructure\\obj\\",
+      "projectPath": "c:\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj",
+      "packagesPath": "C:\\Users\\dawid\\.nuget\\packages\\",
+      "outputPath": "c:\\AktywniWebApi\\Aktywni.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Dawid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dawid\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6691,8 +6691,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj": {
-              "projectPath": "C:\\Users\\Dawid\\Documents\\GitHub\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj"
+            "c:\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj": {
+              "projectPath": "c:\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj"
             }
           }
         }

@@ -47,7 +47,7 @@ namespace Aktywni.Api
             services.AddSingleton<IJwtHandler, JwtHandler>();
             
             services.AddDbContext<AktywniDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("testApi")));
+                options.UseSqlServer(Configuration.GetConnectionString("DawidDB")));
 
             services.AddAuthentication(options =>
             {

@@ -16,3 +16,12 @@ C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Core\obj\Debug\netstandard
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.dll
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.pdb
 C:\Users\Dawid\Documents\GitHub\AktywniWebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.csprojAssemblyReference.cache
+C:\AktywniWebApi\Aktywni.Core\bin\Debug\netstandard2.0\Aktywni.Core.deps.json
+C:\AktywniWebApi\Aktywni.Core\bin\Debug\netstandard2.0\Aktywni.Core.dll
+C:\AktywniWebApi\Aktywni.Core\bin\Debug\netstandard2.0\Aktywni.Core.pdb
+C:\AktywniWebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.csprojAssemblyReference.cache
+C:\AktywniWebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.csproj.CoreCompileInputs.cache
+C:\AktywniWebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.AssemblyInfoInputs.cache
+C:\AktywniWebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.AssemblyInfo.cs
+C:\AktywniWebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.dll
+C:\AktywniWebApi\Aktywni.Core\obj\Debug\netstandard2.0\Aktywni.Core.pdb
