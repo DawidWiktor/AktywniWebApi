@@ -6668,11 +6668,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj",
+      "projectUniqueName": "C:\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj",
       "projectName": "Aktywni.Infrastructure",
-      "projectPath": "c:\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj",
+      "projectPath": "C:\\AktywniWebApi\\Aktywni.Infrastructure\\Aktywni.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\dawid\\.nuget\\packages\\",
-      "outputPath": "c:\\AktywniWebApi\\Aktywni.Infrastructure\\obj\\",
+      "outputPath": "C:\\AktywniWebApi\\Aktywni.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6691,8 +6691,8 @@
       "frameworks": {
         "netstandard2.0": {
           "projectReferences": {
-            "c:\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj": {
-              "projectPath": "c:\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj"
+            "C:\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj": {
+              "projectPath": "C:\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj"
             }
           }
         }
