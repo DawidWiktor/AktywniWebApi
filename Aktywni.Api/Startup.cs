@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,7 +47,7 @@ namespace Aktywni.Api
             services.AddSingleton<IJwtHandler, JwtHandler>();
             
             services.AddDbContext<AktywniDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DawidDB")));
+                options.UseSqlServer(Configuration.GetConnectionString("DamianDB")));
 
             services.AddAuthentication(options =>
             {
