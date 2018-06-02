@@ -9,6 +9,6 @@ namespace Aktywni.Api.Controllers
         protected int UserId => User?.Identity?.IsAuthenticated == true ?
             int.Parse(User.Identity.Name) :
             0;
-
+        
     }
 }

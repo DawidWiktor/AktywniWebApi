@@ -19,6 +19,7 @@ using Aktywni.Infrastructure.Repositories;
 using Aktywni.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Aktywni.Core.Model;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Aktywni.Api
 {
@@ -47,7 +48,7 @@ namespace Aktywni.Api
             services.AddSingleton<IJwtHandler, JwtHandler>();
             
             services.AddDbContext<AktywniDBContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DamianDB")));
+                options.UseSqlServer(Configuration.GetConnectionString("DawidDB")));
 
             services.AddAuthentication(options =>
             {
@@ -78,6 +79,12 @@ namespace Aktywni.Api
             }
             app.UseAuthentication();
             app.UseMvc();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+            ForwardedHeaders.XForwardedProto
+        }); 
         }
     }
 }

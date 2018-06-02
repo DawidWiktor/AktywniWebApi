@@ -31,7 +31,10 @@ namespace Aktywni.Api.Controllers
         }
         [HttpPost("login")]
         public async Task<IActionResult> Post([FromBody]Login command)
-            => Json(await _userService.LoginAsync(command.UserLogin, command.Password));
+        {
+            Console.WriteLine("Login: "+ command.UserLogin + " hasło: " + command.Password);
+            return Json(await _userService.LoginAsync(command.UserLogin, command.Password));
+        }
         
         [HttpPut("changeEmail")]
         [Authorize]

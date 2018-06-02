@@ -6,6 +6,8 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
@@ -13,9 +15,19 @@ namespace Aktywni.Api
 {
     public class Program
     {
+         public Program(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
         public static void Main(string[] args)
         {
+           
             BuildWebHost(args).Run();
+           
+
    /*         string currentProjectPath = Environment.CurrentDirectory;
             var host = new WebHostBuilder()
     .UseKestrel(options =>
@@ -30,10 +42,12 @@ namespace Aktywni.Api
     host.Run();*/
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHost BuildWebHost(string[] args) {
+         
+            return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:5000")
+                .UseUrls("http://localhost:5000/")
                 .Build();
+        }
     }
 }
