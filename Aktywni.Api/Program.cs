@@ -46,7 +46,7 @@ namespace Aktywni.Api
          
             return WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:5000/")
+                .UseUrls("http://192.168.137.1:5000/")
                 .Build();
         }
     }

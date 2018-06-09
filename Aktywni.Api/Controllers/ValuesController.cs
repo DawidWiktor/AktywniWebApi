@@ -13,14 +13,15 @@ namespace Aktywni.Api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-           
+           Console.WriteLine("Otrzymano żądanie GET");
             return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public string Get(string id)
         {
+            Console.WriteLine("Otrzymany string: " +id);
             return "value";
         }
 
