@@ -29,16 +29,16 @@ namespace Aktywni.Infrastructure.Services
             return _mapper.Map<Users, AccountDTO>(user);
         }
 
-        public async Task RegisterAsync(string login, string email, string password)
+        public async Task<bool> RegisterAsync(string login, string email, string password)
         {
             var user = await _userRepository.GetAsync(login);
             if(user != null)
             {
-                throw new Exception($"Użytkownik o {login} już istnieje.");
+               return false;
             }
             user = new Users(login, email, password);
             await _userRepository.AddAsync(user);
-            
+            return true;
         }
 
         public async Task<TokenDTO> LoginAsync(string login, string password)

@@ -7,7 +7,7 @@ namespace Aktywni.Infrastructure.Services
     public interface IUserService
     {
         Task<AccountDTO> GetAccountAsync(int userID);
-        Task RegisterAsync(string login, string email, string password);
+        Task<bool> RegisterAsync(string login, string email, string password);
         Task<TokenDTO> LoginAsync(string login, string password);
         Task ChangeEmailAsync(int userID, string email);
         Task ChangePasswordAsync(int userID, string currentPassword, string newPassword);

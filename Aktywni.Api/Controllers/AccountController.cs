@@ -1,6 +1,7 @@
 using System;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Aktywni.Infrastructure.Commands;
 using Aktywni.Infrastructure.Commands.User;
 using Aktywni.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -26,8 +27,8 @@ namespace Aktywni.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Post([FromBody]Register command)
         {
-            await _userService.RegisterAsync(command.Login, command.Email, command.Password);
-            return Created("/account", null);
+            bool isRegistered  = await _userService.RegisterAsync(command.Login, command.Email, command.Password);
+            return Json(new ReturnResponse{Response = isRegistered.ToString()});
         }
         [HttpPost("login")]
         public async Task<IActionResult> Post([FromBody]Login command)
