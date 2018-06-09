@@ -38,7 +38,7 @@ namespace Aktywni.Infrastructure.Services
             }
             user = new Users(login, email, password);
             await _userRepository.AddAsync(user);
-            return true;
+            return true;    
         }
 
         public async Task<TokenDTO> LoginAsync(string login, string password)
@@ -71,69 +71,74 @@ namespace Aktywni.Infrastructure.Services
             var users = await _userRepository.GetAllAsync();    
             return _mapper.Map<IEnumerable<Users>, IEnumerable<AccountDTO>>(users);
         }
-        public async Task ChangeEmailAsync(int userID, string email)
+        public async Task<string> ChangeEmailAsync(int userID, string email)
         {
             var user = await _userRepository.GetAsync(userID);
             if(user == null)
             {
-                throw new Exception("Błędy login.");
+                return "Błędny login";
             }
             if(String.IsNullOrWhiteSpace(email))
             {
-                throw new Exception("Podano pusty adres e-mail.");
+               return "Podano pusty adres e-mail.";
             }
             user.SetEmail(email);
             await _userRepository.UpdateAsync(user);
+            return "True";
         }
 
-        public async Task ChangePasswordAsync(int userID, string currentPassword, string newPassword)
+        public async Task<string> ChangePasswordAsync(int userID, string currentPassword, string newPassword)
         {
             var user = await _userRepository.GetAsync(userID);
             if(user == null)
             {
-                throw new Exception("Błędy login.");
+                return "Błędy login.";
             }
              if(!Crypto.VerifyHashedPassword(user.Password, currentPassword))
             {
-                throw new Exception("Błędne hasło.");
+                return "Błędne hasło.";
             }
             user.SetPassword(newPassword);
             await _userRepository.UpdateAsync(user);
+            return "True";
         }
 
-        public async Task ChangePersonalDataAsync(int userID, string name, string surname, string city)
+        public async Task<string> ChangePersonalDataAsync(int userID, string name, string surname, string city)
         {
             var user = await _userRepository.GetAsync(userID);
             if(user == null)
             {
-                throw new Exception("Błędy login.");
+                return "Błędy login.";
             }
             user.SetName(name);
             user.SetSurname(surname);
             user.SetCity(city);
             await _userRepository.UpdateAsync(user);
+            return "True";
         }
 
-        public async Task ChangeDescriptionAsync(int userID, string description)
+        public async Task<string> ChangeDescriptionAsync(int userID, string description)
         {
             var user = await _userRepository.GetAsync(userID);
             if(user == null)
             {
-                throw new Exception("Błędy login.");
+              return "Błędy login.";
             }
             user.SetDescription(description);
             await _userRepository.UpdateAsync(user);
+            return "True";
         }
 
-        public async Task RemoveAccountAsync(int userID)
+        public async Task<string> RemoveAccountAsync(int userID)
         {
             var user = await _userRepository.GetAsync(userID);
             if(user == null)
             {
-                throw new Exception("Błędy login.");
+                return "Błędy login.";
             }
             user.DisactiveUser();
             await _userRepository.UpdateAsync(user);
+            return "True";
         }
     }
 }

@@ -41,40 +41,40 @@ namespace Aktywni.Api.Controllers
         [Authorize]
         public async Task<IActionResult> Put([FromBody]ChangeEmail command)
         {
-            await _userService.ChangeEmailAsync(UserId, command.Email);
-            return NoContent();
+            string isChanged = await _userService.ChangeEmailAsync(UserId, command.Email);
+            return Json(new ReturnResponse {Response = isChanged});
         }
 
         [HttpPut("changePassword")]
         [Authorize]
         public async Task<IActionResult> Put([FromBody]ChangePassword command)
         {
-            await _userService.ChangePasswordAsync(UserId, command.CurrentPassword, command.NewPassword);
-            return NoContent();
+            string isChanged = await _userService.ChangePasswordAsync(UserId, command.CurrentPassword, command.NewPassword);
+            return Json(new ReturnResponse {Response = isChanged});
         }
 
         [HttpPut("changePersonalData")]
         [Authorize]
         public async Task<IActionResult> Put([FromBody]ChangePersonalData command)
         {
-            await _userService.ChangePersonalDataAsync(UserId, command.Name, command.Surname, command.City);
-            return NoContent();
+            string isChanged = await _userService.ChangePersonalDataAsync(UserId, command.Name, command.Surname, command.City);
+            return Json(new ReturnResponse {Response = isChanged});
         }
 
         [HttpPut("changeDescription")]
         [Authorize]
         public async Task<IActionResult> Put([FromBody]ChangeDescription command)
         {
-            await _userService.ChangeDescriptionAsync(UserId, command.Description);
-            return NoContent();
+            string isChanged = await _userService.ChangeDescriptionAsync(UserId, command.Description);
+            return Json(new ReturnResponse {Response = isChanged});
         }
 
         [HttpDelete("delete")]
         [Authorize]
         public async Task<IActionResult> delete()
         {
-            await _userService.RemoveAccountAsync(UserId);
-            return NoContent();
+            string isChanged = await _userService.RemoveAccountAsync(UserId);
+            return Json(new ReturnResponse {Response = isChanged});
         }
     }
 }
