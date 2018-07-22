@@ -46,15 +46,18 @@ namespace Aktywni.Infrastructure.Services
             var user = await _userRepository.GetAsync(login);
             if(user == null)
             {
-                throw new Exception("Błędy login lub błędne hasło.");
+                return null;
+               // throw new Exception("Błędy login lub błędne hasło.");
             }
             if(!(bool)user.IsActive)
             {
-                throw new Exception("Błędy login lub błędne hasło.");
+                return null;
+                //throw new Exception("Błędy login lub błędne hasło.");
             }
             if(!Crypto.VerifyHashedPassword(user.Password, password))
             {
-                throw new Exception("Błędy login lub błędne hasło.");
+                return null;
+                //throw new Exception("Błędy login lub błędne hasło.");
             }
             var jwt = _jwtHandler.CreateToken(user.UserId, user.Role);
             
@@ -66,6 +69,15 @@ namespace Aktywni.Infrastructure.Services
             };
         }
 
+        public async Task<bool> LogoutAsync(int userID)
+        {
+            var user = await _userRepository.GetAsync(userID);
+            if(user == null)
+            {
+                return false;
+            }
+            return true; // TODO : usuń token
+        }
         public async Task<IEnumerable<AccountDTO>> BrowseAsync(int userID)
         {
             var users = await _userRepository.GetAllAsync();    

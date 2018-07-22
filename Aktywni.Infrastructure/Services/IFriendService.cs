@@ -10,9 +10,9 @@ namespace Aktywni.Infrastructure.Services
         Task<FriendDTO> GetFriendAsync(int myID, int friendID);
         Task<IEnumerable<FriendDTO>> GetAllFriendsAsync(int myID);
         Task<IEnumerable<FriendDTO>> SearchFriendsAsync(int myID, string textInput);
-        Task AddFriendAsync(int myID, int friendID);
-        Task AcceptInvitationAsync(int myID, int friendID);
-        Task RemoveFriendAsync(int myID, int friendID);
+        Task<bool> AddFriendAsync(int myID, int friendID);
+        Task<bool> AcceptInvitationAsync(int myID, int friendID);
+        Task<bool> RemoveFriendAsync(int myID, int friendID);
 
     }
 }

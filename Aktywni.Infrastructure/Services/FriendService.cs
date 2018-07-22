@@ -72,34 +72,40 @@ namespace Aktywni.Infrastructure.Services
             return listFriends;
         }
 
-        public async Task AddFriendAsync(int myID, int friendID)
+        public async Task<bool> AddFriendAsync(int myID, int friendID)
         {
             var friend = await _friendRepository.GetAsync(myID, friendID);
             if (friend != null)
             {
-                throw new Exception($"Taki znajomy już istnieje.");
+                return false;
+                //throw new Exception($"Taki znajomy już istnieje.");
             }
             friend = new Friends(myID, friendID, false);
             await _friendRepository.AddAsync(friend);
+            return true;
         }
-        public async Task AcceptInvitationAsync(int myID, int friendID)
+        public async Task<bool> AcceptInvitationAsync(int myID, int friendID)
         {
             var friend = await _friendRepository.GetAsync(myID, friendID);
             if (friend == null || friend.FriendFrom == myID)
             {
-                throw new Exception($"Brak zaproszenia od użytkownika.");
+                return false;
+                //throw new Exception($"Brak zaproszenia od użytkownika.");
             }
             friend.AcceptInvitation();
             await _friendRepository.UpdateAsync(friend);
+            return true;
         }
-        public async Task RemoveFriendAsync(int myID, int friendID)
+        public async Task<bool> RemoveFriendAsync(int myID, int friendID)
         {
             var friend = await _friendRepository.GetAsync(myID, friendID);
             if (friend == null)
             {
-                throw new Exception($"Brak zaproszenia od użytkownika.");
+                return false;
+                //throw new Exception($"Brak zaproszenia od użytkownika.");
             }
             await _friendRepository.DeleteAsync(friend);
+            return true;
         }
     }
 }
