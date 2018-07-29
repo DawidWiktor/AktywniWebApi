@@ -6,6 +6,7 @@ using Aktywni.Core.Repositories;
 using Aktywni.Infrastructure.DTO;
 using AutoMapper;
 using Aktywni.Infrastructure.Extensions;
+using Aktywni.Infrastructure.Commands;
 
 namespace Aktywni.Infrastructure.Services
 {
@@ -21,15 +22,15 @@ namespace Aktywni.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public async Task<FriendDTO> GetFriendAsync(int myID, int friendID)
+        public async Task<ReturnResponse> GetFriendAsync(int myID, int friendID)
         {
             var friend = await _friendRepository.GetAsync(myID, friendID);
             if(friend == null)
-                throw new Exception("Brak znajomego");
+                return new ReturnResponse{ Response = false.ToString(), Error = "Brak znajomego"};
 
             var user = await _userRepository.GetAsync(friendID);
             FriendDTO friendDTO = _mapper.Map<Users, FriendDTO>(user);
-            return _mapper.MergeInto<FriendDTO>(user, friend);
+            return  new ReturnResponse { Response = true.ToString(), Info = _mapper.MergeInto<FriendDTO>(user, friend).ToString()};
         }
 
         public async Task<IEnumerable<FriendDTO>> GetAllFriendsAsync(int myID)

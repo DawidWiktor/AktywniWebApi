@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Aktywni.Api",
+    "\\Aktywni.Api\\Controllers",
     "\\Aktywni.Core"
   ],
-  "SelectedNode": "\\Aktywni.Core\\Domain",
+  "SelectedNode": "\\Aktywni.Api\\Aktywni.Api.csproj",
   "PreviewInSolutionExplorer": false
 }

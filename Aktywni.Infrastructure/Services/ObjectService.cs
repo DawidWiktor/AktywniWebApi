@@ -42,15 +42,17 @@ namespace Aktywni.Infrastructure.Services
             return _mapper.Map<IEnumerable<Objects>, IEnumerable<ObjectDTO>>(objects);
         }
 
-        public async Task AddObjectAsync(int administratorID, string name, string city, string street, string postcode, string geographicalCoordinates)
+        public async Task<Tuple<bool,string>> AddObjectAsync(int administratorID, string name, string city, string street, string postcode, 
+                                        string geographicalCoordinates)
         {
             var newObject = await _objectRepository.GetAsync(name);
             if (newObject != null)
             {
-                throw new Exception("Obiekt o takiej nazwie już istnieje.");
+                return new Tuple<bool, string>(false, "Obiekt o takiej nazwie już istnieje.");
             }
             newObject = new Objects(administratorID, name, city, street, postcode, geographicalCoordinates);
             await _objectRepository.AddAsync(newObject);
+            return new Tuple<bool, string>(true, "");
         }
         public async Task ChangeNameObjectAsync(int objID, string newName)
         {
