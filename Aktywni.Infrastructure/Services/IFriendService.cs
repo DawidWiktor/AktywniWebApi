@@ -9,11 +9,11 @@ namespace Aktywni.Infrastructure.Services
     public interface IFriendService
     {
         Task<ReturnResponse> GetFriendAsync(int myID, int friendID);
-        Task<IEnumerable<FriendDTO>> GetAllFriendsAsync(int myID);
-        Task<IEnumerable<FriendDTO>> SearchFriendsAsync(int myID, string textInput);
-        Task<bool> AddFriendAsync(int myID, int friendID);
-        Task<bool> AcceptInvitationAsync(int myID, int friendID);
-        Task<bool> RemoveFriendAsync(int myID, int friendID);
+        Task<ReturnResponse> GetAllFriendsAsync(int myID);
+        Task<ReturnResponse> SearchFriendsAsync(int myID, string textInput);
+        Task<ReturnResponse> AddFriendAsync(int myID, int friendID);
+        Task<ReturnResponse> AcceptInvitationAsync(int myID, int friendID);
+        Task<ReturnResponse> RemoveFriendAsync(int myID, int friendID);
 
     }
 }

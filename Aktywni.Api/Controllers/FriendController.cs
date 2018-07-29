@@ -29,25 +29,20 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetFriend(int friendID)
             => Json(await _friendService.GetFriendAsync(UserId, friendID));
 
-        [HttpPost("addFriend")]                             
+        [HttpPost("search")]
+        public async Task<IActionResult> SearchFriend([FromBody]SearchFriend command)
+            => Json(await _friendService.SearchFriendsAsync(UserId, command.TextInput));
+
+        [HttpPost("addFriend")]
         public async Task<IActionResult> AddFriend([FromBody]AddFriend command)
-        {
-            bool isAdded = await _friendService.AddFriendAsync(UserId, command.friendID);
-            return Json(new ReturnResponse {Response = isAdded.ToString()});
-        }
+            => Json(await _friendService.AddFriendAsync(UserId, command.friendID));
 
         [HttpPut("{friendID}")]
         public async Task<IActionResult> AcceptInvitationFromFriend(int friendID)
-        {
-            bool isChange = await _friendService.AcceptInvitationAsync(UserId, friendID);
-            return Json(new ReturnResponse {Response = isChange.ToString()});
-        }
+            => Json(await _friendService.AcceptInvitationAsync(UserId, friendID));
 
         [HttpDelete("{friendID}")]
         public async Task<IActionResult> DeleteFriend(int friendID)
-        {
-            bool isDeleted = await _friendService.RemoveFriendAsync(UserId, friendID);
-            return Json(new ReturnResponse {Response = isDeleted.ToString()});
-        }
+            =>Json(await _friendService.RemoveFriendAsync(UserId, friendID));
     }
 }
