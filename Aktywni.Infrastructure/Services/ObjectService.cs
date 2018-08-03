@@ -47,6 +47,13 @@ namespace Aktywni.Infrastructure.Services
             List<ObjectDTO> listObjectDto = _mapper.Map<IEnumerable<Objects>, List<ObjectDTO>>(objects);
             return new ReturnResponse { Response = (listObjectDto.Count == 0) ? false.ToString() : true.ToString(), Info = listObjectDto };
         }
+        
+        public async Task<ReturnResponse> SearchObjectsInCityAsync(string name, string city)
+        {
+            var objects = await _objectRepository.GetObjectInCity(name, city);
+             List<ObjectDTO> listObjectDto = _mapper.Map<IEnumerable<Objects>, List<ObjectDTO>>(objects);
+            return new ReturnResponse { Response = (listObjectDto.Count == 0) ? false.ToString() : true.ToString(), Info = listObjectDto };
+        }
 
         public async Task<ReturnResponse> AddObjectAsync(int administratorID, string name, string city, string street, string postcode,
                                         string geographicalCoordinates)

@@ -13,6 +13,7 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> GetObjectAsync(string name);
         Task<ReturnResponse> GetAllObjectsAsync();
         Task<ReturnResponse> SearchObjectsAsync(string textInput); // wyszukiwanie po nazwie obiektu i wydarzenia
+        Task<ReturnResponse> SearchObjectsInCityAsync(string name, string city);
         Task<ReturnResponse> AddObjectAsync(int administratorID, string name, string city, string street, string postcode, string geographicalCoordinates);
         Task<ReturnResponse> ChangeNameObjectAsync(int objID, string newName);
         Task<ReturnResponse> ChangeAddressObjectAsync(int objID, string city, string street, string postcode, string geographicalCoordinates);

@@ -32,17 +32,21 @@ namespace Aktywni.Api.Controllers
             => Json(await _objectService.GetObjectAsync(name));
 
         [HttpGet]
-        public async Task<IActionResult> GetAllObject()                    // wszystkie obiekty
+        public async Task<IActionResult> GetAllObjects()                    // wszystkie obiekty
            => Json(await _objectService.GetAllObjectsAsync());
 
-        [HttpPost("searchObject")]
-        public async Task<IActionResult> SearchObject([FromBody]SearchObject command)
+        [HttpPost("search")]
+        public async Task<IActionResult> SearchObjects([FromBody]SearchObject command)
             => Json(await _objectService.SearchObjectsAsync(command.Name));
+        
+        [HttpPost("searchInCity")]
+        [HttpPost]
+        public async Task<IActionResult> SearchObjects([FromBody]SearchObjectInCity command)
+            => Json(await _objectService.SearchObjectsInCityAsync(command.Name, command.City));
 
-
-        [HttpPost("addObject")]
+        [HttpPost("add")]
         public async Task<IActionResult> AddObject([FromBody]AddObject command)
             => Json(await _objectService.AddObjectAsync(UserId, command.Name, command.City,
-                        command.Street, command.Street, command.GeographicalCoordinates));
+                        command.Street, command.PostCode, command.GeographicalCoordinates));
     }
 }
