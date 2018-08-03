@@ -36,13 +36,13 @@ namespace Aktywni.Infrastructure.Services
         public async Task<ReturnResponse> GetAllFriendsAsync(int myID)
         {
             List<FriendDTO> listFriends = await GetListFriends(myID, "");
-            return new ReturnResponse { Response = true.ToString(), Info = listFriends };
+            return new ReturnResponse {  Response = (listFriends.Count == 0) ? false.ToString() : true.ToString(), Info = listFriends };
         }
 
         public async Task<ReturnResponse> SearchFriendsAsync(int myID, string textInput)
         {
             List<FriendDTO> listFriends = await GetListFriends(myID, textInput);
-            return new ReturnResponse { Response = true.ToString(), Info = listFriends };
+            return new ReturnResponse { Response = (listFriends.Count == 0) ? false.ToString() : true.ToString(), Info = listFriends };
         }
 
         private async Task<List<FriendDTO>> GetListFriends(int myID, string textInput)

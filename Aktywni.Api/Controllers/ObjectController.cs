@@ -21,33 +21,28 @@ namespace Aktywni.Api.Controllers
         {
             _objectService = objectService;
             _configuration = configuration;
-        }     
+        }
 
         [HttpGet("{objID}")]
-        public async Task<IActionResult> Get(int objID)
+        public async Task<IActionResult> GetObject(int objID)
              => Json(await _objectService.GetObjectAsync(objID));
-        
-        [HttpGet("{objID}")]
-        public async Task<IActionResult> Get(string name)
+
+        [HttpGet("name/{name}")]
+        public async Task<IActionResult> GetObject(string name)
             => Json(await _objectService.GetObjectAsync(name));
 
         [HttpGet]
-        public async Task<IActionResult> GetAction()                    // wszystkie obiekty
+        public async Task<IActionResult> GetAllObject()                    // wszystkie obiekty
            => Json(await _objectService.GetAllObjectsAsync());
 
         [HttpPost("searchObject")]
         public async Task<IActionResult> SearchObject([FromBody]SearchObject command)
-        {
-            var response = await _objectService.SearchObjectsAsync(command.Name);
-            return Json(response);
-        }
+            => Json(await _objectService.SearchObjectsAsync(command.Name));
 
 
         [HttpPost("addObject")]
         public async Task<IActionResult> AddObject([FromBody]AddObject command)
-        {
-            var response = await _objectService.AddObjectAsync(UserId, command.Name, command.City, command.Street, command.Street, command.GeographicalCoordinates);
-            return Json(new ReturnResponse{ Response = response.Item1.ToString(), Error = response.Item2});
-        }
+            => Json(await _objectService.AddObjectAsync(UserId, command.Name, command.City,
+                        command.Street, command.Street, command.GeographicalCoordinates));
     }
 }
