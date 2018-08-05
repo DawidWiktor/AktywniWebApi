@@ -10,10 +10,31 @@ namespace Aktywni.Core.Model
             Events = new HashSet<Events>();
         }
 
-        public int DisciplineId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public Disciplines(string name, string description)
+        {
+            SetName(name);
+            SetDescription(description);
+        }
+
+        public int DisciplineId { get; protected set; }
+        public string Name { get; protected set; }
+        public string Description { get; protected set; }
 
         public ICollection<Events> Events { get; set; }
+
+        public bool SetName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return false;
+
+            Name = name;
+            return true;
+        }
+
+        public bool SetDescription(string description)
+        {
+            Description = description;
+            return true;
+        }
     }
 }

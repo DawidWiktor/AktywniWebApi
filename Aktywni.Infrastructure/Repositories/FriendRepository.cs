@@ -16,7 +16,7 @@ namespace Aktywni.Infrastructure.Repositories
         }
 
         public async Task<Friends> GetAsync(int myId, int FriendId)
-            => await _dbContext.Friends.SingleOrDefaultAsync(x => (x.FriendFrom == myId && x.FriendTo == FriendId) || (x.FriendFrom == FriendId && x.FriendTo == myId));
+            => await _dbContext.Friends.FirstOrDefaultAsync(x => (x.FriendFrom == myId && x.FriendTo == FriendId) || (x.FriendFrom == FriendId && x.FriendTo == myId));
 
         public async Task<Friends> GetAsync(string myLogin, string friendLogin)
         {

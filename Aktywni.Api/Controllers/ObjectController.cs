@@ -23,9 +23,9 @@ namespace Aktywni.Api.Controllers
             _configuration = configuration;
         }
 
-        [HttpGet("{objID}")]
-        public async Task<IActionResult> GetObject(int objID)
-             => Json(await _objectService.GetObjectAsync(objID));
+        [HttpGet("{objectId}")]
+        public async Task<IActionResult> GetObject(int objectId)
+             => Json(await _objectService.GetObjectAsync(objectId));
 
         [HttpGet("name/{name}")]
         public async Task<IActionResult> GetObject(string name)
@@ -48,5 +48,9 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> AddObject([FromBody]AddObject command)
             => Json(await _objectService.AddObjectAsync(UserId, command.Name, command.City,
                         command.Street, command.PostCode, command.GeographicalCoordinates));
+
+        [HttpPut("changeName/{objectId}")]
+        public async Task<IActionResult> ChangeNameObject(int objectId, [FromBody]ChangeNameObject command)
+            => Json(await _objectService.ChangeNameObjectAsync(objectId, command.NewName));
     }
 }

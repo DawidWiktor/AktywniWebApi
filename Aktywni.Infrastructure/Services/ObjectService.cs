@@ -47,11 +47,11 @@ namespace Aktywni.Infrastructure.Services
             List<ObjectDTO> listObjectDto = _mapper.Map<IEnumerable<Objects>, List<ObjectDTO>>(objects);
             return new ReturnResponse { Response = (listObjectDto.Count == 0) ? false.ToString() : true.ToString(), Info = listObjectDto };
         }
-        
+
         public async Task<ReturnResponse> SearchObjectsInCityAsync(string name, string city)
         {
             var objects = await _objectRepository.GetObjectInCity(name, city);
-             List<ObjectDTO> listObjectDto = _mapper.Map<IEnumerable<Objects>, List<ObjectDTO>>(objects);
+            List<ObjectDTO> listObjectDto = _mapper.Map<IEnumerable<Objects>, List<ObjectDTO>>(objects);
             return new ReturnResponse { Response = (listObjectDto.Count == 0) ? false.ToString() : true.ToString(), Info = listObjectDto };
         }
 
@@ -73,6 +73,11 @@ namespace Aktywni.Infrastructure.Services
             if (obj == null)
             {
                 return new ReturnResponse { Response = false.ToString(), Error = $"Brak obiektu o {objID}." };
+            }
+            var checkObject = await _objectRepository.GetAsync(newName);
+            if (checkObject != null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Obiekt o takiej nazwie już istnieje." };
             }
             if (String.IsNullOrWhiteSpace(newName))
             {
@@ -137,6 +142,5 @@ namespace Aktywni.Infrastructure.Services
                await _userRepository.UpdateAsync(user);*/
             return null;
         }
-
     }
 }

@@ -16,10 +16,10 @@ namespace Aktywni.Infrastructure.Repositories
         }
 
         public async Task<Objects> GetAsync(int objectID)
-            => await _dbContext.Objects.SingleOrDefaultAsync(x => x.ObjectId == objectID);
+            => await _dbContext.Objects.FirstOrDefaultAsync(x => x.ObjectId == objectID);
 
         public async Task<Objects> GetAsync(string objectName)
-            => await _dbContext.Objects.SingleOrDefaultAsync(x => x.Name == objectName);
+            => await _dbContext.Objects.FirstOrDefaultAsync(x => x.Name == objectName);
 
         public async Task<IEnumerable<Objects>> GetAllAsync()
             => await _dbContext.Objects.ToListAsync();
