@@ -19,7 +19,7 @@ namespace Aktywni.Core.Model
         public int DisciplineId { get; protected set; }
         public string Name { get; protected set; }
         public string Description { get; protected set; }
-
+        public string Visibility { get; protected set; }
         public ICollection<Events> Events { get; set; }
 
         public bool SetName(string name)

@@ -40,7 +40,9 @@ namespace Aktywni.Core.Model
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("nvarchar(100)");
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Visibility).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Events>(entity =>
@@ -161,7 +163,7 @@ namespace Aktywni.Core.Model
                     .HasConstraintName("FK_ObjectComments_Users");
             });
 
-            modelBuilder.Entity<Objects>(entity =>
+             modelBuilder.Entity<Objects>(entity =>
             {
                 entity.HasKey(e => e.ObjectId);
 
@@ -169,23 +171,25 @@ namespace Aktywni.Core.Model
 
                 entity.Property(e => e.City)
                     .IsRequired()
-                    .HasColumnType("nvarchar(50)");
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("nvarchar(100)");
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.NumOfRating).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.PostCode)
                     .IsRequired()
-                    .HasColumnType("nvarchar(10)");
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Rating).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Street)
                     .IsRequired()
-                    .HasColumnType("nvarchar(10)");
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Visitability).HasMaxLength(50);
 
                 entity.HasOne(d => d.AdministratorNavigation)
                     .WithMany(p => p.Objects)

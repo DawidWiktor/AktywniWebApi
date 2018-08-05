@@ -14,7 +14,8 @@ namespace Aktywni.Core.Model
         public int? Rating { get; protected set; }
         public int? NumOfRating { get; protected set; }
         public string GeographicalCoordinates { get; protected set; }
-
+        public string Visitability { get; protected set; }
+        
         public Users AdministratorNavigation { get; set; }
         public ICollection<Events> Events { get; set; }
         public ICollection<ObjectComments> ObjectComments { get; set; }
