@@ -56,6 +56,8 @@ namespace Aktywni.Core.Model
 
                 entity.Property(e => e.DisciplineId).HasColumnName("DisciplineID");
 
+                entity.Property(e => e.Name).HasMaxLength(500);
+
                 entity.Property(e => e.ObjectId).HasColumnName("ObjectID");
 
                 entity.Property(e => e.Visibility).HasMaxLength(50);
