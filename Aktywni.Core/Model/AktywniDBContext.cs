@@ -14,8 +14,9 @@ namespace Aktywni.Core.Model
         public virtual DbSet<ObjectComments> ObjectComments { get; set; }
         public virtual DbSet<Objects> Objects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<UsersEvents> UsersEvents { get; set; }
 
-        public AktywniDBContext(DbContextOptions<AktywniDBContext> options) : base(options)
+     public AktywniDBContext(DbContextOptions<AktywniDBContext> options) : base(options)
         {
 
         }
@@ -57,7 +58,7 @@ namespace Aktywni.Core.Model
 
                 entity.Property(e => e.ObjectId).HasColumnName("ObjectID");
 
-                entity.Property(e => e.Visibility).HasColumnType("nvarchar(10)");
+                entity.Property(e => e.Visibility).HasMaxLength(50);
 
                 entity.Property(e => e.WhoCreatedId).HasColumnName("WhoCreatedID");
 
@@ -163,7 +164,7 @@ namespace Aktywni.Core.Model
                     .HasConstraintName("FK_ObjectComments_Users");
             });
 
-             modelBuilder.Entity<Objects>(entity =>
+            modelBuilder.Entity<Objects>(entity =>
             {
                 entity.HasKey(e => e.ObjectId);
 
@@ -204,31 +205,54 @@ namespace Aktywni.Core.Model
 
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.City).HasColumnType("nvarchar(50)");
+                entity.Property(e => e.City).HasMaxLength(50);
 
                 entity.Property(e => e.DateLastActive).HasColumnType("datetime");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
-                    .HasColumnType("nvarchar(100)");
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.Login)
                     .IsRequired()
-                    .HasColumnType("nvarchar(50)");
+                    .HasMaxLength(50);
 
-                entity.Property(e => e.Name).HasColumnType("nvarchar(50)");
+                entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.NumOfRating).HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasColumnType("nvarchar(50)");
+                    .HasMaxLength(100);
 
                 entity.Property(e => e.Rating).HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Role).HasColumnType("nvarchar(20)");
+                entity.Property(e => e.Role).HasMaxLength(50);
 
-                entity.Property(e => e.Surname).HasColumnType("nvarchar(50)");
+                entity.Property(e => e.Surname).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<UsersEvents>(entity =>
+            {
+                entity.HasKey(e => e.UserEventId);
+
+                entity.Property(e => e.UserEventId).HasColumnName("UserEventID");
+
+                entity.Property(e => e.EventId).HasColumnName("EventID");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.UsersEvents)
+                    .HasForeignKey(d => d.EventId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UsersEvents_Events");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UsersEvents)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UsersEvents_Users");
             });
         }
     }

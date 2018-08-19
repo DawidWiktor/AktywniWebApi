@@ -13,10 +13,13 @@ namespace Aktywni.Core.Model
         public string Visibility { get; set; }
         public DateTime? Date { get; set; }
         public string Description { get; set; }
+        public string GeographicalCoordinates { get; set; }
+        public bool? Commerce { get; set; }
 
         public Users AdminNavigation { get; set; }
         public Disciplines Discipline { get; set; }
         public Objects Object { get; set; }
         public Users WhoCreated { get; set; }
+        public ICollection<UsersEvents> UsersEvents { get; set; }
     }
 }

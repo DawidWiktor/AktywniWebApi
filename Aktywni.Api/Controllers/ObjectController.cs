@@ -52,5 +52,18 @@ namespace Aktywni.Api.Controllers
         [HttpPut("changeName/{objectId}")]
         public async Task<IActionResult> ChangeNameObject(int objectId, [FromBody]ChangeNameObject command)
             => Json(await _objectService.ChangeNameObjectAsync(objectId, command.NewName));
+
+         [HttpPut("changeAddress/{objectId}")]
+        public async Task<IActionResult> ChangeAddressObject(int objectId, [FromBody]ChangeAddressObject command)
+            => Json(await _objectService.ChangeAddressObjectAsync(objectId, command.City, command.Street,
+                        command.Postcode, command.GeographicalCoordinates));
+
+        [HttpPut("rate/{objectId}")]
+        public async Task<IActionResult> RateObject(int objectId, [FromBody]RateObject command)
+            => Json(await _objectService.RateObject(objectId, command.Rate));   
+        
+        [HttpDelete("remove/{objectId}")]
+        public async Task<IActionResult> RemoveObject(int objectId)
+            => Json(await _objectService.RemoveObjectAsync(objectId));  
     }
 }

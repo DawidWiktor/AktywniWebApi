@@ -16,19 +16,23 @@ namespace Aktywni.Infrastructure.Repositories
         }
 
         public async Task<Objects> GetAsync(int objectID)
-            => await _dbContext.Objects.FirstOrDefaultAsync(x => x.ObjectId == objectID);
+            => await _dbContext.Objects.Where(x => x.Visitability != Objects.TypeOfVisible.NIKT.ToString())
+                                        .FirstOrDefaultAsync(x => x.ObjectId == objectID);
 
         public async Task<Objects> GetAsync(string objectName)
-            => await _dbContext.Objects.FirstOrDefaultAsync(x => x.Name == objectName);
+            => await _dbContext.Objects.Where(x => x.Visitability != Objects.TypeOfVisible.NIKT.ToString())
+                                        .FirstOrDefaultAsync(x => x.Name == objectName);
 
         public async Task<IEnumerable<Objects>> GetAllAsync()
-            => await _dbContext.Objects.ToListAsync();
+            => await _dbContext.Objects.Where(x => x.Visitability != Objects.TypeOfVisible.NIKT.ToString()).ToListAsync();
 
         public async Task<IEnumerable<Objects>> GetFromTextAsync(string textInput)
-            => await _dbContext.Objects.Where(x => x.Name.Contains(textInput)).ToListAsync();
+            => await _dbContext.Objects.Where(x => x.Visitability != Objects.TypeOfVisible.NIKT.ToString())
+                                        .Where(x => x.Name.Contains(textInput)).ToListAsync();
 
         public async Task<IEnumerable<Objects>> GetObjectInCity(string name, string city)
-            => await _dbContext.Objects.Where(x=>x.Name.Contains(name) && x.City.Contains(city)).ToListAsync();
+            => await _dbContext.Objects.Where(x => x.Visitability != Objects.TypeOfVisible.NIKT.ToString()).
+                                        Where(x => x.Name.Contains(name) && x.City.Contains(city)).ToListAsync();
         public async Task AddAsync(Objects obj)
         {
             _dbContext.Objects.Add(obj);

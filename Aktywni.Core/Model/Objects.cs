@@ -5,6 +5,13 @@ namespace Aktywni.Core.Model
 {
     public partial class Objects
     {
+        public enum TypeOfVisible
+        {
+            WSZYSCY,
+            BIZNES,
+            NIKT
+        }
+
         public int ObjectId { get; protected set; }
         public int Administrator { get; protected set; }
         public string Name { get; protected set; }
@@ -98,5 +105,9 @@ namespace Aktywni.Core.Model
                 GeographicalCoordinates = geographicalCoordinates;
         }
 
+        public void SetVisible(TypeOfVisible typeOfVisible)
+        {
+            Visitability = typeOfVisible.ToString();
+        }
     }
 }

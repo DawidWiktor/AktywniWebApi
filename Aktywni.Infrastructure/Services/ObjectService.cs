@@ -134,13 +134,14 @@ namespace Aktywni.Infrastructure.Services
 
         public async Task<ReturnResponse> RemoveObjectAsync(int objID)
         {
-            /*   var obj = await _userRepository.GetAsync(objID);
-               if(obj == null)
-               {
-                   throw new Exception($"Brak obiektu o {id}.");
-               }
-               await _userRepository.UpdateAsync(user);*/
-            return null;
+            var obj = await _objectRepository.GetAsync(objID);
+            if (obj == null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = $"Brak obiektu o {objID}." };
+            }
+            obj.SetVisible(Objects.TypeOfVisible.NIKT);
+            await _objectRepository.UpdateAsync(obj);
+            return new ReturnResponse { Response = true.ToString(), Info = "Usunięto obiekt." };
         }
     }
 }

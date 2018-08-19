@@ -8,7 +8,7 @@ namespace Aktywni.Core.Model
     public partial class Users
     {
         private static readonly Regex NameRegex = new Regex("^(?![_.-])(?!.*[_.-]{2})[a-zA-Z0-9._.-]+(?<![_.-])$");
-        public Users()
+          public Users()
         {
             EventsAdminNavigation = new HashSet<Events>();
             EventsWhoCreated = new HashSet<Events>();
@@ -17,6 +17,7 @@ namespace Aktywni.Core.Model
             MessageUser = new HashSet<MessageUser>();
             ObjectComments = new HashSet<ObjectComments>();
             Objects = new HashSet<Objects>();
+            UsersEvents = new HashSet<UsersEvents>();
         }
 
         public Users(string login, string email, string password)
@@ -59,6 +60,7 @@ namespace Aktywni.Core.Model
         public ICollection<MessageUser> MessageUser { get; set; }
         public ICollection<ObjectComments> ObjectComments { get; set; }
         public ICollection<Objects> Objects { get; set; }
+        public ICollection<UsersEvents> UsersEvents { get; set; }
 
         public void SetLogin(string login)
         {
