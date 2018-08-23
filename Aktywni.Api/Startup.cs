@@ -45,6 +45,7 @@ namespace Aktywni.Api
             services.AddScoped<IDisciplineRepository, DisciplineRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IObjectService, ObjectService>();
+            services.AddScoped<IEventService, EventService>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
             services.AddSingleton<IJwtHandler, JwtHandler>();

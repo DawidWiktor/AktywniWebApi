@@ -44,6 +44,7 @@ namespace Aktywni.Infrastructure.Repositories
             _dbContext.Objects.Update(obj);
             await _dbContext.SaveChangesAsync();
         }
+        
         public async Task DeleteAsync(int objectID)
         {
             Objects obj = await GetAsync(objectID);

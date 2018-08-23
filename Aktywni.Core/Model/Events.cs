@@ -5,6 +5,13 @@ namespace Aktywni.Core.Model
 {
     public partial class Events
     {
+        public enum TypeOfVisible
+        {
+            WSZYSCY,
+            BIZNES,
+            NIKT
+        }
+
         public int EventId { get; set; }
         public int ObjectId { get; set; }
         public int WhoCreatedId { get; set; }
@@ -27,23 +34,37 @@ namespace Aktywni.Core.Model
         {
         }
 
-        public Events(int objectId, int whoCreatedId, int admin, string name)
+        public Events(string name, int objectId,  DateTime date, int whoCreatedID, int admin, string description)
         {
             ObjectId = objectId;
-            WhoCreatedId = whoCreatedId;
+            WhoCreatedId = whoCreatedID;
+            Date = date;
             Admin = admin;
             Name = name;
+            Description = description;
         }
 
-        public Events(int objectId, int whoCreatedId, int disciplineId, DateTime date, string description, int admin, string name)
+        public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates)
         {
-            ObjectId = objectId;
-            WhoCreatedId = whoCreatedId;
+            ObjectId = objectID;
+            WhoCreatedId = whoCreatedID;
+            Date = date;
+            Admin = admin;
+            Name = name;
+            DisciplineId = disciplineId;
+            GeographicalCoordinates = geographicalCoordinates;
+        }
+        
+        public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates, string description)
+        {
+            ObjectId = objectID;
+            WhoCreatedId = whoCreatedID;
             DisciplineId = disciplineId;
             Date = date;
             Description = description;
             Admin = admin;
             Name = name;
+            GeographicalCoordinates = geographicalCoordinates;
         }
 
 

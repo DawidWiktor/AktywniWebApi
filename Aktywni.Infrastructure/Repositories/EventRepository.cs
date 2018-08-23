@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Aktywni.Core.Model;
 using Aktywni.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aktywni.Infrastructure.Repositories
 {
@@ -13,55 +15,52 @@ namespace Aktywni.Infrastructure.Repositories
             _dbContext = dBContext;
         }
 
-        public Task<Events> GetEventAsync(int eventID)
+        public async Task<Events> GetEventAsync(int eventID)
+         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString())
+                                        .FirstOrDefaultAsync(x => x.EventId == eventID);
+
+        public async Task<Events> GetEventAsync(string eventName)
+         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString())
+                                        .FirstOrDefaultAsync(x => x.Name == eventName);
+
+        public async Task<IEnumerable<Events>> GetAllEventsAsync()
+         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString()).ToListAsync();
+        public async Task<IEnumerable<Events>> GetAllMyEventsAsync(int userID)
+         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString())
+                                    .Where(x => x.WhoCreatedId == userID).ToListAsync();
+
+        public async Task<IEnumerable<Events>> GetFromTextAsync(string textInput)
+         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString())
+                                        .Where(x => x.Name.Contains(textInput)).ToListAsync();
+        public async Task<IEnumerable<Events>> GetFromTextAndDisciplineAsync(string textInput, int disciplineID)
+         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString())
+                                        .Where(x => x.Name.Contains(textInput))
+                                        .Where(x => x.DisciplineId == disciplineID).ToListAsync();
+
+
+        public async Task<IEnumerable<Events>> GetFromTextAndDisciplineAndDistanceAsync(string textInput, int disciplineID, double distance)
         {
             throw new System.NotImplementedException();
+            //TODO: ogarnac wyliczanie odleglosci
         }
 
-        public Task<Events> GetEventAsync(string eventName)
+        public async Task AddAsync(Events obj)
         {
-            throw new System.NotImplementedException();
+            _dbContext.Events.Add(obj);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Events>> GetAllEventsAsync()
+        public async Task UpdateAsync(Events obj)
         {
-            throw new System.NotImplementedException();
+            _dbContext.Events.Update(obj);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Events>> GetAllMyEventsAsync(int userID)
+        public async Task DeleteAsync(int eventID)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IEnumerable<Events>> GetFromTextAsync(string textInput)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<IEnumerable<Events>> GetFromTextAndDisciplineAsync(string textInput, int disciplineID)
-        {
-            throw new System.NotImplementedException();
-        }
-
-
-        public Task<IEnumerable<Events>> GetFromTextAndDisciplineAndDistanceAsync(string textInput, int disciplineID, double distance)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task AddAsync(Events obj)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task UpdateAsync(Events obj)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task DeleteAsync(int eventID)
-        {
-            throw new System.NotImplementedException();
+            Events obj = await GetEventAsync(eventID);
+            _dbContext.Events.Remove(obj);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

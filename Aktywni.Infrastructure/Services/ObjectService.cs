@@ -24,7 +24,6 @@ namespace Aktywni.Infrastructure.Services
             var obj = await _objectRepository.GetAsync(objID);
             var objectDto = _mapper.Map<Objects, ObjectDTO>(obj);
             return new ReturnResponse { Response = (objectDto == null) ? false.ToString() : true.ToString(), Info = objectDto };
-
         }
 
         public async Task<ReturnResponse> GetObjectAsync(string name)
