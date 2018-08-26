@@ -14,6 +14,8 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> SearchEventsInDisciplineAsync(string textInput, int disciplineId);
         Task<ReturnResponse> SearchEventsInDisciplineAndDistanceAsync(string textInput, int disciplineId, double distance);
         Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, string description);
+        // obecnie uzywana
+        Task<ReturnResponse> AddEventAsync(string name, DateTime date, int whoCreatedID, int disciplineId, string description, string geographicalCoordinates);
         Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int disciplineId, string geographicalCoordinates);
         Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates, string description);
         Task<ReturnResponse> ChangeNameEventAsync(int eventID, string newName);

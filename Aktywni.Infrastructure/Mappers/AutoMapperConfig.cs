@@ -13,6 +13,7 @@ namespace Aktywni.Infrastructure.Mappers
              cfg.CreateMap<Users, FriendDTO>();
              cfg.CreateMap<Friends, FriendDTO>();
              cfg.CreateMap<Objects, ObjectDTO>(); 
+             cfg.CreateMap<Events, EventDTO>();
          }).CreateMapper();
     }
 }

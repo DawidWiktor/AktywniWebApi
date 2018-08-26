@@ -36,20 +36,20 @@ namespace Aktywni.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-             
+
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFriendService, FriendService>();
+            services.AddScoped<IObjectService, ObjectService>();
+            services.AddScoped<IEventService, EventService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IObjectRepository, ObjectRepository>();
             services.AddScoped<IDisciplineRepository, DisciplineRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
-            services.AddScoped<IObjectService, ObjectService>();
-            services.AddScoped<IEventService, EventService>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
             services.AddSingleton<IJwtHandler, JwtHandler>();
-            
+
             services.AddDbContext<AktywniDBContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DawidDB")));
 
@@ -59,7 +59,7 @@ namespace Aktywni.Api
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(options =>
             {
-              
+
                 options.Audience = Configuration.GetSection("jwt:Audience").Value;
                 options.ClaimsIssuer = Configuration.GetSection("TokenProviderOptions:Issuer").Value;
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -84,10 +84,10 @@ namespace Aktywni.Api
             app.UseMvc();
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions
-        {
-            ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor |
             ForwardedHeaders.XForwardedProto
-        }); 
+            });
         }
     }
 }

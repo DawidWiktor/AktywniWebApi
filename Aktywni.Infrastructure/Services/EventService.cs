@@ -80,6 +80,20 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
         }
 
+        //obecnie uzywana
+        public async Task<ReturnResponse> AddEventAsync(string name, DateTime date, int whoCreatedID, int disciplineId, string description, string geographicalCoordinates)
+        {
+            int objectID = 1; // brak obiektu
+            var newEvent = await _eventRepository.GetEventAsync(name);
+            if (newEvent != null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Wydarzenie o takiej nazwie już istnieje." };
+            }
+            newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, disciplineId, geographicalCoordinates, description);
+            await _eventRepository.AddAsync(newEvent);
+            return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
+        }
+        
         public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int disciplineId, string geographicalCoordinates)
         {
             var newEvent = await _eventRepository.GetEventAsync(name);
