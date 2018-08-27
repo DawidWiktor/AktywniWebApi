@@ -21,6 +21,8 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> ChangeNameEventAsync(int eventID, string newName);
         Task<ReturnResponse> ChangeVisibilityEventAsync(int eventID, string visibility);
         Task<ReturnResponse> ChangeDescription(int eventID, string description);
+        Task<ReturnResponse> ChangeDateEventAsync(int eventID, DateTime date);
+        Task<ReturnResponse> ChangeGeographicalCoordinatesEventAsync(int eventID, string geographicalCoordinates);
         Task<ReturnResponse> RemoveEventAsync(int eventID);
     }
 }

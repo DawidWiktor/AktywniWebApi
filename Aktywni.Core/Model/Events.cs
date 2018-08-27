@@ -94,5 +94,20 @@ namespace Aktywni.Core.Model
             Name = name;
             return true;
         }
+
+        public bool SetVisibility(string visibility) // W - oznacza widoczny, N - niewidoczny, U - usunięty
+        {
+            if (string.IsNullOrWhiteSpace(visibility))
+                return false;
+            
+            Visibility = visibility;
+            return true;
+        }
+
+        public bool SetDate(DateTime date)
+        {
+            Date = date;
+            return true;
+        }
     }
 }

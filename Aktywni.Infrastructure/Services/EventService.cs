@@ -93,7 +93,7 @@ namespace Aktywni.Infrastructure.Services
             await _eventRepository.AddAsync(newEvent);
             return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
         }
-        
+
         public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int disciplineId, string geographicalCoordinates)
         {
             var newEvent = await _eventRepository.GetEventAsync(name);
@@ -121,22 +121,96 @@ namespace Aktywni.Infrastructure.Services
 
         public async Task<ReturnResponse> ChangeNameEventAsync(int eventID, string newName)
         {
-            throw new System.NotImplementedException();
+            var eventDb = await _eventRepository.GetEventAsync(eventID);
+            if (eventDb == null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Błędne ID wydarzenia" };
+            }
+            if (String.IsNullOrWhiteSpace(newName))
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Podano pustą nazwę wydarzenia." };
+            }
+            var tempEvent = await _eventRepository.GetEventAsync(newName);
+            if (tempEvent != null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Już istnieje wydarzenie o takiej nazwie." };
+            }
+
+            eventDb.SetName(newName);
+            await _eventRepository.UpdateAsync(eventDb);
+            return new ReturnResponse { Response = true.ToString(), Info = "Nazwa wydarzenia została zmieniona." };
         }
 
-        public async Task<ReturnResponse> ChangeVisibilityEventAsync(int eventID, string visibility)
+        public async Task<ReturnResponse> ChangeVisibilityEventAsync(int eventID, string visibility) // W - widoczny, N - niewidoczny, U - usuń
         {
-            throw new System.NotImplementedException();
+            var eventDb = await _eventRepository.GetEventAsync(eventID);
+            if (eventDb == null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Błędne ID wydarzenia" };
+            }
+            if (String.IsNullOrWhiteSpace(visibility))
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Nie wybrano widoczności wydarzenia." };
+            }
+
+            eventDb.SetVisibility(visibility);
+            await _eventRepository.UpdateAsync(eventDb);
+            return new ReturnResponse { Response = true.ToString(), Info = "Widoczność została zmieniona." };
         }
 
         public async Task<ReturnResponse> ChangeDescription(int eventID, string description)
         {
-            throw new System.NotImplementedException();
+            var eventDb = await _eventRepository.GetEventAsync(eventID);
+            if (eventDb == null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Błędne ID wydarzenia" };
+            }
+            if (String.IsNullOrWhiteSpace(description))
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Podano pusty opis." };
+            }
+
+            eventDb.SetDescritpion(description);
+            await _eventRepository.UpdateAsync(eventDb);
+            return new ReturnResponse { Response = true.ToString(), Info = "Opis został zmieniony." };
+        }
+
+        public async Task<ReturnResponse> ChangeDateEventAsync(int eventID, DateTime date)
+        {
+            var eventDb = await _eventRepository.GetEventAsync(eventID);
+            if (eventDb == null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Błędne ID wydarzenia" };
+            }
+
+            eventDb.SetDate(date);
+            await _eventRepository.UpdateAsync(eventDb);
+            return new ReturnResponse { Response = true.ToString(), Info = "Data wydarzenia została zmieniona." };
+        }
+
+        public async Task<ReturnResponse> ChangeGeographicalCoordinatesEventAsync(int eventID, string geographicalCoordinates)
+        {
+            var eventDb = await _eventRepository.GetEventAsync(eventID);
+            if (eventDb == null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Błędne ID wydarzenia" };
+            }
+
+            eventDb.SetGeographicalCoordinates(geographicalCoordinates);
+            await _eventRepository.UpdateAsync(eventDb);
+            return new ReturnResponse { Response = true.ToString(), Info = "Miejsce wydarzenia zostało zmienione." };
         }
 
         public async Task<ReturnResponse> RemoveEventAsync(int eventID)
         {
-            throw new System.NotImplementedException();
+            var eventDb = await _eventRepository.GetEventAsync(eventID);
+            if (eventDb == null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Błędne ID wydarzenia" };
+            }
+            eventDb.SetVisibility("U");
+            await _eventRepository.UpdateAsync(eventDb);
+            return new ReturnResponse { Response = true.ToString(), Info = "Usunięto wydarzenie." };
         }
     }
 }

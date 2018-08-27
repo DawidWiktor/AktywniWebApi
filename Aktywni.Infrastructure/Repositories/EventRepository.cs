@@ -24,18 +24,22 @@ namespace Aktywni.Infrastructure.Repositories
                                         .FirstOrDefaultAsync(x => x.Name == eventName);
 
         public async Task<IEnumerable<Events>> GetAllEventsAsync()
-         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString()).ToListAsync();
+         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString())
+                                    .OrderBy(x=>x.Commerce).ToListAsync();
         public async Task<IEnumerable<Events>> GetAllMyEventsAsync(int userID)
          => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString())
-                                    .Where(x => x.WhoCreatedId == userID).ToListAsync();
+                                    .Where(x => x.WhoCreatedId == userID)
+                                    .OrderBy(x=>x.Commerce).ToListAsync();
 
         public async Task<IEnumerable<Events>> GetFromTextAsync(string textInput)
          => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString())
-                                        .Where(x => x.Name.Contains(textInput)).ToListAsync();
+                                        .Where(x => x.Name.Contains(textInput))
+                                        .OrderBy(x=>x.Commerce).ToListAsync();
         public async Task<IEnumerable<Events>> GetFromTextAndDisciplineAsync(string textInput, int disciplineID)
          => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.NIKT.ToString())
                                         .Where(x => x.Name.Contains(textInput))
-                                        .Where(x => x.DisciplineId == disciplineID).ToListAsync();
+                                        .Where(x => x.DisciplineId == disciplineID)
+                                        .OrderBy(x=>x.Commerce).ToListAsync();
 
 
         public async Task<IEnumerable<Events>> GetFromTextAndDisciplineAndDistanceAsync(string textInput, int disciplineID, double distance)
