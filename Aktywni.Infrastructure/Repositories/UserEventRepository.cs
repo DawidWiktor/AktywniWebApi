@@ -9,7 +9,7 @@ namespace Aktywni.Infrastructure.Repositories
 {
     public class UserEventRepository : IUserEventRepository
     {
-         private readonly AktywniDBContext _dbContext;
+        private readonly AktywniDBContext _dbContext;
         public UserEventRepository(AktywniDBContext dBContext)
         {
             _dbContext = dBContext;
@@ -21,6 +21,13 @@ namespace Aktywni.Infrastructure.Repositories
         public async Task<IEnumerable<UsersEvents>> GetUsersInEvent(string eventName)
             => await _dbContext.UsersEvents.Where(x => x.Event.Name == eventName).ToListAsync();
         
+        public async Task<UsersEvents> GetUserInEvent(int eventId, int userId)
+            => await _dbContext.UsersEvents.Where(x=>x.EventId == eventId)
+                                        .Where(x=>x.UserId == userId).FirstOrDefaultAsync();
+        public async Task<bool> CheckUserInEvent(int eventId, int userId)
+            => await _dbContext.UsersEvents.Where(x => x.EventId == eventId)
+                                        .Where(x => x.UserId == userId).AnyAsync();
+
         public async Task AddAsync(UsersEvents userEvent)
         {
             _dbContext.UsersEvents.Add(userEvent);

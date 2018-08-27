@@ -11,5 +11,15 @@ namespace Aktywni.Core.Model
 
         public Events Event { get; set; }
         public Users User { get; set; }
+
+        public UsersEvents()
+        {
+        }
+
+        public UsersEvents(int eventId, int userId)
+        {
+            EventId = eventId;
+            UserId = userId;
+        }
     }
 }
