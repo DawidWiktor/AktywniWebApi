@@ -7,9 +7,9 @@ namespace Aktywni.Core.Model
     {
         public enum TypeOfVisible
         {
-            WSZYSCY,
-            BIZNES,
-            NIKT
+            W,
+            N,
+            U
         }
 
         public int EventId { get; set; }

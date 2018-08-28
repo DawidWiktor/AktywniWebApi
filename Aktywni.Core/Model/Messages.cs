@@ -15,5 +15,26 @@ namespace Aktywni.Core.Model
         public string Content { get; set; }
 
         public ICollection<MessageUser> MessageUser { get; set; }
+
+        public Messages(string content, DateTime date)
+        {
+            SetContent(content);
+            SetDate(date);
+        }
+
+        public bool SetContent(string content)
+        {
+            if(string.IsNullOrWhiteSpace(content))
+                return false;
+            
+            Content = content;
+            return true;
+        }
+
+        public bool SetDate(DateTime date)
+        {
+            Date = date;
+            return true;
+        }
     }
 }

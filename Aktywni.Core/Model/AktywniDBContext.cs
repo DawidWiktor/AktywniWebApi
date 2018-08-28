@@ -107,6 +107,25 @@ namespace Aktywni.Core.Model
                     .HasConstraintName("FK_Friends_Users1");
             });
 
+            modelBuilder.Entity<Friends>(entity =>
+            {
+                entity.HasKey(e => e.FriendId);
+
+                entity.Property(e => e.FriendId).HasColumnName("FriendID");
+
+                entity.HasOne(d => d.FriendFromNavigation)
+                    .WithMany(p => p.FriendsFriendFromNavigation)
+                    .HasForeignKey(d => d.FriendFrom)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Friends_Users");
+
+                entity.HasOne(d => d.FriendToNavigation)
+                    .WithMany(p => p.FriendsFriendToNavigation)
+                    .HasForeignKey(d => d.FriendTo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Friends_Users1");
+            });
+
             modelBuilder.Entity<Messages>(entity =>
             {
                 entity.HasKey(e => e.MessageId);
@@ -124,6 +143,8 @@ namespace Aktywni.Core.Model
 
                 entity.Property(e => e.MessageId).HasColumnName("MessageID");
 
+                entity.Property(e => e.UserFromId).HasColumnName("UserFromID");
+
                 entity.Property(e => e.UserId).HasColumnName("UserID");
 
                 entity.HasOne(d => d.Message)
@@ -131,6 +152,11 @@ namespace Aktywni.Core.Model
                     .HasForeignKey(d => d.MessageId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MessageUser_Messages");
+
+                entity.HasOne(d => d.UserFrom)
+                    .WithMany(p => p.MessageUserUserFrom)
+                    .HasForeignKey(d => d.UserFromId)
+                    .HasConstraintName("FK_MessageUser_UsersFrom");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.MessageUser)
