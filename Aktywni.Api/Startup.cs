@@ -42,12 +42,14 @@ namespace Aktywni.Api
             services.AddScoped<IObjectService, ObjectService>();
             services.AddScoped<IEventService, EventService>();
             services.AddScoped<IUserEventService, UserEventService>();
+            services.AddScoped<IMessageUserService, MessageUserService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IFriendRepository, FriendRepository>();
             services.AddScoped<IObjectRepository, ObjectRepository>();
             services.AddScoped<IDisciplineRepository, DisciplineRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IUserEventRepository, UserEventRepository>();
+            services.AddScoped<IMessageUserRepository, MessageUserRepository>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
             services.AddSingleton<IJwtHandler, JwtHandler>();

@@ -19,6 +19,7 @@ namespace Aktywni.Core.Model
         {
         }
 
+
         //public MessageUser(int userId, )
     }
 }

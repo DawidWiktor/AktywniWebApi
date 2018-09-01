@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Aktywni.Core.Repositories;
 using Aktywni.Core.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 
 namespace Aktywni.Infrastructure.Repositories
 {
@@ -17,11 +18,10 @@ namespace Aktywni.Infrastructure.Repositories
         }
 
         public async Task<Users> GetAsync(int Id)
-          => await _dbContext.Users.SingleOrDefaultAsync(x => x.UserId == Id);
-
+         => await _dbContext.Users.SingleOrDefaultAsync(x => x.UserId == Id);
+ 
         public async Task<Users> GetAsync(string login)
            => await _dbContext.Users.SingleOrDefaultAsync(x => x.Login == login);
-
         public async Task<IEnumerable<Users>> GetAllAsync()
             => await _dbContext.Users.ToListAsync();
 

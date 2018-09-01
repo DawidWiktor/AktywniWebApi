@@ -44,6 +44,8 @@ namespace Aktywni.Infrastructure.Services
 
         public async Task<ReturnResponse> LoginAsync(string login, string password)
         {
+
+            Console.WriteLine(DateTime.Now);
             var user = await _userRepository.GetAsync(login);
             if (user == null || !(bool)user.IsActive || !Crypto.VerifyHashedPassword(user.Password, password))
             {
