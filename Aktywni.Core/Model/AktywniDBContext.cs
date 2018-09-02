@@ -51,6 +51,7 @@ namespace Aktywni.Core.Model
                 entity.HasKey(e => e.EventId);
 
                 entity.Property(e => e.EventId).HasColumnName("EventID");
+                entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
 

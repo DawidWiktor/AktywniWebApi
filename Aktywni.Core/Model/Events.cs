@@ -23,6 +23,7 @@ namespace Aktywni.Core.Model
         public string GeographicalCoordinates { get; protected set; }
         public bool? Commerce { get; set; }
         public string Name { get; protected set; }
+          public DateTime? CreatedDate { get; set; }
 
         public Users AdminNavigation { get; set; }
         public Disciplines Discipline { get; set; }
@@ -42,6 +43,7 @@ namespace Aktywni.Core.Model
             Admin = admin;
             Name = name;
             Description = description;
+            CreatedDate = DateTime.Now;
         }
 
         public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates)
@@ -53,6 +55,7 @@ namespace Aktywni.Core.Model
             Name = name;
             DisciplineId = disciplineId;
             GeographicalCoordinates = geographicalCoordinates;
+            CreatedDate = DateTime.Now;
         }
         
         public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates, string description)
@@ -65,6 +68,7 @@ namespace Aktywni.Core.Model
             Admin = admin;
             Name = name;
             GeographicalCoordinates = geographicalCoordinates;
+            CreatedDate = DateTime.Now;
         }
 
 
