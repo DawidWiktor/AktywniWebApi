@@ -48,22 +48,18 @@ namespace Aktywni.Api.Controllers
 
 
         [HttpPut("changePassword")]
-        [Authorize]
         public async Task<IActionResult> ChangePassword([FromBody]ChangePassword command)
             => Json(await _userService.ChangePasswordAsync(UserId, command.CurrentPassword, command.NewPassword));
 
         [HttpPut("changePersonalData")]
-        [Authorize]
         public async Task<IActionResult> ChangePersonalData([FromBody]ChangePersonalData command)
             => Json(await _userService.ChangePersonalDataAsync(UserId, command.Name, command.Surname, command.City));
 
         [HttpPut("changeDescription")]
-        [Authorize]
         public async Task<IActionResult> ChangeDescription([FromBody]ChangeDescription command)
             => Json(await _userService.ChangeDescriptionAsync(UserId, command.Description));
 
         [HttpDelete("delete")]
-        [Authorize]
         public async Task<IActionResult> DeleteAccount()
             => Json(await _userService.RemoveAccountAsync(UserId));
 
