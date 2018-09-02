@@ -19,7 +19,7 @@ namespace Aktywni.Infrastructure.Repositories
             _userRepository = userRepository;
         }
 
-        public async Task<List<Tuple<int, string>>> GetAllHeaderMessageUsers(int myId)
+        public async Task<List<Tuple<int, string>>> GetAllHeaderMessageUsers(int myId) // id uzytkownika i login
         {
             IEnumerable<MessageUser> messagesToUser = _dbContext.MessageUser.Where(x => x.UserFromId == myId) // wybranie listy osób, do których pisaliśmy (bez duplikatów)
                                     .GroupBy(p => p.UserId, (a, b) => b.OrderByDescending(e => e.MessageUserId)).Select(s => s.FirstOrDefault());
@@ -38,12 +38,32 @@ namespace Aktywni.Infrastructure.Repositories
             //                                     .Select(z => new Tuple<int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.Message.Date, z.Message.Content)).Distinct(z =>z.).ToListAsync();
         }
 
-        public async Task<List<Tuple<int, int, DateTime, string>>> GetLatestMessageInFriend(int myId, int friendId)
+        public async Task<List<Tuple<int, int, int, DateTime, string>>> GetLatestMessageInFriend(int myId, int friendId) // id uzytkownika, który wysłał; id użytkownika odbierającego, id wiadomości, data wiadomości, treść wiadomości
             => await _dbContext.MessageUser
                 .Where(x => ((x.UserFromId == myId && x.UserId == friendId) || (x.UserId == myId && x.UserFromId == friendId)))
                 .OrderByDescending(x=>x.Message.Date)
-                .Select(z => new Tuple<int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.Message.Date, z.Message.Content))
+                .Take(10)
+                .Select(z => new Tuple<int, int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.MessageId, z.Message.Date, z.Message.Content))
                 .ToListAsync();
+
+        public async Task<List<Tuple<int, int, int, DateTime, string>>> GetUnreadMessagesInFriend(int myId, int friendId)
+            => await _dbContext.MessageUser
+                .Where(x => ((x.UserFromId == myId && x.UserId == friendId) || (x.UserId == myId && x.UserFromId == friendId)))
+                .Where(x=> x.IsOpened == false)
+                .OrderByDescending(x=>x.Message.Date)
+                .Select(z => new Tuple<int, int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.MessageId, z.Message.Date, z.Message.Content))
+                .ToListAsync(); 
+
+        public async Task<List<Tuple<int, int, int, DateTime, string>>> GetHistoryMessagesInFriend(int myId, int friendId, int latestMessageId)
+            => await _dbContext.MessageUser
+                .Where(x => ((x.UserFromId == myId && x.UserId == friendId) || (x.UserId == myId && x.UserFromId == friendId)))
+                .Where(x => x.MessageId < latestMessageId)
+                .OrderByDescending(x=>x.Message.Date)
+                .Take(10)
+                .Select(z => new Tuple<int, int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.MessageId, z.Message.Date, z.Message.Content))
+                .ToListAsync(); 
+
+
         public async Task<bool> SendMessageAsync(int userFromId, int userId, DateTime date, string content)
         {
             try
@@ -57,10 +77,7 @@ namespace Aktywni.Infrastructure.Repositories
             }
         }
 
-        public async Task<List<Tuple<int, int, DateTime, string>>> GetHistoryMessageInFriend(int myId, int friendId)
-            => await _dbContext.MessageUser.Where(x => ((x.UserFromId == myId && x.UserId == friendId) || (x.UserId == myId && x.UserFromId == friendId)))
-                                        .Select(z => new Tuple<int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.Message.Date, z.Message.Content)).ToListAsync();
-
+    
 
         #region [ PRIVATE METHOD ]
 

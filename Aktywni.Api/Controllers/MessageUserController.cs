@@ -18,11 +18,22 @@ namespace Aktywni.Api.Controllers
 
         [HttpGet("headers")]
         public async Task<IActionResult> GetAllHeadersMessages()
-            => Json(await _messageUserService.GetAllHeaderMessageUsers(UserId));
+            => Json(await _messageUserService.GetAllHeaderMessagesUsers(UserId));
 
         [HttpPut("latest")]
         public async Task<IActionResult> GetLatestMessageInFriend([FromBody]GetMessagesInFriend command)
-            => Json(await _messageUserService.GetLatestMessageInFriend(UserId, command.FriendId));
+            => Json(await _messageUserService.GetLatestMessagesInFriend(UserId, command.FriendId));
+
+        [HttpPut("unread")]
+        public async Task<IActionResult> GetUnreadMessagesInFriend([FromBody]GetMessagesInFriend command)
+            => Json(await _messageUserService.GetLatestMessagesInFriend(UserId, command.FriendId));
+        
+        
+         [HttpPut("history")]
+        public async Task<IActionResult> GetHistoryMessagesInFriend([FromBody]GetHistoryMessagesInFriend command)
+            => Json(await _messageUserService.GetHistoryMessagesInFriend(UserId, command.FriendId, command.LatestMessageId));
+        
+        
 
         [HttpPost("send")]
         public async Task<IActionResult> SendMessageToUser([FromBody]SendMessageUser command)
