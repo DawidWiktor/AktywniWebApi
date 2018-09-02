@@ -22,11 +22,16 @@ namespace Aktywni.Infrastructure.Repositories
  
         public async Task<Users> GetAsync(string login)
            => await _dbContext.Users.SingleOrDefaultAsync(x => x.Login == login);
-        public async Task<IEnumerable<Users>> GetAllAsync()
-            => await _dbContext.Users.ToListAsync();
+        public async Task<IEnumerable<Users>> GetAllAsync(int myId)
+            => await _dbContext.Users.Where(x=>x.IsActive == true)
+                                     .Where(x=>x.UserId != myId)
+                                     .ToListAsync();
 
-        public async Task<IEnumerable<Users>> GetAllAsync(string fragmentLogin)
-            => await _dbContext.Users.Where(x => x.Login.Contains(fragmentLogin)).ToListAsync();
+        public async Task<IEnumerable<Users>> GetAllAsync(int myId, string fragmentLogin)
+            => await _dbContext.Users.Where(x => x.Login.Contains(fragmentLogin))
+                                      .Where(x=>x.IsActive == true)
+                                      .Where(x=>x.UserId != myId)
+                                     .ToListAsync();
 
         public async Task AddAsync(Users user)
         {

@@ -1,4 +1,5 @@
 using Aktywni.Core.Model;
+using Aktywni.Infrastructure.Commands.User;
 using Aktywni.Infrastructure.DTO;
 using Aktywni.Infrastructure.DTO.MessageUser;
 using AutoMapper;
@@ -17,6 +18,7 @@ namespace Aktywni.Infrastructure.Mappers
              cfg.CreateMap<Events, EventDTO>();
              cfg.CreateMap<UsersEvents, UserEventDTO>();
              cfg.CreateMap<MessageUser, MessageUserDTO>();
+             cfg.CreateMap<Users, ListUserDTO>();
          }).CreateMapper();
     }
 }

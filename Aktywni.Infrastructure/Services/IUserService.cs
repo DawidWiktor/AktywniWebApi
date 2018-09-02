@@ -16,6 +16,8 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> ChangePersonalDataAsync(int userID, string name, string surname, string city);
         Task<ReturnResponse> ChangeDescriptionAsync(int userID, string description);
         Task<ReturnResponse> RemoveAccountAsync(int userID);
+        Task<ReturnResponse> GetAllUsers(int myId);
+        Task<ReturnResponse> GetAllUsers(int myId, string fragmentLogin);
 
     }
 }

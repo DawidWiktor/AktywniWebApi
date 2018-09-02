@@ -9,6 +9,7 @@ using AutoMapper;
 using CryptoHelper;
 using System.Collections.Generic;
 using Aktywni.Infrastructure.Commands;
+using Aktywni.Infrastructure.Commands.User;
 
 namespace Aktywni.Infrastructure.Services
 {
@@ -74,9 +75,9 @@ namespace Aktywni.Infrastructure.Services
 
             return new ReturnResponse { Response = true.ToString(), Info = "Pomyślnie wylogowano." }; // TODO : usuń token
         }
-        public async Task<IEnumerable<AccountDTO>> BrowseAsync(int userID)
+        public async Task<IEnumerable<AccountDTO>> BrowseAsync(int myId)
         {
-            var users = await _userRepository.GetAllAsync();
+            var users = await _userRepository.GetAllAsync(myId);
             return _mapper.Map<IEnumerable<Users>, IEnumerable<AccountDTO>>(users);
         }
         public async Task<ReturnResponse> ChangeEmailAsync(int userID, string email)
@@ -116,7 +117,7 @@ namespace Aktywni.Infrastructure.Services
             var user = await _userRepository.GetAsync(userID);
             if (user == null)
             {
-                 return new ReturnResponse { Response = false.ToString(), Error = "Błędny login." };
+                return new ReturnResponse { Response = false.ToString(), Error = "Błędny login." };
             }
             user.SetName(name);
             user.SetSurname(surname);
@@ -147,6 +148,20 @@ namespace Aktywni.Infrastructure.Services
             user.DisactiveUser();
             await _userRepository.UpdateAsync(user);
             return new ReturnResponse { Response = true.ToString(), Error = "Opis został zmieniony." };
+        }
+
+        public async Task<ReturnResponse> GetAllUsers(int myId)
+        {
+            var users = await _userRepository.GetAllAsync(myId);
+            List<ListUserDTO> listUsers = _mapper.Map<IEnumerable<Users>, List<ListUserDTO>>(users);
+            return new ReturnResponse { Response = (listUsers.Count == 0) ? false.ToString() : true.ToString(), Info = listUsers };
+        }
+
+        public async Task<ReturnResponse> GetAllUsers(int myId, string fragmentLogin)
+        {
+            var users = await _userRepository.GetAllAsync(myId, fragmentLogin);
+            List<ListUserDTO> listUsers = _mapper.Map<IEnumerable<Users>, List<ListUserDTO>>(users);
+            return new ReturnResponse { Response = (listUsers.Count == 0) ? false.ToString() : true.ToString(), Info = listUsers };
         }
     }
 }

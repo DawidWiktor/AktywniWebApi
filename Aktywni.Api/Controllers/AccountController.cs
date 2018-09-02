@@ -31,6 +31,7 @@ namespace Aktywni.Api.Controllers
             => Json(await _userService.RegisterAsync(command.Login, command.Email, command.Password));
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody]Login command)
         {
             Console.WriteLine("Login: " + command.UserLogin + " hasło: " + command.Password);
@@ -38,12 +39,10 @@ namespace Aktywni.Api.Controllers
         }
 
         [HttpGet("logout")]
-        [Authorize]
         public async Task<IActionResult> Logout()
             => Json(await _userService.LogoutAsync(UserId));
 
         [HttpPut("changeEmail")]
-        [Authorize]
         public async Task<IActionResult> ChangeEmail([FromBody]ChangeEmail command)
             => Json(await _userService.ChangeEmailAsync(UserId, command.Email));
 

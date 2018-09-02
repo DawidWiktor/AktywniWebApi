@@ -1,5 +1,13 @@
+using System;
+using System.Data.SqlClient;
+using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
+using Aktywni.Infrastructure.Commands;
+using Aktywni.Infrastructure.Commands.User;
 using Aktywni.Infrastructure.Services;
-using AutoMapper.Configuration;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Aktywni.Api.Controllers
 {
@@ -13,6 +21,17 @@ namespace Aktywni.Api.Controllers
             _configuration = configuration;
         }
 
+         [HttpGet]
+        public async Task<IActionResult> GetAction()
+            => Json(await _userService.GetAccountAsync(UserId));
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllUsers()
+            => Json(await _userService.GetAllUsers(UserId));
+       
+       [HttpPost("all")]
+        public async Task<IActionResult> GetAllUsers([FromBody]GetListUsers command)
+            => Json(await _userService.GetAllUsers(UserId, command.FragmentLogin));
         // TODO:
         // Wyszukaj uzytkwonika o danym loginie, oceń użytkownika, przejrzyj profil
     }

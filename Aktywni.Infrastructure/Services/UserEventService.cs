@@ -11,10 +11,12 @@ namespace Aktywni.Infrastructure.Services
     public class UserEventService : IUserEventService
     {
         private readonly IUserEventRepository _userEventRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public UserEventService(IUserEventRepository userEventRepository, IMapper mapper)
+        public UserEventService(IUserEventRepository userEventRepository, IUserRepository userRepository, IMapper mapper)
         {
             _userEventRepository = userEventRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
 
@@ -22,6 +24,11 @@ namespace Aktywni.Infrastructure.Services
         {
             var userEvent = await _userEventRepository.GetUsersInEvent(eventID);
             List<UserEventDTO> userEventDto = _mapper.Map<IEnumerable<UsersEvents>, List<UserEventDTO>>(userEvent);
+            foreach(var item in userEventDto)
+                {
+                    Users user = await _userRepository.GetAsync(item.UserId);
+                    item.Login = user.Login;
+                }
             return new ReturnResponse { Response = (userEventDto.Count == 0) ? false.ToString() : true.ToString(), Info = userEventDto };
         }
 

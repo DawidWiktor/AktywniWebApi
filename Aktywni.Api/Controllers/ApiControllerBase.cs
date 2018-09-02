@@ -1,8 +1,10 @@
 using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aktywni.Api.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     public class ApiControllerBase : Controller
     {
