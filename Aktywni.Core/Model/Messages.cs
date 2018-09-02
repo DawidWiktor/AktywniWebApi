@@ -7,6 +7,7 @@ namespace Aktywni.Core.Model
     {
         public Messages()
         {
+            MessageEvent = new HashSet<MessageEvent>();
             MessageUser = new HashSet<MessageUser>();
         }
 
@@ -15,6 +16,7 @@ namespace Aktywni.Core.Model
         public string Content { get; set; }
 
         public ICollection<MessageUser> MessageUser { get; set; }
+        public ICollection<MessageEvent> MessageEvent { get; set; }
 
         public Messages(string content, DateTime date)
         {
@@ -24,9 +26,9 @@ namespace Aktywni.Core.Model
 
         public bool SetContent(string content)
         {
-            if(string.IsNullOrWhiteSpace(content))
+            if (string.IsNullOrWhiteSpace(content))
                 return false;
-            
+
             Content = content;
             return true;
         }

@@ -23,19 +23,22 @@ namespace Aktywni.Core.Model
         public string GeographicalCoordinates { get; protected set; }
         public bool? Commerce { get; set; }
         public string Name { get; protected set; }
-          public DateTime? CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
         public Users AdminNavigation { get; set; }
         public Disciplines Discipline { get; set; }
         public Objects Object { get; set; }
         public Users WhoCreated { get; set; }
         public ICollection<UsersEvents> UsersEvents { get; set; }
+        public ICollection<MessageEvent> MessageEvent { get; set; }
 
         public Events()
         {
+            MessageEvent = new HashSet<MessageEvent>();
+            UsersEvents = new HashSet<UsersEvents>();
         }
 
-        public Events(string name, int objectId,  DateTime date, int whoCreatedID, int admin, string description)
+        public Events(string name, int objectId, DateTime date, int whoCreatedID, int admin, string description)
         {
             ObjectId = objectId;
             WhoCreatedId = whoCreatedID;
@@ -44,6 +47,8 @@ namespace Aktywni.Core.Model
             Name = name;
             Description = description;
             CreatedDate = DateTime.Now;
+            MessageEvent = new HashSet<MessageEvent>();
+            UsersEvents = new HashSet<UsersEvents>();
         }
 
         public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates)
@@ -56,8 +61,10 @@ namespace Aktywni.Core.Model
             DisciplineId = disciplineId;
             GeographicalCoordinates = geographicalCoordinates;
             CreatedDate = DateTime.Now;
+            MessageEvent = new HashSet<MessageEvent>();
+            UsersEvents = new HashSet<UsersEvents>();
         }
-        
+
         public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates, string description)
         {
             ObjectId = objectID;
@@ -69,6 +76,8 @@ namespace Aktywni.Core.Model
             Name = name;
             GeographicalCoordinates = geographicalCoordinates;
             CreatedDate = DateTime.Now;
+            MessageEvent = new HashSet<MessageEvent>();
+            UsersEvents = new HashSet<UsersEvents>();
         }
 
 
@@ -103,7 +112,7 @@ namespace Aktywni.Core.Model
         {
             if (string.IsNullOrWhiteSpace(visibility))
                 return false;
-            
+
             Visibility = visibility;
             return true;
         }

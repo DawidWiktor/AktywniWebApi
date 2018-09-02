@@ -16,7 +16,7 @@ namespace Aktywni.Core.Model
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UsersEvents> UsersEvents { get; set; }
 
-     public AktywniDBContext(DbContextOptions<AktywniDBContext> options) : base(options)
+        public AktywniDBContext(DbContextOptions<AktywniDBContext> options) : base(options)
         {
 
         }
@@ -24,7 +24,7 @@ namespace Aktywni.Core.Model
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer(@"Server=LAPTOP-0DV9EH2D\SQLEXPRESS;Database=AktywniDB;Trusted_Connection=True;");
             }
         }
@@ -127,6 +127,41 @@ namespace Aktywni.Core.Model
                     .HasConstraintName("FK_Friends_Users1");
             });
 
+            
+            modelBuilder.Entity<MessageEvent>(entity =>
+            {
+                entity.Property(e => e.MessageEventId).HasColumnName("MessageEventID");
+
+                entity.Property(e => e.EventId).HasColumnName("EventID");
+
+                entity.Property(e => e.MessageId).HasColumnName("MessageID");
+
+                entity.Property(e => e.UserFromId).HasColumnName("UserFromID");
+
+                entity.HasOne(d => d.Event)
+                    .WithMany(p => p.MessageEvent)
+                    .HasForeignKey(d => d.EventId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MessageEvent_Event");
+
+                entity.HasOne(d => d.Message)
+                    .WithMany(p => p.MessageEvent)
+                    .HasForeignKey(d => d.MessageId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MessageEvent_Message");
+
+                entity.HasOne(d => d.UserFrom)
+                    .WithMany(p => p.MessageEventUserFrom)
+                    .HasForeignKey(d => d.UserFromId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MessageEvent_Users");
+
+                entity.HasOne(d => d.UserTo)
+                    .WithMany(p => p.MessageEventUserTo)
+                    .HasForeignKey(d => d.UserToId)
+                    .HasConstraintName("FK_MessageEvent_UserTo");
+            });
+
             modelBuilder.Entity<Messages>(entity =>
             {
                 entity.HasKey(e => e.MessageId);
@@ -160,7 +195,7 @@ namespace Aktywni.Core.Model
                     .HasConstraintName("FK_MessageUser_UsersFrom");
 
                 entity.HasOne(d => d.User)
-                    .WithMany(p => p.MessageUser)
+                    .WithMany(p => p.MessageUserUser)
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MessageUser_Users");
@@ -229,37 +264,37 @@ namespace Aktywni.Core.Model
             });
 
             modelBuilder.Entity<Users>(entity =>
-            {
-                entity.HasKey(e => e.UserId);
+{
+    entity.HasKey(e => e.UserId);
 
-                entity.Property(e => e.UserId).HasColumnName("UserID");
+    entity.Property(e => e.UserId).HasColumnName("UserID");
 
-                entity.Property(e => e.City).HasMaxLength(50);
+    entity.Property(e => e.City).HasMaxLength(50);
 
-                entity.Property(e => e.DateLastActive).HasColumnType("datetime");
+    entity.Property(e => e.DateLastActive).HasColumnType("datetime");
 
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(100);
+    entity.Property(e => e.Email)
+        .IsRequired()
+        .HasMaxLength(100);
 
-                entity.Property(e => e.Login)
-                    .IsRequired()
-                    .HasMaxLength(50);
+    entity.Property(e => e.Login)
+        .IsRequired()
+        .HasMaxLength(50);
 
-                entity.Property(e => e.Name).HasMaxLength(50);
+    entity.Property(e => e.Name).HasMaxLength(50);
 
-                entity.Property(e => e.NumOfRating).HasDefaultValueSql("((0))");
+    entity.Property(e => e.NumOfRating).HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Password)
-                    .IsRequired()
-                    .HasMaxLength(100);
+    entity.Property(e => e.Password)
+        .IsRequired()
+        .HasMaxLength(100);
 
-                entity.Property(e => e.Rating).HasDefaultValueSql("((0))");
+    entity.Property(e => e.Rating).HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Role).HasMaxLength(50);
+    entity.Property(e => e.Role).HasMaxLength(50);
 
-                entity.Property(e => e.Surname).HasMaxLength(50);
-            });
+    entity.Property(e => e.Surname).HasMaxLength(50);
+});
 
             modelBuilder.Entity<UsersEvents>(entity =>
             {
@@ -283,6 +318,8 @@ namespace Aktywni.Core.Model
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UsersEvents_Users");
             });
+
+
         }
     }
 }
