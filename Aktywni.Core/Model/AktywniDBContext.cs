@@ -15,6 +15,7 @@ namespace Aktywni.Core.Model
         public virtual DbSet<Objects> Objects { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UsersEvents> UsersEvents { get; set; }
+        public virtual DbSet<MessageEvent> MessageEvent { get; set; }
 
         public AktywniDBContext(DbContextOptions<AktywniDBContext> options) : base(options)
         {
@@ -127,7 +128,7 @@ namespace Aktywni.Core.Model
                     .HasConstraintName("FK_Friends_Users1");
             });
 
-            
+
             modelBuilder.Entity<MessageEvent>(entity =>
             {
                 entity.Property(e => e.MessageEventId).HasColumnName("MessageEventID");

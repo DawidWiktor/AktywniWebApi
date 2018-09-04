@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,10 +25,14 @@ namespace Aktywni.Infrastructure.Repositories
         public async Task<UsersEvents> GetUserInEvent(int eventId, int userId)
             => await _dbContext.UsersEvents.Where(x=>x.EventId == eventId)
                                         .Where(x=>x.UserId == userId).FirstOrDefaultAsync();
-        public async Task<bool> CheckUserInEvent(int eventId, int userId)
-            => await _dbContext.UsersEvents.Where(x => x.EventId == eventId)
+        public async Task<bool> CheckUserInEvent(int eventId, int userId) // sprawdzenie czy użytkownik należy do wydarzenia
+             => await _dbContext.UsersEvents.Where(x => x.EventId == eventId)
                                         .Where(x => x.UserId == userId).AnyAsync();
 
+        public async Task<IEnumerable<Tuple<int, string, DateTime>>> GetEventsInUser(int myId)
+            => await _dbContext.UsersEvents.Where(x=>x.UserId == myId)
+                                    .Select(z=> new Tuple<int, string, DateTime>(z.EventId, z.Event.Name, (DateTime)z.Event.Date))
+                                    .ToListAsync();
         public async Task AddAsync(UsersEvents userEvent)
         {
             _dbContext.UsersEvents.Add(userEvent);

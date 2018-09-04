@@ -1,8 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Aktywni.Infrastructure.Commands;
 using Aktywni.Infrastructure.Commands.MessageUser;
+using Aktywni.Infrastructure.Commands.Object;
+using Aktywni.Infrastructure.Commands.User;
+using Aktywni.Infrastructure.DTO;
 using Aktywni.Infrastructure.Services;
-using AutoMapper.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace Aktywni.Api.Controllers
 {
@@ -26,7 +34,7 @@ namespace Aktywni.Api.Controllers
 
         [HttpPut("unread")]
         public async Task<IActionResult> GetUnreadMessagesInFriend([FromBody]GetMessagesInFriend command)
-            => Json(await _messageUserService.GetLatestMessagesInFriend(UserId, command.FriendId));
+            => Json(await _messageUserService.GetUnreadMessagesInFriend(UserId, command.FriendId));
         
         
          [HttpPut("history")]

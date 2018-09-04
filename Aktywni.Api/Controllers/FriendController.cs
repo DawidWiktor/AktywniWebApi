@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace Aktywni.Api.Controllers
 {
-    [Authorize]
     public class FriendController : ApiControllerBase
     {
         private IFriendService _friendService;
