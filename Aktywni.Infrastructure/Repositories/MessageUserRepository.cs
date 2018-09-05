@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Aktywni.Core.Model;
@@ -39,30 +42,13 @@ namespace Aktywni.Infrastructure.Repositories
         }
 
         public async Task<List<Tuple<int, int, int, DateTime, string>>> GetLatestMessageInFriend(int myId, int friendId) // id uzytkownika, który wysłał; id użytkownika odbierającego, id wiadomości, data wiadomości, treść wiadomości
-            => await _dbContext.MessageUser
-                .Where(x => ((x.UserFromId == myId && x.UserId == friendId) || (x.UserId == myId && x.UserFromId == friendId)))
-                .OrderByDescending(x=>x.Message.Date)
-                .Take(10)
-                .Select(z => new Tuple<int, int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.MessageId, z.Message.Date, z.Message.Content))
-                .ToListAsync();
+            => await GetFromDataBase("dbo.GetLatestMessageInFriend", myId, friendId);
 
         public async Task<List<Tuple<int, int, int, DateTime, string>>> GetUnreadMessagesInFriend(int myId, int friendId)
-            => await _dbContext.MessageUser
-                .Where(x => ((x.UserFromId == myId && x.UserId == friendId) || (x.UserId == myId && x.UserFromId == friendId)))
-                .Where(x=> x.IsOpened == false)
-                .OrderByDescending(x=>x.Message.Date)
-                .Select(z => new Tuple<int, int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.MessageId, z.Message.Date, z.Message.Content))
-                .ToListAsync(); 
+            => await GetFromDataBase("dbo.GetUnreadMessagesInFriend", myId, friendId);
 
         public async Task<List<Tuple<int, int, int, DateTime, string>>> GetHistoryMessagesInFriend(int myId, int friendId, int latestMessageId)
-            => await _dbContext.MessageUser
-                .Where(x => ((x.UserFromId == myId && x.UserId == friendId) || (x.UserId == myId && x.UserFromId == friendId)))
-                .Where(x => x.MessageId < latestMessageId)
-                .OrderByDescending(x=>x.Message.Date)
-                .Take(10)
-                .Select(z => new Tuple<int, int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.MessageId, z.Message.Date, z.Message.Content))
-                .ToListAsync(); 
-
+             => await GetFromDataBase("dbo.GetHistoryMessagesInFriend", myId, friendId, latestMessageId);
 
         public async Task<bool> SendMessageAsync(int userFromId, int userId, DateTime date, string content)
         {
@@ -77,9 +63,42 @@ namespace Aktywni.Infrastructure.Repositories
             }
         }
 
-    
+
 
         #region [ PRIVATE METHOD ]
+
+        private async Task<List<Tuple<int, int, int, DateTime, string>>> GetFromDataBase(string procedureName, int myId, int friendId, int latestMessageId = -2)
+        {
+            using (DbCommand command = _dbContext.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = procedureName;
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add(new SqlParameter("@myId", SqlDbType.Int) { Value = myId });
+                command.Parameters.Add(new SqlParameter("@friendId", SqlDbType.Int) { Value = friendId });
+                if (latestMessageId > 0)
+                    command.Parameters.Add(new SqlParameter("@latestMessageId", SqlDbType.Int) { Value = latestMessageId });
+
+                _dbContext.Database.OpenConnection();
+
+                if (command.Connection.State != ConnectionState.Open)
+                {
+                    command.Connection.Open();
+                }
+
+                List<Tuple<int, int, int, DateTime, string>> userMessage = new List<Tuple<int, int, int, DateTime, string>>();
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        userMessage.Add(new Tuple<int, int, int, DateTime, string>(Convert.ToInt32(reader[0].ToString()),
+                             Convert.ToInt32(reader[1].ToString()), Convert.ToInt32(reader[2].ToString()),
+                             Convert.ToDateTime(reader[3].ToString()), reader[4].ToString()));
+                    }
+                    return userMessage;
+                }
+            }
+        }
 
         private async Task<List<Tuple<int, string>>> AddUserHeaderToList(List<Tuple<int, string>> listUsersMessage, IEnumerable<MessageUser> listMessageFromDb)
         {

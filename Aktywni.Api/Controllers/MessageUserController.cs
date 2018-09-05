@@ -17,11 +17,11 @@ namespace Aktywni.Api.Controllers
     public class MessageUserController : ApiControllerBase
     {
         private IMessageUserService _messageUserService;
-        //    private readonly IConfiguration _configuration;
-        public MessageUserController(IMessageUserService messageUserService)
+            private readonly IConfiguration _configuration;
+        public MessageUserController(IMessageUserService messageUserService, IConfiguration configuration)
         {
             _messageUserService = messageUserService;
-            //   _configuration = configuration;
+            _configuration = configuration;
         }
 
         [HttpGet("headers")]
@@ -36,13 +36,10 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetUnreadMessagesInFriend([FromBody]GetMessagesInFriend command)
             => Json(await _messageUserService.GetUnreadMessagesInFriend(UserId, command.FriendId));
         
-        
          [HttpPut("history")]
         public async Task<IActionResult> GetHistoryMessagesInFriend([FromBody]GetHistoryMessagesInFriend command)
             => Json(await _messageUserService.GetHistoryMessagesInFriend(UserId, command.FriendId, command.LatestMessageId));
         
-        
-
         [HttpPost("send")]
         public async Task<IActionResult> SendMessageToUser([FromBody]SendMessageUser command)
             => Json(await _messageUserService.SendMessageAsync(UserId, command.UserToId, command.Content));
