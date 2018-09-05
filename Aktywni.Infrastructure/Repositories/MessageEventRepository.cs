@@ -1,10 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Aktywni.Core.Model;
 using Aktywni.Core.Repositories;
+using Aktywni.Infrastructure.DTO.MessageEventUser;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Aktywni.Infrastructure.Repositories
 {
@@ -24,29 +30,13 @@ namespace Aktywni.Infrastructure.Repositories
 
         // id wydarzenia, id wiadomości, nazwa wydarzenia nazwa użytkownika, data wiadomości, treść wiadomości
         public async Task<List<Tuple<int, int, string, string, DateTime, string>>> GetLatestMessagesInEvent(int myId, int eventId)
-            => await _dbContext.MessageEvent.Where(x => x.EventId == eventId)
-                                   .OrderByDescending(x => x.MessageEventId)
-                                   .Where(x => x.UserToId == myId)
-                                   .Take(10)
-                                   .Select(z => new Tuple<int, int, string, string, DateTime, string>((int)z.EventId, z.MessageId, z.Event.Name, z.UserFrom.Login, z.Message.Date, z.Message.Content))
-                                   .ToListAsync();
+            => await GetFromDataBase("dbo.SelectLastMessageEvent", myId, eventId);
 
         public async Task<List<Tuple<int, int, string, string, DateTime, string>>> GetUnreadMessagesInEvent(int myId, int eventId)
-            => await _dbContext.MessageEvent.Where(x => x.EventId == eventId)
-                                   .Where(x => x.UserToId == myId)
-                                   .Where(x => x.IsOpened == false)
-                                   .OrderByDescending(x => x.MessageEventId)
-                                   .Select(z => new Tuple<int, int, string, string, DateTime, string>((int)z.EventId, z.MessageId, z.Event.Name, z.UserFrom.Login, z.Message.Date, z.Message.Content))
-                                   .ToListAsync();
+            => await GetFromDataBase("dbo.SelectUnreadMessageEvent", myId, eventId);
 
         public async Task<List<Tuple<int, int, string, string, DateTime, string>>> GetHistoryMessagesInEvent(int myId, int eventId, int latestMessageId)
-            => await _dbContext.MessageEvent.Where(x => x.EventId == eventId)
-                                   .Where(x => x.UserToId == myId)
-                                   .Where(x => x.MessageId < latestMessageId)
-                                   .Take(10)
-                                   .OrderByDescending(x => x.MessageEventId)
-                                   .Select(z => new Tuple<int, int, string, string, DateTime, string>((int)z.EventId, z.MessageId, z.Event.Name, z.UserFrom.Login, z.Message.Date, z.Message.Content))
-                                   .ToListAsync();
+             => await GetFromDataBase("dbo.GetHistoryMessagesInEvent", myId, eventId, latestMessageId);
 
         public async Task<bool> SendMessageAsync(int userFrom, int userId, int eventId, DateTime date, string content)
         {
@@ -58,6 +48,39 @@ namespace Aktywni.Infrastructure.Repositories
             catch
             {
                 return false;
+            }
+        }
+
+        private async Task<List<Tuple<int, int, string, string, DateTime, string>>> GetFromDataBase(string procedureName, int myId, int eventId, int latestMessageId = -2)
+        {
+            using (DbCommand command = _dbContext.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = procedureName;
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add(new SqlParameter("@myId", SqlDbType.Int) { Value = myId });
+                command.Parameters.Add(new SqlParameter("@eventId", SqlDbType.Int) { Value = eventId });
+                if (latestMessageId > 0)
+                    command.Parameters.Add(new SqlParameter("@latestMessageId", SqlDbType.Int) { Value = latestMessageId });
+
+                _dbContext.Database.OpenConnection();
+
+                if (command.Connection.State != ConnectionState.Open)
+                {
+                    command.Connection.Open();
+                }
+
+                List<Tuple<int, int, string, string, DateTime, string>> eventMessage = new List<Tuple<int, int, string, string, DateTime, string>>();
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        eventMessage.Add(new Tuple<int, int, string, string, DateTime, string>(Convert.ToInt32(reader[0].ToString()),
+                             Convert.ToInt32(reader[1].ToString()), reader[2].ToString(), reader[3].ToString(),
+                             Convert.ToDateTime(reader[4].ToString()), reader[5].ToString()));
+                    }
+                    return eventMessage;
+                }
             }
         }
     }
