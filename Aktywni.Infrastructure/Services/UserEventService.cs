@@ -4,6 +4,7 @@ using Aktywni.Core.Model;
 using Aktywni.Core.Repositories;
 using Aktywni.Infrastructure.Commands;
 using Aktywni.Infrastructure.DTO;
+using Aktywni.Infrastructure.DTO.UserEvent;
 using AutoMapper;
 
 namespace Aktywni.Infrastructure.Services
@@ -24,12 +25,56 @@ namespace Aktywni.Infrastructure.Services
         {
             var userEvent = await _userEventRepository.GetUsersInEvent(eventID);
             List<UserEventDTO> userEventDto = _mapper.Map<IEnumerable<UsersEvents>, List<UserEventDTO>>(userEvent);
-            foreach(var item in userEventDto)
-                {
-                    Users user = await _userRepository.GetAsync(item.UserId);
-                    item.Login = user.Login;
-                }
+            foreach (var item in userEventDto)
+            {
+                Users user = await _userRepository.GetAsync(item.UserId);
+                item.Login = user.Login;
+            }
             return new ReturnResponse { Response = (userEventDto.Count == 0) ? false.ToString() : true.ToString(), Info = userEventDto };
+        }
+
+        public async Task<ReturnResponse> GetEventInUser(int myId)
+        {
+            var eventsUser = await _userEventRepository.GetEventsInUser(myId);
+            List<EventsInUserDTO> listEventsUser = new List<EventsInUserDTO>();
+            foreach (var item in eventsUser)
+            {
+               listEventsUser.Add(new EventsInUserDTO {EventId = item.Item1, EventName = item.Item2, Date = item.Item3, IsAccepted = item.Item4});
+            }
+            return new ReturnResponse { Response = (listEventsUser.Count == 0) ? false.ToString() : true.ToString(), Info = listEventsUser };
+        }
+
+        public async Task<ReturnResponse> JoinToEventAsync(int myId, int eventID) // akceptacja zaproszenia lub dolaczenie do wydarzenia
+        {
+            UsersEvents userEvent = await _userEventRepository.GetUserInEvent(eventID, myId);
+            if (userEvent != null && userEvent.IsAccepted == true)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Dołączyłeś już do wydarzenia." };
+            }
+            if (userEvent == null)
+            {
+                UsersEvents newUserEvent = new UsersEvents(eventID, myId, true);
+                await _userEventRepository.AddAsync(newUserEvent);
+            }
+            else
+            {
+                userEvent.IsAccepted = true;
+                await _userEventRepository.UpdateAsync(userEvent);
+            }
+
+            return new ReturnResponse { Response = true.ToString(), Info = "Dołączyłeś do wydarzenia." };
+        }
+
+        public async Task<ReturnResponse> ExceptFromEventAsync(int myId, int eventID) // odejscie, bądź usunięcie zaproszenia
+        {
+            UsersEvents userEvent = await _userEventRepository.GetUserInEvent(eventID, myId);
+            if (userEvent == null)
+            {
+                return new ReturnResponse { Response = false.ToString(), Error = "Nie jesteś uczestnikiem wydarzenia." };
+            }
+
+            await _userEventRepository.DeleteAsync(userEvent);
+            return new ReturnResponse { Response = true.ToString(), Info = "Usunięto użytkownika z wydarzenia." };
         }
 
         public async Task<ReturnResponse> AddUserInEvent(int eventID, int userID)
@@ -51,7 +96,7 @@ namespace Aktywni.Infrastructure.Services
             {
                 return new ReturnResponse { Response = false.ToString(), Error = "Taki użytkownik nie jest dodany do wydarzenia." };
             }
-            
+
             await _userEventRepository.DeleteAsync(userEvent);
             return new ReturnResponse { Response = true.ToString(), Info = "Usunięto użytkownika z wydarzenia." };
         }

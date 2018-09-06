@@ -18,7 +18,7 @@ namespace Aktywni.Infrastructure.Repositories
         }
 
         public async Task<Users> GetAsync(int Id)
-         => await _dbContext.Users.SingleOrDefaultAsync(x => x.UserId == Id);
+            => await _dbContext.Users.SingleOrDefaultAsync(x => x.UserId == Id);
  
         public async Task<Users> GetAsync(string login)
            => await _dbContext.Users.SingleOrDefaultAsync(x => x.Login == login);

@@ -2,6 +2,7 @@ using Aktywni.Core.Model;
 using Aktywni.Infrastructure.Commands.User;
 using Aktywni.Infrastructure.DTO;
 using Aktywni.Infrastructure.DTO.MessageUser;
+using Aktywni.Infrastructure.DTO.UserEvent;
 using AutoMapper;
 
 namespace Aktywni.Infrastructure.Mappers

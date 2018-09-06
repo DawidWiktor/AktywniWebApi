@@ -8,6 +8,7 @@ namespace Aktywni.Core.Model
         public int UserEventId { get; set; }
         public int EventId { get; set; }
         public int UserId { get; set; }
+        public bool? IsAccepted { get; set; }
 
         public Events Event { get; set; }
         public Users User { get; set; }
@@ -16,10 +17,11 @@ namespace Aktywni.Core.Model
         {
         }
 
-        public UsersEvents(int eventId, int userId)
+        public UsersEvents(int eventId, int userId, bool isAccepted = false)
         {
             EventId = eventId;
             UserId = userId;
+            IsAccepted = isAccepted;
         }
     }
 }

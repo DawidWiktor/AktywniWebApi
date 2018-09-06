@@ -25,7 +25,7 @@ namespace Aktywni.Infrastructure.Repositories
             _userEventRepository = userEventRepository;
         }
 
-        public async Task<IEnumerable<Tuple<int, string, DateTime>>> GetAllHeaderMessageEvent(int myId)
+        public async Task<IEnumerable<Tuple<int, string, DateTime, bool>>> GetAllHeaderMessageEvent(int myId)
             => await _userEventRepository.GetEventsInUser(myId);
 
         // id wydarzenia, id wiadomości, nazwa wydarzenia nazwa użytkownika, data wiadomości, treść wiadomości
