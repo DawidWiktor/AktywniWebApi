@@ -12,7 +12,6 @@ namespace Aktywni.Core.Repositories
          Task<IEnumerable<Disciplines>> GetFromTextAsync(string textInput); 
          Task AddAsync(Disciplines discipline);
          Task UpdateAsync(Disciplines discipline);
-         Task DeleteAsync(Disciplines discipline);
         
     }
 }

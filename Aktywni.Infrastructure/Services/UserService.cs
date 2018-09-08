@@ -154,14 +154,14 @@ namespace Aktywni.Infrastructure.Services
         {
             var users = await _userRepository.GetAllAsync(myId);
             List<ListUserDTO> listUsers = _mapper.Map<IEnumerable<Users>, List<ListUserDTO>>(users);
-            return new ReturnResponse { Response = (listUsers.Count == 0) ? false.ToString() : true.ToString(), Info = listUsers };
+            return new ReturnResponse { Response = true.ToString(), Info = listUsers };
         }
 
         public async Task<ReturnResponse> GetAllUsers(int myId, string fragmentLogin)
         {
             var users = await _userRepository.GetAllAsync(myId, fragmentLogin);
             List<ListUserDTO> listUsers = _mapper.Map<IEnumerable<Users>, List<ListUserDTO>>(users);
-            return new ReturnResponse { Response = (listUsers.Count == 0) ? false.ToString() : true.ToString(), Info = listUsers };
+            return new ReturnResponse { Response = true.ToString(), Info = listUsers };
         }
     }
 }

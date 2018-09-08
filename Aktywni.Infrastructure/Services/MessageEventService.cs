@@ -26,28 +26,28 @@ namespace Aktywni.Infrastructure.Services
             List<MessageEventListUserDTO> listMessages = new List<MessageEventListUserDTO>();
             foreach (var item in tupleMessages)
                 listMessages.Add(new MessageEventListUserDTO { EventId = item.Item1, EventName = item.Item2, Date = item.Item3 });
-            return new ReturnResponse { Response = (listMessages.Count == 0) ? false.ToString() : true.ToString(), Info = listMessages };
+            return new ReturnResponse { Response = true.ToString(), Info = listMessages };
         }
 
         public async Task<ReturnResponse> GetLatestMessagesInEvent(int myId, int eventId)
         {
             var latestMessagesEvent = await _messageEventRepository.GetLatestMessagesInEvent(myId, eventId);
             List<MessageEventUserDTO> listMessagesUser = FillListMessages(latestMessagesEvent);
-            return new ReturnResponse { Response = (listMessagesUser.Count == 0) ? false.ToString() : true.ToString(), Info = listMessagesUser };
+            return new ReturnResponse { Response = true.ToString(), Info = listMessagesUser };
         }
 
         public async Task<ReturnResponse> GetUnreadMessagesInEvent(int myId, int eventId)
         {
             var unreadMessagesEvent = await _messageEventRepository.GetUnreadMessagesInEvent(myId, eventId);
             List<MessageEventUserDTO> listMessagesUser = FillListMessages(unreadMessagesEvent);
-            return new ReturnResponse { Response = (listMessagesUser.Count == 0) ? false.ToString() : true.ToString(), Info = listMessagesUser };
+            return new ReturnResponse { Response =  true.ToString(), Info = listMessagesUser };
         }
 
         public async Task<ReturnResponse> GetHistoryMessagesInEvent(int myId, int eventId, int latestMessageId)
         {
             var historyMessagesEvent = await _messageEventRepository.GetHistoryMessagesInEvent(myId, eventId, latestMessageId);
             List<MessageEventUserDTO> listMessagesUser = FillListMessages(historyMessagesEvent);
-            return new ReturnResponse { Response = (listMessagesUser.Count == 0) ? false.ToString() : true.ToString(), Info = listMessagesUser };
+            return new ReturnResponse { Response = true.ToString(), Info = listMessagesUser };
         }
 
         public async Task<ReturnResponse> SendMessageAsync(int userFromId, int eventId, string content)

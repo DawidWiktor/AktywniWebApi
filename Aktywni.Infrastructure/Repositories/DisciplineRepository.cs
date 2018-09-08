@@ -39,9 +39,6 @@ namespace Aktywni.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Disciplines discipline)
-        {
-            throw new System.NotImplementedException();
-        }
+
     }
 }

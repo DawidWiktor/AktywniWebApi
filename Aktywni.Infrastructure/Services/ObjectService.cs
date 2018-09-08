@@ -23,35 +23,35 @@ namespace Aktywni.Infrastructure.Services
         {
             var obj = await _objectRepository.GetAsync(objID);
             var objectDto = _mapper.Map<Objects, ObjectDTO>(obj);
-            return new ReturnResponse { Response = (objectDto == null) ? false.ToString() : true.ToString(), Info = objectDto };
+            return new ReturnResponse { Response = true.ToString(), Info = objectDto };
         }
 
         public async Task<ReturnResponse> GetObjectAsync(string name)
         {
             var obj = await _objectRepository.GetAsync(name);
             var objectDto = _mapper.Map<Objects, ObjectDTO>(obj);
-            return new ReturnResponse { Response = (objectDto == null) ? false.ToString() : true.ToString(), Info = objectDto };
+            return new ReturnResponse { Response = true.ToString(), Info = objectDto };
         }
 
         public async Task<ReturnResponse> GetAllObjectsAsync()
         {
             var objects = await _objectRepository.GetAllAsync();
             List<ObjectDTO> listObjectDto = _mapper.Map<IEnumerable<Objects>, List<ObjectDTO>>(objects);
-            return new ReturnResponse { Response = (listObjectDto.Count == 0) ? false.ToString() : true.ToString(), Info = listObjectDto };
+            return new ReturnResponse { Response =  true.ToString(), Info = listObjectDto };
         }
 
         public async Task<ReturnResponse> SearchObjectsAsync(string textInput)
         {
             var objects = await _objectRepository.GetFromTextAsync(textInput);
             List<ObjectDTO> listObjectDto = _mapper.Map<IEnumerable<Objects>, List<ObjectDTO>>(objects);
-            return new ReturnResponse { Response = (listObjectDto.Count == 0) ? false.ToString() : true.ToString(), Info = listObjectDto };
+            return new ReturnResponse { Response =  true.ToString(), Info = listObjectDto };
         }
 
         public async Task<ReturnResponse> SearchObjectsInCityAsync(string name, string city)
         {
             var objects = await _objectRepository.GetObjectInCity(name, city);
             List<ObjectDTO> listObjectDto = _mapper.Map<IEnumerable<Objects>, List<ObjectDTO>>(objects);
-            return new ReturnResponse { Response = (listObjectDto.Count == 0) ? false.ToString() : true.ToString(), Info = listObjectDto };
+            return new ReturnResponse { Response =  true.ToString(), Info = listObjectDto };
         }
 
         public async Task<ReturnResponse> AddObjectAsync(int administratorID, string name, string city, string street, string postcode,

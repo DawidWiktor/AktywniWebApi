@@ -30,7 +30,7 @@ namespace Aktywni.Infrastructure.Services
                 Users user = await _userRepository.GetAsync(item.UserId);
                 item.Login = user.Login;
             }
-            return new ReturnResponse { Response = (userEventDto.Count == 0) ? false.ToString() : true.ToString(), Info = userEventDto };
+            return new ReturnResponse { Response = true.ToString(), Info = userEventDto };
         }
 
         public async Task<ReturnResponse> GetEventInUser(int myId)
@@ -41,7 +41,7 @@ namespace Aktywni.Infrastructure.Services
             {
                listEventsUser.Add(new EventsInUserDTO {EventId = item.Item1, EventName = item.Item2, Date = item.Item3, IsAccepted = item.Item4});
             }
-            return new ReturnResponse { Response = (listEventsUser.Count == 0) ? false.ToString() : true.ToString(), Info = listEventsUser };
+            return new ReturnResponse {Response =  true.ToString(), Info = listEventsUser };
         }
 
         public async Task<ReturnResponse> JoinToEventAsync(int myId, int eventID) // akceptacja zaproszenia lub dolaczenie do wydarzenia

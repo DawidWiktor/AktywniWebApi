@@ -37,35 +37,35 @@ namespace Aktywni.Infrastructure.Services
         {
             var events = await _eventRepository.GetAllEventsAsync();
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
-            return new ReturnResponse { Response = (listEventDto.Count == 0) ? false.ToString() : true.ToString(), Info = listEventDto };
+            return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
         public async Task<ReturnResponse> GetAllMyEventsAsync(int userID)
         {
             var events = await _eventRepository.GetAllMyEventsAsync(userID);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
-            return new ReturnResponse { Response = (listEventDto.Count == 0) ? false.ToString() : true.ToString(), Info = listEventDto };
+            return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
         public async Task<ReturnResponse> SearchEventsAsync(string textInput)
         {
             var events = await _eventRepository.GetFromTextAsync(textInput);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
-            return new ReturnResponse { Response = (listEventDto.Count == 0) ? false.ToString() : true.ToString(), Info = listEventDto };
+            return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
         public async Task<ReturnResponse> SearchEventsInDisciplineAsync(string textInput, int disciplineId)
         {
             var events = await _eventRepository.GetFromTextAndDisciplineAsync(textInput, disciplineId);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
-            return new ReturnResponse { Response = (listEventDto.Count == 0) ? false.ToString() : true.ToString(), Info = listEventDto };
+            return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
         public async Task<ReturnResponse> SearchEventsInDisciplineAndDistanceAsync(string textInput, int disciplineId, double distance)
         {
             var events = await _eventRepository.GetFromTextAndDisciplineAndDistanceAsync(textInput, disciplineId, disciplineId);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
-            return new ReturnResponse { Response = (listEventDto.Count == 0) ? false.ToString() : true.ToString(), Info = listEventDto };
+            return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
         public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, string description)

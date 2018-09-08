@@ -24,7 +24,7 @@ namespace Aktywni.Infrastructure.Services
             List<MessageListUsersDTO> listMessages = new List<MessageListUsersDTO>();
             foreach(var item in tupleMessages)
                 listMessages.Add(new MessageListUsersDTO{UserFromId = item.Item1, UserLoginFrom = item.Item2});
-            return new ReturnResponse { Response = (listMessages.Count == 0) ? false.ToString() : true.ToString(), Info = listMessages };
+            return new ReturnResponse { Response = true.ToString(), Info = listMessages };
         }
 
         public async Task<ReturnResponse> GetLatestMessagesInFriend(int myId, int friendId)
@@ -33,7 +33,7 @@ namespace Aktywni.Infrastructure.Services
             List<MessageUserDTO> listMessagesUser = new List<MessageUserDTO>();
             foreach(var item in latestMessagesInFriend)
                 listMessagesUser.Add(new MessageUserDTO{UserFromId = item.Item1, UserId = item.Item2, MessageId = item.Item3, Date = item.Item4, Content = item.Item5});
-            return new ReturnResponse {Response = (listMessagesUser.Count == 0) ? false.ToString() : true.ToString(), Info = listMessagesUser};
+            return new ReturnResponse {Response = true.ToString(), Info = listMessagesUser};
         }
 
         public async Task<ReturnResponse> GetUnreadMessagesInFriend(int myId, int friendId)
@@ -42,7 +42,7 @@ namespace Aktywni.Infrastructure.Services
             List<MessageUserDTO> listMessagesUser = new List<MessageUserDTO>();
             foreach(var item in latestMessagesInFriend)
                 listMessagesUser.Add(new MessageUserDTO{UserFromId = item.Item1, UserId = item.Item2, MessageId = item.Item3, Date = item.Item4, Content = item.Item5});
-            return new ReturnResponse {Response = (listMessagesUser.Count == 0) ? false.ToString() : true.ToString(), Info = listMessagesUser};
+            return new ReturnResponse {Response =  true.ToString(), Info = listMessagesUser};
         }
 
         public async Task<ReturnResponse> GetHistoryMessagesInFriend(int myId, int friendId, int latestMessageId)
@@ -51,7 +51,7 @@ namespace Aktywni.Infrastructure.Services
             List<MessageUserDTO> listMessagesUser = new List<MessageUserDTO>();
             foreach(var item in latestMessagesInFriend)
                 listMessagesUser.Add(new MessageUserDTO{UserFromId = item.Item1, UserId = item.Item2, MessageId = item.Item3, Date = item.Item4, Content = item.Item5});
-            return new ReturnResponse {Response = (listMessagesUser.Count == 0) ? false.ToString() : true.ToString(), Info = listMessagesUser};
+            return new ReturnResponse {Response =  true.ToString(), Info = listMessagesUser};
         }
 
         public async Task<ReturnResponse> SendMessageAsync(int userFromId, int userId, string content)
@@ -60,9 +60,5 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse {Response = ifSent.ToString(), Info = (ifSent) ? "Wysłano wiadomość" : "", Error = !(ifSent) ? "Błąd wysyłania" : ""};
         }
 
-        public async Task<ReturnResponse> GetPartMessagesInFriendAsync(int myId, int friendId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

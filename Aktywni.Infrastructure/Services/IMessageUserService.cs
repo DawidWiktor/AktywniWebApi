@@ -12,6 +12,5 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> GetUnreadMessagesInFriend(int myId, int friendId);
         Task<ReturnResponse> GetHistoryMessagesInFriend(int myId, int friendId, int latestMessageId);
         Task<ReturnResponse> SendMessageAsync(int userFromId, int userId, string content);
-        Task<ReturnResponse> GetPartMessagesInFriendAsync(int myId, int friendId);
     }
 }
