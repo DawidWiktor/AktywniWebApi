@@ -13,11 +13,14 @@ namespace Aktywni.Infrastructure.Services
     {
         private readonly IUserEventRepository _userEventRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
-        public UserEventService(IUserEventRepository userEventRepository, IUserRepository userRepository, IMapper mapper)
+        public UserEventService(IUserEventRepository userEventRepository, IUserRepository userRepository, 
+                                 IEventRepository eventRepository, IMapper mapper)
         {
             _userEventRepository = userEventRepository;
             _userRepository = userRepository;
+            _eventRepository = eventRepository;
             _mapper = mapper;
         }
 
@@ -100,5 +103,7 @@ namespace Aktywni.Infrastructure.Services
             await _userEventRepository.DeleteAsync(userEvent);
             return new ReturnResponse { Response = true.ToString(), Info = "Usunięto użytkownika z wydarzenia." };
         }
+
+        
     }
 }

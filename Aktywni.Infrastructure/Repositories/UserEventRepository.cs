@@ -36,6 +36,9 @@ namespace Aktywni.Infrastructure.Repositories
                                                             z.Event.Name, (DateTime)z.Event.Date, (bool)z.IsAccepted))
                                     .ToListAsync();
 
+        public async Task<bool> IsAdminInEvent(int eventId, int userId)
+            => await _dbContext.Events.Where(x=>x.EventId == eventId)
+                                      .AnyAsync(x=>x.Admin == userId);
         public async Task AddAsync(UsersEvents userEvent)
         {
             _dbContext.UsersEvents.Add(userEvent);

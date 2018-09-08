@@ -12,10 +12,15 @@ namespace Aktywni.Infrastructure.Services
     public class EventService : IEventService
     {
         private readonly IEventRepository _eventRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IUserEventRepository _userEventRepository;
         private readonly IMapper _mapper;
-        public EventService(IEventRepository eventRepository, IMapper mapper)
+        public EventService(IEventRepository eventRepository, IUserRepository userRepository,
+                            IUserEventRepository userEventRepository, IMapper mapper)
         {
             _eventRepository = eventRepository;
+            _userRepository = userRepository;
+            _userEventRepository = userEventRepository;
             _mapper = mapper;
         }
 
@@ -23,6 +28,7 @@ namespace Aktywni.Infrastructure.Services
         {
             var evenTemp = await _eventRepository.GetEventAsync(eventID);
             var eventDto = _mapper.Map<Events, EventDTO>(evenTemp);
+            await AddAdminLoginToEvent(eventDto);
             return new ReturnResponse { Response = (eventDto == null) ? false.ToString() : true.ToString(), Info = eventDto };
         }
 
@@ -30,6 +36,7 @@ namespace Aktywni.Infrastructure.Services
         {
             var evenTemp = await _eventRepository.GetEventAsync(name);
             var eventDto = _mapper.Map<Events, EventDTO>(evenTemp);
+            await AddAdminLoginToEvent(eventDto);
             return new ReturnResponse { Response = (eventDto == null) ? false.ToString() : true.ToString(), Info = eventDto };
         }
 
@@ -37,6 +44,7 @@ namespace Aktywni.Infrastructure.Services
         {
             var events = await _eventRepository.GetAllEventsAsync();
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
+            await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
@@ -44,6 +52,7 @@ namespace Aktywni.Infrastructure.Services
         {
             var events = await _eventRepository.GetAllMyEventsAsync(userID);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
+            await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
@@ -51,6 +60,7 @@ namespace Aktywni.Infrastructure.Services
         {
             var events = await _eventRepository.GetFromTextAsync(textInput);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
+            await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
@@ -58,6 +68,7 @@ namespace Aktywni.Infrastructure.Services
         {
             var events = await _eventRepository.GetFromTextAndDisciplineAsync(textInput, disciplineId);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
+            await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
@@ -65,6 +76,7 @@ namespace Aktywni.Infrastructure.Services
         {
             var events = await _eventRepository.GetFromTextAndDisciplineAndDistanceAsync(textInput, disciplineId, disciplineId);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
+            await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
@@ -93,6 +105,7 @@ namespace Aktywni.Infrastructure.Services
                 }
                 newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, disciplineId, geographicalCoordinates, description);
                 await _eventRepository.AddAsync(newEvent);
+                await AddAdminToUserEvent(name, whoCreatedID);
                 return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
             }
             catch (Exception ex)
@@ -124,7 +137,6 @@ namespace Aktywni.Infrastructure.Services
             await _eventRepository.AddAsync(newEvent);
             return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
         }
-
 
         public async Task<ReturnResponse> ChangeNameEventAsync(int eventID, string newName)
         {
@@ -219,5 +231,32 @@ namespace Aktywni.Infrastructure.Services
             await _eventRepository.UpdateAsync(eventDb);
             return new ReturnResponse { Response = true.ToString(), Info = "Usunięto wydarzenie." };
         }
+
+        #region [ PRIVATE METHOD ]
+
+        private async Task<EventDTO> AddAdminLoginToEvent(EventDTO eventDto) // dodanie informacjo, kto jest adminem wydarzenia
+        {
+            eventDto.AdminLogin = await _userRepository.GetLogin(eventDto.Admin);
+            return eventDto;
+        }
+
+        private async Task<List<EventDTO>> AddAdminLoginToEvents(List<EventDTO> listEvents)
+        {
+            foreach (var item in listEvents)
+            {
+                item.AdminLogin = await _userRepository.GetLogin(item.Admin);
+            }
+            return listEvents;
+        }
+
+        private async Task AddAdminToUserEvent(string eventName, int myId) // dodanie admina do uczestników wydarzenia
+        {
+            int eventId = await _eventRepository.GetIdEvent(eventName);
+            UsersEvents newUserEvent = new UsersEvents(eventId, myId, true);
+            await _userEventRepository.AddAsync(newUserEvent);
+        }
+
+        #endregion [ PRIVATE METHOD ]
+
     }
 }

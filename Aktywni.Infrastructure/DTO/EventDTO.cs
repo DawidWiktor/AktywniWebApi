@@ -16,5 +16,6 @@ namespace Aktywni.Infrastructure.DTO
         public bool Commerce { get; set; }
         public string Name { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string AdminLogin { get; set; }
     }
 }

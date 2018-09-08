@@ -14,7 +14,7 @@ namespace Aktywni.Core.Repositories
 
         // id wydarzenia, nazwa wydarzenia, data, czy zaakceptowano uczestnictwo
         Task<IEnumerable<Tuple<int, string, DateTime, bool>>> GetEventsInUser(int userId); // uzyskanie listy wydarzeń gdzie należy użytkownik, id wydarzenia, nazwa wydarzenia, data wydarzenia
-
+        Task<bool> IsAdminInEvent(int eventId, int userId); // sprawdzenie czy użytkownik jest adminem wydarzenia
         Task AddAsync(UsersEvents userEvent);
         Task UpdateAsync(UsersEvents userEvent);
         Task DeleteAsync(UsersEvents userEvent);

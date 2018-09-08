@@ -33,6 +33,11 @@ namespace Aktywni.Infrastructure.Repositories
                                       .Where(x=>x.UserId != myId)
                                      .ToListAsync();
 
+        public async Task<string> GetLogin(int userId)
+            => await _dbContext.Users.Where(x=>x.UserId == userId)
+                                     .Select(x =>x.Login)
+                                     .FirstOrDefaultAsync();
+
         public async Task AddAsync(Users user)
         {
             _dbContext.Users.Add(user);

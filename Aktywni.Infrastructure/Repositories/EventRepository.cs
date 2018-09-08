@@ -24,27 +24,31 @@ namespace Aktywni.Infrastructure.Repositories
          => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
                                     .FirstOrDefaultAsync(x => x.Name == eventName);
 
+        public async Task<int> GetIdEvent(string eventName)
+            => await _dbContext.Events.Where(x=>x.Name == eventName)
+                                      .Select(x=>x.EventId)
+                                      .FirstOrDefaultAsync();
         public async Task<IEnumerable<Events>> GetAllEventsAsync()
          => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
-                                    .Where(x=>x.Date > DateTime.Now)
-                                    .OrderBy(x=>x.Commerce).ToListAsync();
+                                    .Where(x => x.Date > DateTime.Now)
+                                    .OrderBy(x => x.Commerce).ToListAsync();
         public async Task<IEnumerable<Events>> GetAllMyEventsAsync(int userID)
          => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
-                                    .Where(x=>x.Admin == userID)
+                                    .Where(x => x.Admin == userID)
                                     .Where(x => x.WhoCreatedId == userID)
-                                    .OrderBy(x=>x.Commerce).ToListAsync();
+                                    .OrderBy(x => x.Commerce).ToListAsync();
 
         public async Task<IEnumerable<Events>> GetFromTextAsync(string textInput)
          => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
-                                        .Where(x=>x.Date > DateTime.Now)
+                                        .Where(x => x.Date > DateTime.Now)
                                         .Where(x => x.Name.Contains(textInput))
-                                        .OrderBy(x=>x.Commerce).ToListAsync();
+                                        .OrderBy(x => x.Commerce).ToListAsync();
         public async Task<IEnumerable<Events>> GetFromTextAndDisciplineAsync(string textInput, int disciplineID)
             => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
-                                        .Where(x=>x.Date > DateTime.Now)
+                                        .Where(x => x.Date > DateTime.Now)
                                         .Where(x => x.Name.Contains(textInput))
                                         .Where(x => x.DisciplineId == disciplineID)
-                                        .OrderBy(x=>x.Commerce).ToListAsync();
+                                        .OrderBy(x => x.Commerce).ToListAsync();
 
 
         public async Task<IEnumerable<Events>> GetFromTextAndDisciplineAndDistanceAsync(string textInput, int disciplineID, double distance)
