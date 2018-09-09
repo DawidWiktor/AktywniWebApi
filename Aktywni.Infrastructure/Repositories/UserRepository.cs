@@ -33,6 +33,20 @@ namespace Aktywni.Infrastructure.Repositories
                                       .Where(x=>x.UserId != myId)
                                      .ToListAsync();
 
+        public async Task<IEnumerable<Tuple<int, string, DateTime>>> GetUserActivity(int userId)
+            => await _dbContext.UsersEvents.Where(x=>x.UserId == userId)
+                                           .Where(x=>x.IsAccepted == true)
+                                           .Select(z => new Tuple<int, string, DateTime>(z.EventId, 
+                                                            z.Event.Name, (DateTime)z.Event.Date))
+                                           .ToListAsync();
+
+        public async Task<IEnumerable<Tuple<int, string, DateTime, bool>>> GetMyActivity(int myId)
+            => await _dbContext.UsersEvents.Where(x=>x.UserId == myId)
+                                           .Select(z => new Tuple<int, string, DateTime, bool>(z.EventId, 
+                                                            z.Event.Name, (DateTime)z.Event.Date, (bool)z.IsAccepted))
+                                           .ToListAsync();
+
+
         public async Task<string> GetLogin(int userId)
             => await _dbContext.Users.Where(x=>x.UserId == userId)
                                      .Select(x =>x.Login)

@@ -21,18 +21,35 @@ namespace Aktywni.Api.Controllers
             _configuration = configuration;
         }
 
-         [HttpGet]
-        public async Task<IActionResult> GetAction()
-            => Json(await _userService.GetAccountAsync(UserId));
+        [HttpGet]
+        public async Task<IActionResult> GetAction() // uzyskanie informacji o sobie
+           => Json(await _userService.GetAccountAsync(UserId));
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAllUsers()
             => Json(await _userService.GetAllUsers(UserId));
-       
-       [HttpPost("all")]
+
+        [HttpPost("all")]
         public async Task<IActionResult> GetAllUsers([FromBody]GetListUsers command)
-            => Json(await _userService.GetAllUsers(UserId, command.FragmentLogin));
+             => Json(await _userService.GetAllUsers(UserId, command.FragmentLogin));
+
+        [HttpGet("profile/{userId}")]
+        public async Task<IActionResult> GetUserProfile(int userId)
+            => Json(await _userService.GetAccountAsync(userId));
+
+        [HttpGet("activity/{userId}")]
+        public async Task<IActionResult> GetUserActivity(int userId)
+            => Json(await _userService.GetUserActivity(userId));
+
+
+        [HttpGet("myActivity")]
+        public async Task<IActionResult> GetMyActivity()
+            => Json(await _userService.GetMyActivity(UserId));
+
+
+        // dodaj aktywnosc uzytkownika, jego historie wydarzen itd. 
+
         // TODO:
-        // Wyszukaj uzytkwonika o danym loginie, oceń użytkownika, przejrzyj profil
+        // oceń użytkownika
     }
 }

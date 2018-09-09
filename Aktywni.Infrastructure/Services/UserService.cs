@@ -163,5 +163,23 @@ namespace Aktywni.Infrastructure.Services
             List<ListUserDTO> listUsers = _mapper.Map<IEnumerable<Users>, List<ListUserDTO>>(users);
             return new ReturnResponse { Response = true.ToString(), Info = listUsers };
         }
+
+        public async Task<ReturnResponse> GetUserActivity(int userId)
+        {
+            var userActivity = await _userRepository.GetUserActivity(userId);
+            List<UserActivity> listActivity = new List<UserActivity>();
+            foreach (var item in userActivity)
+                listActivity.Add(new UserActivity { EventId = item.Item1, EventName = item.Item2, Date = item.Item3 });
+            return new ReturnResponse { Response = true.ToString(), Info = listActivity };
+        }
+
+        public async Task<ReturnResponse> GetMyActivity(int userId)
+        {
+            var userActivity = await _userRepository.GetMyActivity(userId);
+            List<MyActivity> listActivity = new List<MyActivity>();
+            foreach (var item in userActivity)
+                listActivity.Add(new MyActivity { EventId = item.Item1, EventName = item.Item2, Date = item.Item3, IsAccepted = item.Item4 });
+            return new ReturnResponse { Response = true.ToString(), Info = listActivity };
+        }
     }
 }

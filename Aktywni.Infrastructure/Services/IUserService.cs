@@ -18,6 +18,8 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> RemoveAccountAsync(int userID);
         Task<ReturnResponse> GetAllUsers(int myId);
         Task<ReturnResponse> GetAllUsers(int myId, string fragmentLogin);
+        Task<ReturnResponse> GetUserActivity(int userId);
+        Task<ReturnResponse> GetMyActivity(int myId);
 
     }
 }
