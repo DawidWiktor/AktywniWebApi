@@ -28,6 +28,10 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetFriend(int friendID)
             => Json(await _friendService.GetFriendAsync(UserId, friendID));
 
+        [HttpGet("invitations")]
+        public async Task<IActionResult> GetInvitations()
+            => Json(await _friendService.GetInvitations(UserId));
+
         [HttpPost("search")]
         public async Task<IActionResult> SearchFriend([FromBody]SearchFriend command)
             => Json(await _friendService.SearchFriendsAsync(UserId, command.TextInput));

@@ -47,8 +47,7 @@ namespace Aktywni.Api.Controllers
             => Json(await _userService.GetMyActivity(UserId));
 
 
-        // dodaj aktywnosc uzytkownika, jego historie wydarzen itd. 
-
+ 
         // TODO:
         // oceń użytkownika
     }

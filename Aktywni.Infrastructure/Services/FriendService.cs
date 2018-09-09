@@ -39,6 +39,21 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = listFriends };
         }
 
+        public async Task<ReturnResponse> GetInvitations(int myId)
+         {
+            List<FriendDTO> listFriends = new List<FriendDTO>();
+            IEnumerable<Friends> friendsTemp = await _friendRepository.GetInvitations(myId);
+            
+            foreach (Friends item in friendsTemp)
+            {
+                var user = await _userRepository.GetAsync(item.FriendFrom);
+                FriendDTO friendDTO = _mapper.Map<Users, FriendDTO>(user);
+                friendDTO = _mapper.MergeInto<FriendDTO>(user, item);
+                listFriends.Add(friendDTO);
+            }
+            return new ReturnResponse { Response = true.ToString(), Info = listFriends};
+        }
+
         public async Task<ReturnResponse> SearchFriendsAsync(int myID, string textInput)
         {
             List<FriendDTO> listFriends = await GetListFriends(myID, textInput);

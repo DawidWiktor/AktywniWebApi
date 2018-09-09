@@ -10,6 +10,7 @@ namespace Aktywni.Infrastructure.Services
     {
         Task<ReturnResponse> GetFriendAsync(int myID, int friendID);
         Task<ReturnResponse> GetAllFriendsAsync(int myID);
+        Task<ReturnResponse> GetInvitations(int myId);
         Task<ReturnResponse> SearchFriendsAsync(int myID, string textInput);
         Task<ReturnResponse> AddFriendAsync(int myID, int friendID);
         Task<ReturnResponse> AcceptInvitationAsync(int myID, int friendID);

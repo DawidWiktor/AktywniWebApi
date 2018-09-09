@@ -24,6 +24,11 @@ namespace Aktywni.Infrastructure.Repositories
             //   => await _dbContext.Friends.SingleOrDefaultAsync(x => x.Login == login);
         }
 
+        public async Task<IEnumerable<Friends>> GetInvitations(int myId)
+            => await _dbContext.Friends.Where(x => x.FriendTo == myId)
+                                        .Where(x => x.IsAccepted == false)
+                                        .ToListAsync();
+
         public async Task<IEnumerable<Friends>> GetAllAsync(int myId)
             => await _dbContext.Friends.Where(x => x.FriendTo == myId || x.FriendFrom == myId).ToListAsync();
 
