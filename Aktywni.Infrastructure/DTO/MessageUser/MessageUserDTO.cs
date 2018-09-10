@@ -9,5 +9,6 @@ namespace Aktywni.Infrastructure.DTO.MessageUser
         public int MessageId { get; set; }
         public DateTime Date { get; set; }
         public string Content { get; set; }
+        public string Login { get; set; }
     }
 }

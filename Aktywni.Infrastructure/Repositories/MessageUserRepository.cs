@@ -41,13 +41,13 @@ namespace Aktywni.Infrastructure.Repositories
             //                                     .Select(z => new Tuple<int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.Message.Date, z.Message.Content)).Distinct(z =>z.).ToListAsync();
         }
 
-        public async Task<List<Tuple<int, int, int, DateTime, string>>> GetLatestMessageInFriend(int myId, int friendId) // id uzytkownika, który wysłał; id użytkownika odbierającego, id wiadomości, data wiadomości, treść wiadomości
+        public async Task<List<Tuple<int, int, int, DateTime, string, string>>> GetLatestMessageInFriend(int myId, int friendId) // id uzytkownika, który wysłał; id użytkownika odbierającego, id wiadomości, data wiadomości, treść wiadomości, logi użytkownika
             => await GetFromDataBase("dbo.GetLatestMessageInFriend", myId, friendId);
 
-        public async Task<List<Tuple<int, int, int, DateTime, string>>> GetUnreadMessagesInFriend(int myId, int friendId)
+        public async Task<List<Tuple<int, int, int, DateTime, string, string>>> GetUnreadMessagesInFriend(int myId, int friendId)
             => await GetFromDataBase("dbo.GetUnreadMessagesInFriend", myId, friendId);
 
-        public async Task<List<Tuple<int, int, int, DateTime, string>>> GetHistoryMessagesInFriend(int myId, int friendId, int latestMessageId)
+        public async Task<List<Tuple<int, int, int, DateTime, string, string>>> GetHistoryMessagesInFriend(int myId, int friendId, int latestMessageId)
              => await GetFromDataBase("dbo.GetHistoryMessagesInFriend", myId, friendId, latestMessageId);
 
         public async Task<bool> SendMessageAsync(int userFromId, int userId, DateTime date, string content)
@@ -67,7 +67,7 @@ namespace Aktywni.Infrastructure.Repositories
 
         #region [ PRIVATE METHOD ]
 
-        private async Task<List<Tuple<int, int, int, DateTime, string>>> GetFromDataBase(string procedureName, int myId, int friendId, int latestMessageId = -2)
+        private async Task<List<Tuple<int, int, int, DateTime, string, string>>> GetFromDataBase(string procedureName, int myId, int friendId, int latestMessageId = -2)
         {
             using (DbCommand command = _dbContext.Database.GetDbConnection().CreateCommand())
             {
@@ -85,15 +85,15 @@ namespace Aktywni.Infrastructure.Repositories
                     command.Connection.Open();
                 }
 
-                List<Tuple<int, int, int, DateTime, string>> userMessage = new List<Tuple<int, int, int, DateTime, string>>();
+                List<Tuple<int, int, int, DateTime, string, string>> userMessage = new List<Tuple<int, int, int, DateTime, string, string>>();
 
                 using (var reader = await command.ExecuteReaderAsync())
                 {
                     while (reader.Read())
                     {
-                        userMessage.Add(new Tuple<int, int, int, DateTime, string>(Convert.ToInt32(reader[0].ToString()),
+                        userMessage.Add(new Tuple<int, int, int, DateTime, string, string>(Convert.ToInt32(reader[0].ToString()),
                              Convert.ToInt32(reader[1].ToString()), Convert.ToInt32(reader[2].ToString()),
-                             Convert.ToDateTime(reader[3].ToString()), reader[4].ToString()));
+                             Convert.ToDateTime(reader[3].ToString()), reader[4].ToString(), reader[5].ToString()));
                     }
                     return userMessage;
                 }

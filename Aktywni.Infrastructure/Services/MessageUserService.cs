@@ -32,7 +32,7 @@ namespace Aktywni.Infrastructure.Services
             var latestMessagesInFriend = await _messageUserRepository.GetLatestMessageInFriend(myId, friendId);
             List<MessageUserDTO> listMessagesUser = new List<MessageUserDTO>();
             foreach(var item in latestMessagesInFriend)
-                listMessagesUser.Add(new MessageUserDTO{UserFromId = item.Item1, UserId = item.Item2, MessageId = item.Item3, Date = item.Item4, Content = item.Item5});
+                listMessagesUser.Add(new MessageUserDTO{UserFromId = item.Item1, UserId = item.Item2, MessageId = item.Item3, Date = item.Item4, Content = item.Item5, Login = item.Item6});
             return new ReturnResponse {Response = true.ToString(), Info = listMessagesUser};
         }
 
@@ -41,7 +41,7 @@ namespace Aktywni.Infrastructure.Services
             var latestMessagesInFriend = await _messageUserRepository.GetUnreadMessagesInFriend(myId, friendId);
             List<MessageUserDTO> listMessagesUser = new List<MessageUserDTO>();
             foreach(var item in latestMessagesInFriend)
-                listMessagesUser.Add(new MessageUserDTO{UserFromId = item.Item1, UserId = item.Item2, MessageId = item.Item3, Date = item.Item4, Content = item.Item5});
+                listMessagesUser.Add(new MessageUserDTO{UserFromId = item.Item1, UserId = item.Item2, MessageId = item.Item3, Date = item.Item4, Content = item.Item5, Login = item.Item6});
             return new ReturnResponse {Response =  true.ToString(), Info = listMessagesUser};
         }
 
@@ -50,7 +50,7 @@ namespace Aktywni.Infrastructure.Services
             var latestMessagesInFriend = await _messageUserRepository.GetHistoryMessagesInFriend(myId, friendId, latestMessageId);
             List<MessageUserDTO> listMessagesUser = new List<MessageUserDTO>();
             foreach(var item in latestMessagesInFriend)
-                listMessagesUser.Add(new MessageUserDTO{UserFromId = item.Item1, UserId = item.Item2, MessageId = item.Item3, Date = item.Item4, Content = item.Item5});
+                listMessagesUser.Add(new MessageUserDTO{UserFromId = item.Item1, UserId = item.Item2, MessageId = item.Item3, Date = item.Item4, Content = item.Item5, Login = item.Item6});
             return new ReturnResponse {Response =  true.ToString(), Info = listMessagesUser};
         }
 
