@@ -22,6 +22,8 @@ namespace Aktywni.Core.Model
             ObjectComments = new HashSet<ObjectComments>();
             Objects = new HashSet<Objects>();
             UsersEvents = new HashSet<UsersEvents>();
+            UserCommentsUserIdRatedNavigation = new HashSet<UserComments>();
+            UserCommentsUserIdWhoCommentNavigation = new HashSet<UserComments>();
         }
 
         public Users(string login, string email, string password)
@@ -37,6 +39,8 @@ namespace Aktywni.Core.Model
             ObjectComments = new HashSet<ObjectComments>();
             Objects = new HashSet<Objects>();
             UsersEvents = new HashSet<UsersEvents>();
+            UserCommentsUserIdRatedNavigation = new HashSet<UserComments>();
+            UserCommentsUserIdWhoCommentNavigation = new HashSet<UserComments>();
             SetLogin(login);
             SetEmail(email);
             SetPassword(password);
@@ -72,6 +76,8 @@ namespace Aktywni.Core.Model
         public ICollection<ObjectComments> ObjectComments { get; set; }
         public ICollection<Objects> Objects { get; set; }
         public ICollection<UsersEvents> UsersEvents { get; set; }
+        public ICollection<UserComments> UserCommentsUserIdRatedNavigation { get; set; }
+        public ICollection<UserComments> UserCommentsUserIdWhoCommentNavigation { get; set; }
 
         public void SetLogin(string login)
         {

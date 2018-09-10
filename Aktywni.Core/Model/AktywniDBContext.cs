@@ -16,6 +16,7 @@ namespace Aktywni.Core.Model
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UsersEvents> UsersEvents { get; set; }
         public virtual DbSet<MessageEvent> MessageEvent { get; set; }
+        public virtual DbSet<UserComments> UserComments { get; set; }
 
         public AktywniDBContext(DbContextOptions<AktywniDBContext> options) : base(options)
         {
@@ -263,6 +264,23 @@ namespace Aktywni.Core.Model
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Objects_Users");
             });
+
+            modelBuilder.Entity<UserComments>(entity =>
+           {
+               entity.HasKey(e => e.UserCommentId);
+
+               entity.HasOne(d => d.UserIdRatedNavigation)
+                   .WithMany(p => p.UserCommentsUserIdRatedNavigation)
+                   .HasForeignKey(d => d.UserIdRated)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("FK_UserComments_UserRated");
+
+               entity.HasOne(d => d.UserIdWhoCommentNavigation)
+                   .WithMany(p => p.UserCommentsUserIdWhoCommentNavigation)
+                   .HasForeignKey(d => d.UserIdWhoComment)
+                   .OnDelete(DeleteBehavior.ClientSetNull)
+                   .HasConstraintName("FK_UserComments_UserWhoComment");
+           });
 
             modelBuilder.Entity<Users>(entity =>
 {
