@@ -16,22 +16,24 @@ namespace Aktywni.Infrastructure.Repositories
             _dbContext = dBContext;
         }
 
-         public async Task<IEnumerable<Tuple<int, string, DateTime, bool>>> GetEventsInUser(int myId)
-            => await _dbContext.UsersEvents.Where(x => x.UserId == myId)
-                                    .Select(z => new Tuple<int, string, DateTime, bool>(z.EventId, 
-                                                            z.Event.Name, (DateTime)z.Event.Date, (bool)z.IsAccepted))
-                                    .ToListAsync();
+        public async Task<UserComments> GetComment(int myId, int userId)
+            => await _dbContext.UserComments.Where(x => x.UserIdWhoComment == myId)
+                                            .Where(x => x.UserIdRated == userId)
+                                            .FirstOrDefaultAsync();
 
         // id uzytkownika, który oceniał, jego login, id użytkownika ocenianego, jego login, ocena, opis
-        public async Task<IEnumerable<Tuple<int, string, int, string, int, string>>> GetUserComments(int userId)
+        public async Task<List<Tuple<int, string, int, string, int, string>>> GetUserComments(int userId)
             => await _dbContext.UserComments.Where(x => x.UserIdRated == userId)
-                                            .Select(z=> new Tuple<int,string,int,string,int,string>
+                                            .Select(z => new Tuple<int, string, int, string, int, string>
                                             (z.UserIdWhoComment, z.UserIdWhoCommentNavigation.Login, z.UserIdRated, z.UserIdRatedNavigation.Login,
                                             z.Rate, z.Describe))
                                             .ToListAsync();
 
-        public async Task<IEnumerable<UserComments>> GetMyComments(int myId)
+        public async Task<List<Tuple<int, string, int, string, int, string>>> GetMyComments(int myId)
             => await _dbContext.UserComments.Where(x => x.UserIdWhoComment == myId)
+                                            .Select(z => new Tuple<int, string, int, string, int, string>
+                                            (z.UserIdWhoComment, z.UserIdWhoCommentNavigation.Login, z.UserIdRated, z.UserIdRatedNavigation.Login,
+                                            z.Rate, z.Describe))
                                             .ToListAsync();
 
         public async Task AddAsync(UserComments userComments)

@@ -10,5 +10,17 @@ namespace Aktywni.Core.Model
 
         public Users UserIdRatedNavigation { get; set; }
         public Users UserIdWhoCommentNavigation { get; set; }
+
+        public UserComments(){
+
+        }
+
+        public UserComments(int myId, int userIdRated, int rate, string describe)
+        {
+            UserIdWhoComment = myId;
+            UserIdRated = userIdRated;
+            Rate = rate;
+            Describe = describe;   
+        }
     }
 }

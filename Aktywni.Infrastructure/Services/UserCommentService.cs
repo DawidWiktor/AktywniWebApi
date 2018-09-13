@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Aktywni.Core.Model;
 using Aktywni.Core.Repositories;
 using Aktywni.Infrastructure.Commands;
 using Aktywni.Infrastructure.DTO.UserComment;
@@ -13,14 +15,16 @@ namespace Aktywni.Infrastructure.Services
 
         private readonly IUserCommentRepository _userCommentRepository;
         private readonly IUserEventRepository _userEventRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
-        public UserCommentService(IUserCommentRepository userCommentRepository, IUserEventRepository userEventRepository, IMapper mapper)
+        public UserCommentService(IUserCommentRepository userCommentRepository, IUserEventRepository userEventRepository, 
+                                    IEventRepository eventRepository,IMapper mapper)
         {
             _userCommentRepository = userCommentRepository;
             _userEventRepository = userEventRepository;
+            _eventRepository = eventRepository;
             _mapper = mapper;
         }
-
 
         public async Task<ReturnResponse> GetUserComments(int userId)
         {
@@ -34,19 +38,37 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = userComments };
         }
 
-        public async Task<ReturnResponse> AddComment(int myId, int userIdRated, int rate, int describe)
+        public async Task<ReturnResponse> AddComment(int myId, int userIdRated, int rate, string describe)
         {
-            throw new System.NotImplementedException();
+            var eventsWhereAdmin = await _eventRepository.GetAllMyEventsAsync(myId);
+            var userEvents = await _userEventRepository.GetEventsInUser(userIdRated);
+
+            var listJoin = from events in eventsWhereAdmin
+                            join userevent in userEvents on events.EventId equals userevent.Item1
+                            select events;
+
+            if(listJoin.Count() == 0)
+                 return new ReturnResponse { Response = false.ToString(), Info = "Nie możesz ocenić użytkownika."}; 
+                            
+            UserComments userComment = new UserComments(myId, userIdRated, rate, describe);
+            await _userCommentRepository.AddAsync(userComment);
+            return new ReturnResponse { Response = true.ToString(), Info = "Dodano ocenę."}; 
         }
 
-        public async Task<ReturnResponse> UpdateComment(int myId, int userIdRated, int rate, int describe)
+        public async Task<ReturnResponse> UpdateComment(int myId, int userIdRated, int rate, string describe)
         {
-            throw new System.NotImplementedException();
+            UserComments userComment = await _userCommentRepository.GetComment(myId, userIdRated);
+            userComment.Rate = rate;
+            userComment.Describe = describe;
+            await _userCommentRepository.UpdateAsync(userComment);
+            return new ReturnResponse { Response = true.ToString(), Info = "Zaktualizowano ocenę."}; 
         }
 
         public async Task<ReturnResponse> RemoveComment(int myId, int userIdRated)
         {
-            throw new System.NotImplementedException();
+           UserComments userComment = await _userCommentRepository.GetComment(myId, userIdRated);
+           await _userCommentRepository.DeleteAsync(userComment);
+           return new ReturnResponse { Response = true.ToString(), Info = "Usunięto ocenę."}; 
         }
 
         private List<UserCommentDTO> FillDto(List<Tuple<int, string, int, string, int, string>> userComments)

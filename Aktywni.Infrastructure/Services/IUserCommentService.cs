@@ -7,8 +7,8 @@ namespace Aktywni.Infrastructure.Services
     {
         Task<ReturnResponse> GetUserComments(int userId);
         Task<ReturnResponse> GetMyComments(int myId);
-        Task<ReturnResponse> AddComment(int myId, int userIdRated, int rate, int describe);
-        Task<ReturnResponse> UpdateComment(int myId, int userIdRated, int rate, int describe);
+        Task<ReturnResponse> AddComment(int myId, int userIdRated, int rate, string describe);
+        Task<ReturnResponse> UpdateComment(int myId, int userIdRated, int rate, string describe);
         Task<ReturnResponse> RemoveComment(int myId, int userIdRated);
     }
 }

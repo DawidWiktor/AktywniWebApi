@@ -11,7 +11,7 @@ namespace Aktywni.Infrastructure.DTO
         public string Name { get; set; }
         public string Surname { get; set; }
         public string City { get; set; }
-        public string Describe { get; set; }
+        public string Description { get; set; }
         public decimal Rate { get; set; }
     }
 }
