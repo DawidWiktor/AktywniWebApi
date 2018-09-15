@@ -47,7 +47,7 @@ namespace Aktywni.Infrastructure.Services
         
             UserComments userComment = await _userCommentRepository.GetComment(myId, userIdRated, eventId);
             if(userComment != null)
-                  return new ReturnResponse { Response = true.ToString(), Info = "Nie możesz drugi raz ocenić użytkownika." };
+                  return new ReturnResponse { Response = false.ToString(), Info = "Nie możesz drugi raz ocenić użytkownika." };
             await _userCommentRepository.AddAsync(userComment);
             return new ReturnResponse { Response = true.ToString(), Info = "Dodano ocenę." };
         }

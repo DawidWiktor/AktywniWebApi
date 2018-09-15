@@ -80,6 +80,14 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
+        public async Task<ReturnResponse> SearchEventsInDiscipline(int disciplineId)
+        {
+            var events = await _eventRepository.GetEventInDisciplineAsync(disciplineId);
+            List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
+            await AddAdminLoginToEvents(listEventDto);
+            return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
+        }
+
         public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, string description)
         {
             var newEvent = await _eventRepository.GetEventAsync(name);

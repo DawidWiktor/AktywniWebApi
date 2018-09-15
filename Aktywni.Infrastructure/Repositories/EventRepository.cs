@@ -57,6 +57,9 @@ namespace Aktywni.Infrastructure.Repositories
             //TODO: ogarnac wyliczanie odleglosci
         }
 
+        public async Task<IEnumerable<Events>> GetEventInDisciplineAsync(int disciplineID)
+            => await _dbContext.Events.Where(x=>x.DisciplineId == disciplineID)
+                                      .ToListAsync();
         public async Task AddAsync(Events obj)
         {
             _dbContext.Events.Add(obj);

@@ -51,6 +51,10 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> SearchEventsInDisciplineAndDistance([FromBody]SearchEventsInDisciplineAndDistance command)
             => Json(await _eventService.SearchEventsInDisciplineAndDistanceAsync(command.Name, command.DisciplineId, command.Distance));
 
+        [HttpPost("searchInDiscipline")]
+        public async Task<IActionResult> SeachEventsInDiscipline([FromBody]SearchInDiscipline command)
+            => Json(await _eventService.SearchEventsInDiscipline(command.DisciplineId));
+            
         [HttpPost("add")]
         public async Task<IActionResult> AddEvent([FromBody]AddEvent command)
            => Json(await _eventService.AddEventAsync(command.Name, command.Date, UserId, command.DisciplineId, command.Description, command.GeographicalCoordinates));

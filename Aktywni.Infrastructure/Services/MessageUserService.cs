@@ -60,5 +60,15 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse {Response = ifSent.ToString(), Info = (ifSent) ? "Wysłano wiadomość" : "", Error = !(ifSent) ? "Błąd wysyłania" : ""};
         }
 
+        public async Task<ReturnResponse> IsUnreadMessage(int myId)
+        {
+            return new ReturnResponse {Response = true.ToString(), Info = await _messageUserRepository.IsUnreadMessage(myId)};
+        }
+
+        public async Task<ReturnResponse> IsUnreadMessageFromUser(int myId, int userFromId)
+        {
+            return new ReturnResponse {Response = true.ToString(), Info = await _messageUserRepository.IsUnreadMessageFromUser(userFromId, myId)};
+        }
+
     }
 }

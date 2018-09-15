@@ -13,6 +13,7 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> SearchEventsAsync(string textInput); // wyszukiwanie po nazwie wydarzenia
         Task<ReturnResponse> SearchEventsInDisciplineAsync(string textInput, int disciplineId);
         Task<ReturnResponse> SearchEventsInDisciplineAndDistanceAsync(string textInput, int disciplineId, double distance);
+        Task<ReturnResponse> SearchEventsInDiscipline(int disciplineId);
         Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, string description);
         // obecnie uzywana
         Task<ReturnResponse> AddEventAsync(string name, DateTime date, int whoCreatedID, int disciplineId, string description, string geographicalCoordinates);

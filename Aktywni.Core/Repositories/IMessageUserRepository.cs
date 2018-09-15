@@ -13,6 +13,7 @@ namespace Aktywni.Core.Repositories
         Task<List<Tuple<int, int, int, DateTime, string, string>>> GetUnreadMessagesInFriend(int myId, int friendId);
         Task<List<Tuple<int, int, int, DateTime, string, string>>> GetHistoryMessagesInFriend(int myId, int friendId, int latestMessageId);
         Task<bool> SendMessageAsync(int userFromId, int userId, DateTime date, string content);
-
+        Task<bool> IsUnreadMessage(int userId);
+        Task<bool> IsUnreadMessageFromUser(int userFromId, int userId);
     }
 }

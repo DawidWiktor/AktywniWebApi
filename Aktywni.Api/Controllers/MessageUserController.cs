@@ -17,7 +17,7 @@ namespace Aktywni.Api.Controllers
     public class MessageUserController : ApiControllerBase
     {
         private IMessageUserService _messageUserService;
-            private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
         public MessageUserController(IMessageUserService messageUserService, IConfiguration configuration)
         {
             _messageUserService = messageUserService;
@@ -28,6 +28,16 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetAllHeadersMessages()
             => Json(await _messageUserService.GetAllHeaderMessagesUsers(UserId));
 
+        [HttpGet("isUnreadMessages")]
+        public async Task<IActionResult> GetUnreadHeader()
+            => Json(await _messageUserService.IsUnreadMessage(UserId));
+        
+
+        [HttpPut("isUnreadMessages")]
+        public async Task<IActionResult> GetUnreadHeader([FromBody]GetMessagesInFriend command)
+        => Json(await _messageUserService.IsUnreadMessageFromUser(UserId, command.FriendId));
+
+
         [HttpPut("latest")]
         public async Task<IActionResult> GetLatestMessageInFriend([FromBody]GetMessagesInFriend command)
             => Json(await _messageUserService.GetLatestMessagesInFriend(UserId, command.FriendId));
@@ -35,11 +45,11 @@ namespace Aktywni.Api.Controllers
         [HttpPut("unread")]
         public async Task<IActionResult> GetUnreadMessagesInFriend([FromBody]GetMessagesInFriend command)
             => Json(await _messageUserService.GetUnreadMessagesInFriend(UserId, command.FriendId));
-        
-         [HttpPut("history")]
+
+        [HttpPut("history")]
         public async Task<IActionResult> GetHistoryMessagesInFriend([FromBody]GetHistoryMessagesInFriend command)
-            => Json(await _messageUserService.GetHistoryMessagesInFriend(UserId, command.FriendId, command.LatestMessageId));
-        
+           => Json(await _messageUserService.GetHistoryMessagesInFriend(UserId, command.FriendId, command.LatestMessageId));
+
         [HttpPost("send")]
         public async Task<IActionResult> SendMessageToUser([FromBody]SendMessageUser command)
             => Json(await _messageUserService.SendMessageAsync(UserId, command.UserToId, command.Content));
