@@ -31,11 +31,13 @@ namespace Aktywni.Core.Model
         public Users WhoCreated { get; set; }
         public ICollection<UsersEvents> UsersEvents { get; set; }
         public ICollection<MessageEvent> MessageEvent { get; set; }
+        public ICollection<UserComments> UserComments { get; set; }
 
         public Events()
         {
             MessageEvent = new HashSet<MessageEvent>();
             UsersEvents = new HashSet<UsersEvents>();
+            UserComments = new HashSet<UserComments>();
         }
 
         public Events(string name, int objectId, DateTime date, int whoCreatedID, int admin, string description)
@@ -49,6 +51,7 @@ namespace Aktywni.Core.Model
             CreatedDate = DateTime.Now;
             MessageEvent = new HashSet<MessageEvent>();
             UsersEvents = new HashSet<UsersEvents>();
+            UserComments = new HashSet<UserComments>();
         }
 
         public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates)
@@ -63,6 +66,7 @@ namespace Aktywni.Core.Model
             CreatedDate = DateTime.Now;
             MessageEvent = new HashSet<MessageEvent>();
             UsersEvents = new HashSet<UsersEvents>();
+            UserComments = new HashSet<UserComments>();
         }
 
         public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates, string description)
@@ -78,6 +82,7 @@ namespace Aktywni.Core.Model
             CreatedDate = DateTime.Now;
             MessageEvent = new HashSet<MessageEvent>();
             UsersEvents = new HashSet<UsersEvents>();
+            UserComments = new HashSet<UserComments>();
         }
 
 

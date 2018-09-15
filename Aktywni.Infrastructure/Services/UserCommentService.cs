@@ -12,13 +12,12 @@ namespace Aktywni.Infrastructure.Services
 {
     public class UserCommentService : IUserCommentService
     {
-
         private readonly IUserCommentRepository _userCommentRepository;
         private readonly IUserEventRepository _userEventRepository;
         private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
-        public UserCommentService(IUserCommentRepository userCommentRepository, IUserEventRepository userEventRepository, 
-                                    IEventRepository eventRepository,IMapper mapper)
+        public UserCommentService(IUserCommentRepository userCommentRepository, IUserEventRepository userEventRepository,
+                                    IEventRepository eventRepository, IMapper mapper)
         {
             _userCommentRepository = userCommentRepository;
             _userEventRepository = userEventRepository;
@@ -38,37 +37,35 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = userComments };
         }
 
-        public async Task<ReturnResponse> AddComment(int myId, int userIdRated, int rate, string describe)
+        public async Task<ReturnResponse> AddComment(int myId, int userIdRated, int eventId, int rate, string describe)
         {
-            var eventsWhereAdmin = await _eventRepository.GetAllMyEventsAsync(myId);
-            var userEvents = await _userEventRepository.GetEventsInUser(userIdRated);
+            if(!await _userEventRepository.IsAdminInEvent(eventId, myId))
+                return new ReturnResponse { Response = false.ToString(), Error = "Nie możesz ocenić uczestnika." };
 
-            var listJoin = from events in eventsWhereAdmin
-                            join userevent in userEvents on events.EventId equals userevent.Item1
-                            select events;
-
-            if(listJoin.Count() == 0)
-                 return new ReturnResponse { Response = false.ToString(), Info = "Nie możesz ocenić użytkownika."}; 
-                            
-            UserComments userComment = new UserComments(myId, userIdRated, rate, describe);
+            if(!await _userEventRepository.IsUserInEvent(eventId, userIdRated))
+                return new ReturnResponse { Response = false.ToString(), Error = "Uczestnik nie brał udziału w wydarzeniu." };
+        
+            UserComments userComment = await _userCommentRepository.GetComment(myId, userIdRated, eventId);
+            if(userComment != null)
+                  return new ReturnResponse { Response = true.ToString(), Info = "Nie możesz drugi raz ocenić użytkownika." };
             await _userCommentRepository.AddAsync(userComment);
-            return new ReturnResponse { Response = true.ToString(), Info = "Dodano ocenę."}; 
+            return new ReturnResponse { Response = true.ToString(), Info = "Dodano ocenę." };
         }
 
-        public async Task<ReturnResponse> UpdateComment(int myId, int userIdRated, int rate, string describe)
+        public async Task<ReturnResponse> UpdateComment(int myId, int userIdRated, int eventId, int rate, string describe)
         {
-            UserComments userComment = await _userCommentRepository.GetComment(myId, userIdRated);
+            UserComments userComment = await _userCommentRepository.GetComment(myId, userIdRated, eventId);
             userComment.Rate = rate;
             userComment.Describe = describe;
             await _userCommentRepository.UpdateAsync(userComment);
-            return new ReturnResponse { Response = true.ToString(), Info = "Zaktualizowano ocenę."}; 
+            return new ReturnResponse { Response = true.ToString(), Info = "Zaktualizowano ocenę." };
         }
 
-        public async Task<ReturnResponse> RemoveComment(int myId, int userIdRated)
+        public async Task<ReturnResponse> RemoveComment(int myId, int userIdRated, int eventId)
         {
-           UserComments userComment = await _userCommentRepository.GetComment(myId, userIdRated);
-           await _userCommentRepository.DeleteAsync(userComment);
-           return new ReturnResponse { Response = true.ToString(), Info = "Usunięto ocenę."}; 
+            UserComments userComment = await _userCommentRepository.GetComment(myId, userIdRated, eventId);
+            await _userCommentRepository.DeleteAsync(userComment);
+            return new ReturnResponse { Response = true.ToString(), Info = "Usunięto ocenę." };
         }
 
         private List<UserCommentDTO> FillDto(List<Tuple<int, string, int, string, int, string>> userComments)

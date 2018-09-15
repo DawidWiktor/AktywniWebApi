@@ -29,20 +29,20 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetMyComments() // uzyskanie przeze mnie napisanych komentarzy
            => Json(await _userCommentService.GetMyComments(UserId));
 
-        [HttpGet("userComments/{userId}")]          // uzyskanie komentarzy użytkownika
+        [HttpGet("user/{userId}")]          // uzyskanie komentarzy użytkownika
         public async Task<IActionResult> GetUserComments(int userId)
             => Json(await _userCommentService.GetUserComments(userId));
 
         [HttpPost("add")]
         public async Task<IActionResult> AddComment([FromBody]AddComment command)
-            => Json(await _userCommentService.AddComment(UserId, command.UserIdRated, command.Rate, command.Describe));
+            => Json(await _userCommentService.AddComment(UserId, command.UserIdRated, command.EventId, command.Rate, command.Describe));
 
         [HttpPut("update")]
         public async Task<IActionResult> UpdateComment([FromBody]AddComment command)
-            => Json(await _userCommentService.UpdateComment(UserId, command.UserIdRated, command.Rate, command.Describe));
+            => Json(await _userCommentService.UpdateComment(UserId, command.UserIdRated, command.EventId, command.Rate, command.Describe));
 
         [HttpDelete("remove")]
         public async Task<IActionResult> RemoveComment([FromBody]RemoveComment command)
-            => Json(await _userCommentService.RemoveComment(UserId, command.UserIdRated));
+            => Json(await _userCommentService.RemoveComment(UserId, command.UserIdRated, command.EventId));
     }
 }

@@ -16,9 +16,10 @@ namespace Aktywni.Infrastructure.Repositories
             _dbContext = dBContext;
         }
 
-        public async Task<UserComments> GetComment(int myId, int userId)
+        public async Task<UserComments> GetComment(int myId, int userId, int eventId)
             => await _dbContext.UserComments.Where(x => x.UserIdWhoComment == myId)
                                             .Where(x => x.UserIdRated == userId)
+                                            .Where(x => x.EventId == eventId)
                                             .FirstOrDefaultAsync();
 
         // id uzytkownika, który oceniał, jego login, id użytkownika ocenianego, jego login, ocena, opis

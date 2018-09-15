@@ -269,6 +269,11 @@ namespace Aktywni.Core.Model
            {
                entity.HasKey(e => e.UserCommentId);
 
+               entity.HasOne(d => d.Event)
+                                   .WithMany(p => p.UserComments)
+                                   .HasForeignKey(d => d.EventId)
+                                   .HasConstraintName("FK_UserComments_Event");
+
                entity.HasOne(d => d.UserIdRatedNavigation)
                    .WithMany(p => p.UserCommentsUserIdRatedNavigation)
                    .HasForeignKey(d => d.UserIdRated)
