@@ -14,6 +14,15 @@
           "lib/netstandard2.0/CryptoHelper.dll": {}
         }
       },
+      "GeoCoordinate.NetCore/1.0.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.6/GeoCoordinate.NetCore.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/GeoCoordinate.NetCore.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/2.0.1": {
         "type": "package",
         "compile": {
@@ -799,6 +808,17 @@
         "cryptohelper.nuspec",
         "lib/netstandard2.0/CryptoHelper.dll",
         "lib/netstandard2.0/CryptoHelper.xml"
+      ]
+    },
+    "GeoCoordinate.NetCore/1.0.0.1": {
+      "sha512": "VrR5MLkh0u2qka79JcQ/GUrgHwGidayCA7nKy2430qYX/JHdrHLgwp1MuBTSsygWs0s2V6GQ0Hp8HUMatHiWFw==",
+      "type": "package",
+      "path": "geocoordinate.netcore/1.0.0.1",
+      "files": [
+        "geocoordinate.netcore.1.0.0.1.nupkg.sha512",
+        "geocoordinate.netcore.nuspec",
+        "lib/netstandard1.6/GeoCoordinate.NetCore.deps.json",
+        "lib/netstandard1.6/GeoCoordinate.NetCore.dll"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/2.0.1": {
@@ -3107,6 +3127,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.0": [
       "CryptoHelper >= 3.0.2",
+      "GeoCoordinate.NetCore >= 1.0.0.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 2.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer.Design >= 1.1.5",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.2",
@@ -3120,11 +3141,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj",
+      "projectUniqueName": "C:\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj",
       "projectName": "Aktywni.Core",
-      "projectPath": "c:\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj",
+      "projectPath": "C:\\AktywniWebApi\\Aktywni.Core\\Aktywni.Core.csproj",
       "packagesPath": "C:\\Users\\dawid\\.nuget\\packages\\",
-      "outputPath": "c:\\AktywniWebApi\\Aktywni.Core\\obj\\",
+      "outputPath": "C:\\AktywniWebApi\\Aktywni.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3157,6 +3178,10 @@
           "CryptoHelper": {
             "target": "Package",
             "version": "[3.0.2, )"
+          },
+          "GeoCoordinate.NetCore": {
+            "target": "Package",
+            "version": "[1.0.0.1, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",

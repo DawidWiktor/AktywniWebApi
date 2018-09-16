@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "88741af89b16cf990e6d7bdc04ca4703cbb8f63a"
+    "signature": "01501d834e4eec49fd114cd2a6290e212c5f03ac"
   },
   "compilationOptions": {
     "defines": [
@@ -25,6 +25,7 @@
         "dependencies": {
           "Aktywni.Infrastructure": "1.0.0",
           "AutoMapper": "6.2.2",
+          "GeoCoordinate.NetCore": "1.0.0.1",
           "Microsoft.AspNetCore.All": "2.0.6",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "2.0.3",
           "Microsoft.AspNetCore.Server.Kestrel": "2.0.3",
@@ -71,6 +72,14 @@
         },
         "compile": {
           "lib/netstandard2.0/CryptoHelper.dll": {}
+        }
+      },
+      "GeoCoordinate.NetCore/1.0.0.1": {
+        "runtime": {
+          "lib/netstandard1.6/GeoCoordinate.NetCore.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.6/GeoCoordinate.NetCore.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -3862,6 +3871,7 @@
       "Aktywni.Core/1.0.0": {
         "dependencies": {
           "CryptoHelper": "3.0.2",
+          "GeoCoordinate.NetCore": "1.0.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.5",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.2"
@@ -3878,6 +3888,7 @@
           "Aktywni.Core": "1.0.0",
           "AutoMapper": "6.2.2",
           "CryptoHelper": "3.0.2",
+          "GeoCoordinate.NetCore": "1.0.0.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "2.0.3",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.5",
@@ -4087,6 +4098,13 @@
       "sha512": "sha512-6xFZdEnhuOmX58TgZAeb20MbddsL8/nR/4CnWhmjMXv9gfpOxD+1bBU7IDtYq2Q8rZJUT6xYWdhW16bKriU2Mw==",
       "path": "cryptohelper/3.0.2",
       "hashPath": "cryptohelper.3.0.2.nupkg.sha512"
+    },
+    "GeoCoordinate.NetCore/1.0.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VrR5MLkh0u2qka79JcQ/GUrgHwGidayCA7nKy2430qYX/JHdrHLgwp1MuBTSsygWs0s2V6GQ0Hp8HUMatHiWFw==",
+      "path": "geocoordinate.netcore/1.0.0.1",
+      "hashPath": "geocoordinate.netcore.1.0.0.1.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",

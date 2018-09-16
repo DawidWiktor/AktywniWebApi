@@ -72,9 +72,17 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
-        public async Task<ReturnResponse> SearchEventsInDisciplineAndDistanceAsync(string textInput, int disciplineId, double distance)
+        public async Task<ReturnResponse> SearchEventsInDisciplineAndDistanceAsync(string textInput, int disciplineId, double distance, double latitude, double longitude)
         {
-            var events = await _eventRepository.GetFromTextAndDisciplineAndDistanceAsync(textInput, disciplineId, disciplineId);
+            var events = await _eventRepository.GetFromTextAndDisciplineAndDistanceAsync(textInput, disciplineId, distance, latitude, longitude);
+            List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
+            await AddAdminLoginToEvents(listEventDto);
+            return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
+        }
+
+        public async Task<ReturnResponse> SearchEventsNearest(double latitude, double longitude)
+        {
+            var events = await _eventRepository.GetNearestEvents(latitude, longitude);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
             await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
@@ -101,7 +109,7 @@ namespace Aktywni.Infrastructure.Services
         }
 
         //obecnie uzywana
-        public async Task<ReturnResponse> AddEventAsync(string name, DateTime date, int whoCreatedID, int disciplineId, string description, string geographicalCoordinates)
+        public async Task<ReturnResponse> AddEventAsync(string name, DateTime date, int whoCreatedID, int disciplineId, string description, decimal latitude, decimal longitude)
         {
             try
             {
@@ -111,7 +119,7 @@ namespace Aktywni.Infrastructure.Services
                 {
                     return new ReturnResponse { Response = false.ToString(), Error = "Wydarzenie o takiej nazwie już istnieje." };
                 }
-                newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, disciplineId, geographicalCoordinates, description);
+                newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, disciplineId, latitude, longitude, description);
                 await _eventRepository.AddAsync(newEvent);
                 await AddAdminToUserEvent(name, whoCreatedID);
                 return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
@@ -122,26 +130,26 @@ namespace Aktywni.Infrastructure.Services
             }
         }
 
-        public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int disciplineId, string geographicalCoordinates)
+        public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int disciplineId, decimal latitude, decimal longitude)
         {
             var newEvent = await _eventRepository.GetEventAsync(name);
             if (newEvent != null)
             {
                 return new ReturnResponse { Response = false.ToString(), Error = "Wydarzenie o takiej nazwie już istnieje." };
             }
-            newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, disciplineId, geographicalCoordinates);
+            newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, disciplineId, latitude, longitude);
             await _eventRepository.AddAsync(newEvent);
             return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
         }
 
-        public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates, string description)
+        public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, decimal latitude, decimal longitude, string description)
         {
             var newEvent = await _eventRepository.GetEventAsync(name);
             if (newEvent != null)
             {
                 return new ReturnResponse { Response = false.ToString(), Error = "Wydarzenie o takiej nazwie już istnieje." };
             }
-            newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, disciplineId, geographicalCoordinates, description);
+            newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, disciplineId, latitude, longitude, description);
             await _eventRepository.AddAsync(newEvent);
             return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
         }

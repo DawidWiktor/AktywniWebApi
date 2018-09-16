@@ -24,6 +24,9 @@ namespace Aktywni.Core.Model
         public bool? Commerce { get; set; }
         public string Name { get; protected set; }
         public DateTime? CreatedDate { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
+
 
         public Users AdminNavigation { get; set; }
         public Disciplines Discipline { get; set; }
@@ -53,8 +56,8 @@ namespace Aktywni.Core.Model
             UsersEvents = new HashSet<UsersEvents>();
             UserComments = new HashSet<UserComments>();
         }
-
-        public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates)
+ 
+        public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, decimal latitude, decimal longitude)
         {
             ObjectId = objectID;
             WhoCreatedId = whoCreatedID;
@@ -62,14 +65,15 @@ namespace Aktywni.Core.Model
             Admin = admin;
             Name = name;
             DisciplineId = disciplineId;
-            GeographicalCoordinates = geographicalCoordinates;
+            Latitude = latitude;
+            Longitude = longitude;
             CreatedDate = DateTime.Now;
             MessageEvent = new HashSet<MessageEvent>();
             UsersEvents = new HashSet<UsersEvents>();
             UserComments = new HashSet<UserComments>();
         }
 
-        public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, string geographicalCoordinates, string description)
+        public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, decimal latitude, decimal longitude, string description)
         {
             ObjectId = objectID;
             WhoCreatedId = whoCreatedID;
@@ -78,7 +82,8 @@ namespace Aktywni.Core.Model
             Description = description;
             Admin = admin;
             Name = name;
-            GeographicalCoordinates = geographicalCoordinates;
+            Latitude = latitude;
+            Longitude = longitude;
             CreatedDate = DateTime.Now;
             MessageEvent = new HashSet<MessageEvent>();
             UsersEvents = new HashSet<UsersEvents>();

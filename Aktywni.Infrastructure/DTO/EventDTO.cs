@@ -17,5 +17,7 @@ namespace Aktywni.Infrastructure.DTO
         public string Name { get; set; }
         public DateTime CreatedDate { get; set; }
         public string AdminLogin { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
     }
 }

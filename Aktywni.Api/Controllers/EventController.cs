@@ -49,15 +49,19 @@ namespace Aktywni.Api.Controllers
 
         [HttpPost("searchInDisciplineAndDistance")]
         public async Task<IActionResult> SearchEventsInDisciplineAndDistance([FromBody]SearchEventsInDisciplineAndDistance command)
-            => Json(await _eventService.SearchEventsInDisciplineAndDistanceAsync(command.Name, command.DisciplineId, command.Distance));
+            => Json(await _eventService.SearchEventsInDisciplineAndDistanceAsync(command.Name, command.DisciplineId, command.Distance, command.Latitude, command.Longitude));
 
+         [HttpPost("searchNearest")]
+        public async Task<IActionResult> SearchNearest([FromBody]SearchNearest command)
+            => Json(await _eventService.SearchEventsNearest(command.Latitude, command.Longitude));     
+       
         [HttpPost("searchInDiscipline")]
         public async Task<IActionResult> SeachEventsInDiscipline([FromBody]SearchInDiscipline command)
             => Json(await _eventService.SearchEventsInDiscipline(command.DisciplineId));
             
         [HttpPost("add")]
         public async Task<IActionResult> AddEvent([FromBody]AddEvent command)
-           => Json(await _eventService.AddEventAsync(command.Name, command.Date, UserId, command.DisciplineId, command.Description, command.GeographicalCoordinates));
+           => Json(await _eventService.AddEventAsync(command.Name, command.Date, UserId, command.DisciplineId, command.Description, command.Latitude, command.Longitude));
 
         [HttpPut("changeName/{eventId}")]
         public async Task<IActionResult> ChangeEventName(int eventId, [FromBody]ChangeNameEvent command)

@@ -53,9 +53,14 @@ namespace Aktywni.Core.Model
                 entity.HasKey(e => e.EventId);
 
                 entity.Property(e => e.EventId).HasColumnName("EventID");
+                
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
+
+                entity.Property(e => e.Latitude).HasColumnType("decimal(23, 20)");
+
+                entity.Property(e => e.Longitude).HasColumnType("decimal(23, 20)");
 
                 entity.Property(e => e.DisciplineId).HasColumnName("DisciplineID");
 

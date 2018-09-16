@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "8f1fc55dc085cb58017da568a72c2ccfaa8627a7"
+    "signature": "3011130e49e6b809afba9de2e2c4aabfdc8d8e93"
   },
   "compilationOptions": {},
   "targets": {
@@ -10,6 +10,7 @@
       "Aktywni.Core/1.0.0": {
         "dependencies": {
           "CryptoHelper": "3.0.2",
+          "GeoCoordinate.NetCore": "1.0.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.1.5",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.2",
@@ -25,6 +26,11 @@
         },
         "runtime": {
           "lib/netstandard2.0/CryptoHelper.dll": {}
+        }
+      },
+      "GeoCoordinate.NetCore/1.0.0.1": {
+        "runtime": {
+          "lib/netstandard1.6/GeoCoordinate.NetCore.dll": {}
         }
       },
       "Microsoft.AspNetCore.Cryptography.Internal/2.0.1": {
@@ -518,6 +524,13 @@
       "sha512": "sha512-6xFZdEnhuOmX58TgZAeb20MbddsL8/nR/4CnWhmjMXv9gfpOxD+1bBU7IDtYq2Q8rZJUT6xYWdhW16bKriU2Mw==",
       "path": "cryptohelper/3.0.2",
       "hashPath": "cryptohelper.3.0.2.nupkg.sha512"
+    },
+    "GeoCoordinate.NetCore/1.0.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VrR5MLkh0u2qka79JcQ/GUrgHwGidayCA7nKy2430qYX/JHdrHLgwp1MuBTSsygWs0s2V6GQ0Hp8HUMatHiWFw==",
+      "path": "geocoordinate.netcore/1.0.0.1",
+      "hashPath": "geocoordinate.netcore.1.0.0.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Cryptography.Internal/2.0.1": {
       "type": "package",
