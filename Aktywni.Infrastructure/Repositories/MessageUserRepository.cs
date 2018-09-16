@@ -71,6 +71,7 @@ namespace Aktywni.Infrastructure.Repositories
         public async Task<bool> IsUnreadMessageFromUser(int userFromId, int userId)
             => await _dbContext.MessageUser.Where(x => x.UserId == userId)
                                             .Where(x => x.UserFromId == userFromId)
+                                            .Where(x => x.IsOpened == false)
                                             .AnyAsync();
 
         #region [ PRIVATE METHOD ]
