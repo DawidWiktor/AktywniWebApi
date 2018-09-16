@@ -104,30 +104,6 @@ namespace Aktywni.Infrastructure.Repositories
             return events;
         }
 
-        public async Task<IEnumerable<Events>> GetDisciplineAndDistanceAsync(int disciplineID, double distance, double latitude, double longitude)
-        {
-            
-            var coord = new GeoCoordinate(latitude, longitude);
-            var nearestEvents = await _dbContext.Events
-                                   .Where(x => x.DisciplineId == disciplineID)
-                                   .Select(x => new GeoCoordinate((double)x.Latitude, (double)x.Longitude))
-                                   .OrderBy(x => x.GetDistanceTo(coord))
-                                   .ToListAsync();
-
-            List<Events> events = new List<Events>();
-            foreach (var item in nearestEvents)
-            {
-                if (coord.GetDistanceTo(new GeoCoordinate((double)item.Latitude, (double)item.Longitude)) / 1000 > distance)
-                    continue;
-
-                Events tempEvent = await _dbContext.Events.OrderByDescending(x => x.EventId)
-                                                          .FirstOrDefaultAsync(x => (double)x.Latitude == item.Latitude
-                                                                                && (double)x.Longitude == item.Longitude);
-                events.Add(tempEvent);
-            }
-            return events;
-        }
-
         public async Task<IEnumerable<Events>> GetEventInDisciplineAsync(int disciplineID)
             => await _dbContext.Events.Where(x => x.DisciplineId == disciplineID)
                                       .ToListAsync();

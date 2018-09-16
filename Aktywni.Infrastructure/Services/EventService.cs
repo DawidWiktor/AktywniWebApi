@@ -223,7 +223,7 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = "Data wydarzenia została zmieniona." };
         }
 
-        public async Task<ReturnResponse> ChangeGeographicalCoordinatesEventAsync(int eventID, string geographicalCoordinates)
+        public async Task<ReturnResponse> ChangeGeographicalCoordinatesEventAsync(int eventID, double latitude, double longitude)
         {
             var eventDb = await _eventRepository.GetEventAsync(eventID);
             if (eventDb == null)
@@ -231,7 +231,7 @@ namespace Aktywni.Infrastructure.Services
                 return new ReturnResponse { Response = false.ToString(), Error = "Błędne ID wydarzenia" };
             }
 
-            eventDb.SetGeographicalCoordinates(geographicalCoordinates);
+            eventDb.SetGeographicalCoordinates(latitude, longitude);
             await _eventRepository.UpdateAsync(eventDb);
             return new ReturnResponse { Response = true.ToString(), Info = "Miejsce wydarzenia zostało zmienione." };
         }

@@ -2,6 +2,7 @@ namespace Aktywni.Infrastructure.Commands.Event
 {
     public class ChangeGeographicalCoordinatesEvent
     {
-        public string NewGeographicalCoordinates{get;set;}
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

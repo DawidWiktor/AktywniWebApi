@@ -109,6 +109,14 @@ namespace Aktywni.Core.Model
             return true;
         }
 
+        public bool SetGeographicalCoordinates(double latitude, double longitude)
+        {
+            Latitude = (decimal)latitude;
+            Longitude = (decimal)longitude;
+            return true;
+        }
+
+
         public bool SetName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))

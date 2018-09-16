@@ -85,7 +85,7 @@ namespace Aktywni.Api.Controllers
 
         [HttpPut("changeGeographicalCoordinates/{eventId}")]
         public async Task<IActionResult> ChangeGeographicalCoordinatesEvent(int eventId, [FromBody]ChangeGeographicalCoordinatesEvent command)
-            => Json(await _eventService.ChangeGeographicalCoordinatesEventAsync(eventId, command.NewGeographicalCoordinates));
+            => Json(await _eventService.ChangeGeographicalCoordinatesEventAsync(eventId, command.Latitude, command.Longitude));
 
     }
 }

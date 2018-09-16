@@ -14,7 +14,6 @@ namespace Aktywni.Core.Repositories
         Task<IEnumerable<Events>> GetFromTextAsync(string textInput);
         Task<IEnumerable<Events>> GetFromTextAndDisciplineAsync(string textInput, int disciplineID);
         Task<IEnumerable<Events>> GetFromTextAndDisciplineAndDistanceAsync(string textInput, int disciplineID, double distance, double latitude, double longitude);
-        Task<IEnumerable<Events>> GetDisciplineAndDistanceAsync(int disciplineID, double distance, double latitude, double longitude);
         Task<IEnumerable<Events>> GetNearestEvents(double latitude, double longitude);
         Task<IEnumerable<Events>> GetEventInDisciplineAsync(int disciplineID);
         Task AddAsync(Events obj);

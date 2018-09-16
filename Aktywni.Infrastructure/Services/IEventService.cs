@@ -12,7 +12,8 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> GetAllMyEventsAsync(int userID);
         Task<ReturnResponse> SearchEventsAsync(string textInput); // wyszukiwanie po nazwie wydarzenia
         Task<ReturnResponse> SearchEventsInDisciplineAsync(string textInput, int disciplineId);
-        Task<ReturnResponse> SearchEventsInDisciplineAndDistanceAsync(string textInput, int disciplineId, double distance);
+        Task<ReturnResponse> SearchEventsInDisciplineAndDistanceAsync(string textInput, int disciplineId, double distance, double latitude, double longitude);
+        Task<ReturnResponse> SearchEventsNearest(double latitude, double longitude);
         Task<ReturnResponse> SearchEventsInDiscipline(int disciplineId);
         Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, string description);
         // obecnie uzywana
@@ -23,7 +24,7 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> ChangeVisibilityEventAsync(int eventID, string visibility);
         Task<ReturnResponse> ChangeDescription(int eventID, string description);
         Task<ReturnResponse> ChangeDateEventAsync(int eventID, DateTime date);
-        Task<ReturnResponse> ChangeGeographicalCoordinatesEventAsync(int eventID, string geographicalCoordinates);
+        Task<ReturnResponse> ChangeGeographicalCoordinatesEventAsync(int eventID, double latitude, double longitude);
         Task<ReturnResponse> RemoveEventAsync(int eventID);
     }
 }
