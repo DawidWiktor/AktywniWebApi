@@ -66,7 +66,11 @@ namespace Aktywni.Infrastructure.Services
 
         public async Task<ReturnResponse> SearchEventsInDisciplineAsync(string textInput, int disciplineId)
         {
-            var events = await _eventRepository.GetFromTextAndDisciplineAsync(textInput, disciplineId);
+            IEnumerable<Events> events = new List<Events>();
+            if(string.IsNullOrWhiteSpace(textInput))
+                events = await _eventRepository.GetEventInDisciplineAsync(disciplineId);
+            else
+                events = await _eventRepository.GetFromTextAndDisciplineAsync(textInput, disciplineId);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
             await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
@@ -87,15 +91,6 @@ namespace Aktywni.Infrastructure.Services
             await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
-
-        public async Task<ReturnResponse> SearchEventsInDiscipline(int disciplineId)
-        {
-            var events = await _eventRepository.GetEventInDisciplineAsync(disciplineId);
-            List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
-            await AddAdminLoginToEvents(listEventDto);
-            return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
-        }
-
         public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, string description)
         {
             var newEvent = await _eventRepository.GetEventAsync(name);
