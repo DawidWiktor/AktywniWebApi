@@ -24,25 +24,25 @@ namespace Aktywni.Infrastructure.Services
             _mapper = mapper;
         }
 
-        public async Task<ReturnResponse> GetEventAsync(int eventID)
+        public async Task<ReturnResponse> GetEventAsync(int eventID, int userId)
         {
-            var evenTemp = await _eventRepository.GetEventAsync(eventID);
+            var evenTemp = await _eventRepository.GetEventAsync(eventID, userId);
             var eventDto = _mapper.Map<Events, EventDTO>(evenTemp);
             await AddAdminLoginToEvent(eventDto);
             return new ReturnResponse { Response = (eventDto == null) ? false.ToString() : true.ToString(), Info = eventDto };
         }
 
-        public async Task<ReturnResponse> GetEventAsync(string name)
+        public async Task<ReturnResponse> GetEventAsync(string name, int userId)
         {
-            var evenTemp = await _eventRepository.GetEventAsync(name);
+            var evenTemp = await _eventRepository.GetEventAsync(name, userId);
             var eventDto = _mapper.Map<Events, EventDTO>(evenTemp);
             await AddAdminLoginToEvent(eventDto);
             return new ReturnResponse { Response = (eventDto == null) ? false.ToString() : true.ToString(), Info = eventDto };
         }
 
-        public async Task<ReturnResponse> GetAllEventsAsync()
+        public async Task<ReturnResponse> GetAllEventsAsync(int userId)
         {
-            var events = await _eventRepository.GetAllEventsAsync();
+            var events = await _eventRepository.GetAllEventsAsync(userId);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
             await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
@@ -56,42 +56,42 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
-        public async Task<ReturnResponse> SearchEventsAsync(string textInput)
+        public async Task<ReturnResponse> SearchEventsAsync(string textInput, int userId)
         {
-            var events = await _eventRepository.GetFromTextAsync(textInput);
+            var events = await _eventRepository.GetFromTextAsync(textInput, userId);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
             await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
-        public async Task<ReturnResponse> SearchEventsInDisciplineAsync(string textInput, int disciplineId)
+        public async Task<ReturnResponse> SearchEventsInDisciplineAsync(string textInput, int disciplineId, int userId)
         {
             IEnumerable<Events> events = new List<Events>();
             if(string.IsNullOrWhiteSpace(textInput))
-                events = await _eventRepository.GetEventInDisciplineAsync(disciplineId);
+                events = await _eventRepository.GetEventInDisciplineAsync(disciplineId, userId);
             else
-                events = await _eventRepository.GetFromTextAndDisciplineAsync(textInput, disciplineId);
+                events = await _eventRepository.GetFromTextAndDisciplineAsync(textInput, disciplineId, userId);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
             await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
-        public async Task<ReturnResponse> SearchEventsInDisciplineAndDistanceAsync(string textInput, int disciplineId, double distance, double latitude, double longitude)
+        public async Task<ReturnResponse> SearchEventsInDisciplineAndDistanceAsync(string textInput, int disciplineId, double distance, double latitude, double longitude, int userId)
         {
-            var events = await _eventRepository.GetFromTextAndDisciplineAndDistanceAsync(textInput, disciplineId, distance, latitude, longitude);
+            var events = await _eventRepository.GetFromTextAndDisciplineAndDistanceAsync(textInput, disciplineId, distance, latitude, longitude, userId);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
             await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
 
-        public async Task<ReturnResponse> SearchEventsNearest(double latitude, double longitude)
+        public async Task<ReturnResponse> SearchEventsNearest(double latitude, double longitude, int userId)
         {
-            var events = await _eventRepository.GetNearestEvents(latitude, longitude);
+            var events = await _eventRepository.GetNearestEvents(latitude, longitude, userId);
             List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
             await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
-        public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, string description)
+  /*      public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, string description)
         {
             var newEvent = await _eventRepository.GetEventAsync(name);
             if (newEvent != null)
@@ -101,20 +101,23 @@ namespace Aktywni.Infrastructure.Services
             newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, description);
             await _eventRepository.AddAsync(newEvent);
             return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
-        }
+        }*/
 
         //obecnie uzywana
-        public async Task<ReturnResponse> AddEventAsync(string name, DateTime date, int whoCreatedID, int disciplineId, string description, decimal latitude, decimal longitude)
+        public async Task<ReturnResponse> AddEventAsync(string name, DateTime date, int whoCreatedID, bool isCommerceUser, bool isPrivate, int disciplineId, string description, decimal latitude, decimal longitude)
         {
             try
             {
+                if(!isCommerceUser && isPrivate)
+                    return new ReturnResponse { Response = false.ToString(), Error = "Nie możesz utworzyć prywatnego wydarzenia." };
+
                 int objectID = 1; // brak obiektu
                 var newEvent = await _eventRepository.GetEventAsync(name);
                 if (newEvent != null)
                 {
                     return new ReturnResponse { Response = false.ToString(), Error = "Wydarzenie o takiej nazwie już istnieje." };
                 }
-                newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, disciplineId, latitude, longitude, description);
+                newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, isPrivate, disciplineId, latitude, longitude, description);
                 await _eventRepository.AddAsync(newEvent);
                 await AddAdminToUserEvent(name, whoCreatedID);
                 return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
@@ -125,7 +128,7 @@ namespace Aktywni.Infrastructure.Services
             }
         }
 
-        public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int disciplineId, decimal latitude, decimal longitude)
+    /*    public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int disciplineId, decimal latitude, decimal longitude)
         {
             var newEvent = await _eventRepository.GetEventAsync(name);
             if (newEvent != null)
@@ -147,7 +150,7 @@ namespace Aktywni.Infrastructure.Services
             newEvent = new Events(name, objectID, date, whoCreatedID, whoCreatedID, disciplineId, latitude, longitude, description);
             await _eventRepository.AddAsync(newEvent);
             return new ReturnResponse { Response = true.ToString(), Info = "Dodano wydarzenie." };
-        }
+        }*/
 
         public async Task<ReturnResponse> ChangeNameEventAsync(int eventID, string newName)
         {

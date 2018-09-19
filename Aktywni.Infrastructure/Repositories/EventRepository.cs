@@ -12,57 +12,70 @@ namespace Aktywni.Infrastructure.Repositories
     public class EventRepository : IEventRepository
     {
         private readonly AktywniDBContext _dbContext;
-        public EventRepository(AktywniDBContext dBContext)
+        private readonly IUserEventRepository _userEventRepository;
+        public EventRepository(AktywniDBContext dBContext, IUserEventRepository userEventRepository)
         {
             _dbContext = dBContext;
+            _userEventRepository = userEventRepository;
         }
 
-        public async Task<Events> GetEventAsync(int eventID)
-         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
+         public async Task<Events> GetEventAsync(int eventID)
+            => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
                                     .FirstOrDefaultAsync(x => x.EventId == eventID);
+
+        public async Task<Events> GetEventAsync(int eventID, int userId)
+         => await FillEvent(userId, await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
+                                    .FirstOrDefaultAsync(x => x.EventId == eventID));
 
         public async Task<Events> GetEventAsync(string eventName)
          => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
                                     .FirstOrDefaultAsync(x => x.Name == eventName);
 
+        public async Task<Events> GetEventAsync(string eventName, int userId)
+         => await FillEvent(userId, await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
+                                    .FirstOrDefaultAsync(x => x.Name == eventName));
+
         public async Task<int> GetIdEvent(string eventName)
             => await _dbContext.Events.Where(x => x.Name == eventName)
                                       .Select(x => x.EventId)
                                       .FirstOrDefaultAsync();
-        public async Task<IEnumerable<Events>> GetAllEventsAsync()
-         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
-                                    .Where(x => x.Date > DateTime.Now)
-                                    .OrderBy(x => x.Commerce).ToListAsync();
+        public async Task<IEnumerable<Events>> GetAllEventsAsync(int userId)
+            => await FillListEvents(userId,
+                                    await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
+                                                            .Where(x => x.Date > DateTime.Now)
+                                                            .OrderBy(x => x.Commerce).ToListAsync());
+
         public async Task<IEnumerable<Events>> GetAllMyEventsAsync(int userID)
          => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
                                     .Where(x => x.Admin == userID)
                                     .Where(x => x.WhoCreatedId == userID)
                                     .OrderBy(x => x.Commerce).ToListAsync();
 
-        public async Task<IEnumerable<Events>> GetFromTextAsync(string textInput)
-         => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
+        public async Task<IEnumerable<Events>> GetFromTextAsync(string textInput, int userId)
+         => await FillListEvents(userId, await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
                                         .Where(x => x.Date > DateTime.Now)
                                         .Where(x => x.Name.Contains(textInput))
-                                        .OrderBy(x => x.Commerce).ToListAsync();
-        public async Task<IEnumerable<Events>> GetFromTextAndDisciplineAsync(string textInput, int disciplineID)
-            => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
+                                        .OrderBy(x => x.Commerce).ToListAsync());
+        public async Task<IEnumerable<Events>> GetFromTextAndDisciplineAsync(string textInput, int disciplineID, int userId)
+            => await FillListEvents(userId, await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
                                         .Where(x => x.Date > DateTime.Now)
                                         .Where(x => x.Name.Contains(textInput))
                                         .Where(x => x.DisciplineId == disciplineID)
-                                        .OrderBy(x => x.Commerce).ToListAsync();
+                                        .OrderBy(x => x.Commerce).ToListAsync());
 
 
-        public async Task<IEnumerable<Events>> GetFromTextAndDisciplineAndDistanceAsync(string textInput, int disciplineID, double distance, double latitude, double longitude)
+        public async Task<IEnumerable<Events>> GetFromTextAndDisciplineAndDistanceAsync(string textInput, int disciplineID,
+                            double distance, double latitude, double longitude, int userId)
         {
             var coord = new GeoCoordinate(latitude, longitude);
             List<GeoCoordinate> nearestEvents = new List<GeoCoordinate>();
-            if(string.IsNullOrEmpty(textInput))
+            if (string.IsNullOrEmpty(textInput))
                 nearestEvents = await _dbContext.Events
                                    .Where(x => x.DisciplineId == disciplineID)
                                    .Select(x => new GeoCoordinate((double)x.Latitude, (double)x.Longitude))
                                    .OrderBy(x => x.GetDistanceTo(coord))
                                    .ToListAsync();
-            else                       
+            else
                 nearestEvents = await _dbContext.Events
                                    .Where(x => x.Name.Contains(textInput))
                                    .Where(x => x.DisciplineId == disciplineID)
@@ -81,10 +94,10 @@ namespace Aktywni.Infrastructure.Repositories
                                                                                 && (double)x.Longitude == item.Longitude);
                 events.Add(tempEvent);
             }
-            return events;
+            return await FillListEvents(userId, events);
         }
 
-        public async Task<IEnumerable<Events>> GetNearestEvents(double latitude, double longitude)
+        public async Task<IEnumerable<Events>> GetNearestEvents(double latitude, double longitude, int userId)
         {
             var coord = new GeoCoordinate(latitude, longitude);
             var nearestEvents = await _dbContext.Events
@@ -101,12 +114,12 @@ namespace Aktywni.Infrastructure.Repositories
                                                                                 && (double)x.Longitude == item.Longitude);
                 events.Add(tempEvent);
             }
-            return events;
+            return await FillListEvents(userId, events);
         }
 
-        public async Task<IEnumerable<Events>> GetEventInDisciplineAsync(int disciplineID)
-            => await _dbContext.Events.Where(x => x.DisciplineId == disciplineID)
-                                      .ToListAsync();
+        public async Task<IEnumerable<Events>> GetEventInDisciplineAsync(int disciplineID, int userId)
+            => await FillListEvents(userId, await _dbContext.Events.Where(x => x.DisciplineId == disciplineID)
+                                      .ToListAsync());
 
         public async Task AddAsync(Events obj)
         {
@@ -126,5 +139,48 @@ namespace Aktywni.Infrastructure.Repositories
             _dbContext.Events.Remove(obj);
             await _dbContext.SaveChangesAsync();
         }
+
+        #region [ PRIVATE METHOD ]
+        private async Task<Events> FillEvent(int userId, Events tempEvent)
+        {
+            switch (tempEvent.Visibility)
+            {
+                case "W":
+                    return tempEvent;
+                case "N":
+                    var userEvent = await _userEventRepository.GetUserInEvent(tempEvent.EventId, userId);
+                    if (userEvent != null)
+                        return tempEvent;
+                    break;
+                default:
+                    return null;
+            }
+            return null;
+        }
+
+        private async Task<IEnumerable<Events>> FillListEvents(int userId, IEnumerable<Events> listEvents)
+        {
+            List<Events> returnEvents = new List<Events>();
+            foreach (var item in listEvents)
+            {
+                switch (item.Visibility)
+                {
+                    case "W":
+                        returnEvents.Add(item);
+                        continue;
+                    case "N":
+                        var userEvent = await _userEventRepository.GetUserInEvent(item.EventId, userId);
+                        if (userEvent == null)
+                            continue;
+                        returnEvents.Add(item);
+                        continue;
+                    default:
+                        continue;
+                }
+            }
+            return returnEvents;
+        }
+
+        #endregion [ PRIVATE METHOD ]
     }
 }

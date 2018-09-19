@@ -73,7 +73,7 @@ namespace Aktywni.Core.Model
             UserComments = new HashSet<UserComments>();
         }
 
-        public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, decimal latitude, decimal longitude, string description)
+        public Events(string name, int objectID, DateTime date, int whoCreatedID, int admin, bool isPrivate, int disciplineId, decimal latitude, decimal longitude, string description)
         {
             ObjectId = objectID;
             WhoCreatedId = whoCreatedID;
@@ -85,6 +85,7 @@ namespace Aktywni.Core.Model
             Latitude = latitude;
             Longitude = longitude;
             CreatedDate = DateTime.Now;
+            SetVisibility(isPrivate);
             MessageEvent = new HashSet<MessageEvent>();
             UsersEvents = new HashSet<UsersEvents>();
             UserComments = new HashSet<UserComments>();
@@ -123,6 +124,12 @@ namespace Aktywni.Core.Model
                 return false;
 
             Name = name;
+            return true;
+        }
+
+        public bool SetVisibility(bool isPrivate)
+        {
+            Visibility = TypeOfVisible.N.ToString();
             return true;
         }
 

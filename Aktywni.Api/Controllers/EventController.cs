@@ -25,15 +25,15 @@ namespace Aktywni.Api.Controllers
 
         [HttpGet("{eventId}")]
         public async Task<IActionResult> GetEvent(int eventId)
-            => Json(await _eventService.GetEventAsync(eventId));
+            => Json(await _eventService.GetEventAsync(eventId, UserId));
 
         [HttpGet("name/{name}")]
         public async Task<IActionResult> GetEvent(string name)
-            => Json(await _eventService.GetEventAsync(name));
+            => Json(await _eventService.GetEventAsync(name, UserId));
 
         [HttpGet]
         public async Task<IActionResult> GetAllEvents()
-            => Json(await _eventService.GetAllEventsAsync());
+            => Json(await _eventService.GetAllEventsAsync(UserId));
 
         [HttpGet("my")]
         public async Task<IActionResult> GetAllMyEvents()
@@ -41,23 +41,23 @@ namespace Aktywni.Api.Controllers
 
         [HttpPost("search")]
         public async Task<IActionResult> SearchEvents([FromBody]SearchObject command)
-            => Json(await _eventService.SearchEventsAsync(command.Name));
+            => Json(await _eventService.SearchEventsAsync(command.Name, UserId));
 
         [HttpPost("searchInDiscipline")]
         public async Task<IActionResult> SearchEventsInDiscipline([FromBody]SearchEventsInDiscipline command)
-            => Json(await _eventService.SearchEventsInDisciplineAsync(command.Name, command.DisciplineId));
+            => Json(await _eventService.SearchEventsInDisciplineAsync(command.Name, command.DisciplineId, UserId));
 
         [HttpPost("searchInDisciplineAndDistance")]
         public async Task<IActionResult> SearchEventsInDisciplineAndDistance([FromBody]SearchEventsInDisciplineAndDistance command)
-            => Json(await _eventService.SearchEventsInDisciplineAndDistanceAsync(command.Name, command.DisciplineId, command.Distance, command.Latitude, command.Longitude));
+            => Json(await _eventService.SearchEventsInDisciplineAndDistanceAsync(command.Name, command.DisciplineId, command.Distance, command.Latitude, command.Longitude, UserId));
 
          [HttpPost("searchNearest")]
         public async Task<IActionResult> SearchNearest([FromBody]SearchNearest command)
-            => Json(await _eventService.SearchEventsNearest(command.Latitude, command.Longitude));     
+            => Json(await _eventService.SearchEventsNearest(command.Latitude, command.Longitude, UserId));     
             
         [HttpPost("add")]
         public async Task<IActionResult> AddEvent([FromBody]AddEvent command)
-           => Json(await _eventService.AddEventAsync(command.Name, command.Date, UserId, command.DisciplineId, command.Description, command.Latitude, command.Longitude));
+           => Json(await _eventService.AddEventAsync(command.Name, command.Date, UserId, IsCommerceUser, command.IsPrivate, command.DisciplineId, command.Description, command.Latitude, command.Longitude));
 
         [HttpPut("changeName/{eventId}")]
         public async Task<IActionResult> ChangeEventName(int eventId, [FromBody]ChangeNameEvent command)

@@ -1,6 +1,8 @@
 using System;
 using System.Data.SqlClient;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Aktywni.Infrastructure.Commands;
 using Aktywni.Infrastructure.Commands.User;
