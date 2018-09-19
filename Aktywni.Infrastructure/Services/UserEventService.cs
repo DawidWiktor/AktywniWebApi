@@ -15,7 +15,7 @@ namespace Aktywni.Infrastructure.Services
         private readonly IUserRepository _userRepository;
         private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
-        public UserEventService(IUserEventRepository userEventRepository, IUserRepository userRepository, 
+        public UserEventService(IUserEventRepository userEventRepository, IUserRepository userRepository,
                                  IEventRepository eventRepository, IMapper mapper)
         {
             _userEventRepository = userEventRepository;
@@ -42,9 +42,20 @@ namespace Aktywni.Infrastructure.Services
             List<EventsInUserDTO> listEventsUser = new List<EventsInUserDTO>();
             foreach (var item in eventsUser)
             {
-               listEventsUser.Add(new EventsInUserDTO {EventId = item.Item1, EventName = item.Item2, Date = item.Item3, IsAccepted = item.Item4});
+                listEventsUser.Add(new EventsInUserDTO { EventId = item.Item1, EventName = item.Item2, Date = item.Item3, IsAccepted = item.Item4 });
             }
-            return new ReturnResponse {Response =  true.ToString(), Info = listEventsUser };
+            return new ReturnResponse { Response = true.ToString(), Info = listEventsUser };
+        }
+
+        public async Task<ReturnResponse> GetMyInvitationsEvent(int myId)
+        {
+            var eventsUser = await _userEventRepository.GetMyInvitationsEvent(myId);
+            List<InvitationsDTO> listEventsUser = new List<InvitationsDTO>();
+            foreach (var item in eventsUser)
+            {
+                listEventsUser.Add(new InvitationsDTO { EventId = item.Item1, EventName = item.Item2, Date = item.Item3});
+            }
+            return new ReturnResponse { Response = true.ToString(), Info = listEventsUser };
         }
 
         public async Task<ReturnResponse> JoinToEventAsync(int myId, int eventID) // akceptacja zaproszenia lub dolaczenie do wydarzenia
@@ -103,7 +114,5 @@ namespace Aktywni.Infrastructure.Services
             await _userEventRepository.DeleteAsync(userEvent);
             return new ReturnResponse { Response = true.ToString(), Info = "Usunięto użytkownika z wydarzenia." };
         }
-
-        
     }
 }

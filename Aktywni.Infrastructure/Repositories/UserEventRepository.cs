@@ -36,6 +36,14 @@ namespace Aktywni.Infrastructure.Repositories
                                                             z.Event.Name, (DateTime)z.Event.Date, (bool)z.IsAccepted))
                                     .ToListAsync();
 
+        // id wydarzenia, nazwa wydarzenia, data
+        public async Task<IEnumerable<Tuple<int, string, DateTime>>> GetMyInvitationsEvent(int myId)
+            => await _dbContext.UsersEvents.Where(x => x.UserId == myId)
+                                            .Where(x=>x.IsAccepted == false)
+                                    .Select(z => new Tuple<int, string, DateTime>(z.EventId,
+                                                            z.Event.Name, (DateTime)z.Event.Date))
+                                    .ToListAsync();
+
         public async Task<bool> IsAdminInEvent(int eventId, int userId)
             => await _dbContext.Events.Where(x => x.EventId == eventId)
                                       .AnyAsync(x => x.Admin == userId);

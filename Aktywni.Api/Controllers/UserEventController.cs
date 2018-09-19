@@ -30,6 +30,10 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetEventInUser()
             => Json(await _userEventService.GetEventInUser(UserId));
 
+        [HttpGet("myInvitations")]
+        public async Task<IActionResult> GetMyInvitationsEvent() // uzyskanie listy wydarzeń, gdzie jesteśmy zaproszeni
+            => Json(await _userEventService.GetMyInvitationsEvent(UserId));
+
         [HttpPost("add")]
         public async Task<IActionResult> AddUserInEvent([FromBody]AddUserInEvent Command)
             => Json(await _userEventService.AddUserInEvent(Command.EventId, Command.UserId));

@@ -5,8 +5,9 @@ namespace Aktywni.Infrastructure.Services
 {
     public interface IUserEventService
     {
-        Task<ReturnResponse> GetUsersInEventAsync(int eventID);
-        Task<ReturnResponse> GetEventInUser(int myId);
+        Task<ReturnResponse> GetUsersInEventAsync(int eventID);     // uzyskanie listy użytkowników, którzy uczestniczą w wydarzeniu
+        Task<ReturnResponse> GetEventInUser(int myId);              // uzyskanie listy wydarzeń gdzie bierzemy udział lub jesteśmy zaproszeni
+        Task<ReturnResponse> GetMyInvitationsEvent(int userId);     // uzyskanie listy wydarzeń gdzie zostaliśmy zaproszeni
         Task<ReturnResponse> JoinToEventAsync(int myId, int eventID); // akceptacja zaproszenia lub dolaczenie do wydarzenia
         Task<ReturnResponse> ExceptFromEventAsync(int myId, int eventID); // odejscie, bądź usunięcie zaproszenia
         Task<ReturnResponse> AddUserInEvent(int eventID, int userID);
