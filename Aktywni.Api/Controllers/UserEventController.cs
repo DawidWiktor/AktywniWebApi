@@ -34,6 +34,10 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetMyInvitationsEvent() // uzyskanie listy wydarzeń, gdzie jesteśmy zaproszeni
             => Json(await _userEventService.GetMyInvitationsEvent(UserId));
 
+        [HttpGet("myHistory")]
+        public async Task<IActionResult> GetHistoryEvents() 
+            => Json(await _userEventService.GetHistoryEvents(UserId));
+
         [HttpPost("add")]
         public async Task<IActionResult> AddUserInEvent([FromBody]AddUserInEvent Command)
             => Json(await _userEventService.AddUserInEvent(Command.EventId, Command.UserId));

@@ -39,7 +39,15 @@ namespace Aktywni.Infrastructure.Repositories
         // id wydarzenia, nazwa wydarzenia, data
         public async Task<IEnumerable<Tuple<int, string, DateTime>>> GetMyInvitationsEvent(int myId)
             => await _dbContext.UsersEvents.Where(x => x.UserId == myId)
-                                            .Where(x=>x.IsAccepted == false)
+                                            .Where(x => x.IsAccepted == false)
+                                    .Select(z => new Tuple<int, string, DateTime>(z.EventId,
+                                                            z.Event.Name, (DateTime)z.Event.Date))
+                                    .ToListAsync();
+
+        public async Task<IEnumerable<Tuple<int, string, DateTime>>> GetHistoryEvents(int myId)
+            => await _dbContext.UsersEvents.Where(x => x.UserId == myId)
+                                            .Where(x => x.IsAccepted == true)
+                                            .Where(x => x.Event.Date < DateTime.Now)
                                     .Select(z => new Tuple<int, string, DateTime>(z.EventId,
                                                             z.Event.Name, (DateTime)z.Event.Date))
                                     .ToListAsync();

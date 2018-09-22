@@ -58,6 +58,17 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = listEventsUser };
         }
 
+        public async Task<ReturnResponse> GetHistoryEvents(int myId)
+        {
+             var eventsUser = await _userEventRepository.GetHistoryEvents(myId);
+            List<InvitationsDTO> listEventsUser = new List<InvitationsDTO>();
+            foreach (var item in eventsUser)
+            {
+                listEventsUser.Add(new InvitationsDTO { EventId = item.Item1, EventName = item.Item2, Date = item.Item3});
+            }
+            return new ReturnResponse { Response = true.ToString(), Info = listEventsUser };
+        }
+
         public async Task<ReturnResponse> JoinToEventAsync(int myId, int eventID) // akceptacja zaproszenia lub dolaczenie do wydarzenia
         {
             UsersEvents userEvent = await _userEventRepository.GetUserInEvent(eventID, myId);
