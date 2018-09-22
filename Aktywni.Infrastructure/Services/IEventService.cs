@@ -16,6 +16,7 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> SearchEventsNearest(double latitude, double longitude, int userId);
       //  Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, string description);
         // obecnie uzywana
+        Task<ReturnResponse> GetEventsWhereNotComments(int userId); // uzyskanie wydarzeń, gdzie nie ma komentarzy
         Task<ReturnResponse> AddEventAsync(string name, DateTime date, int whoCreatedID, bool IsCommerceUser, bool IsPrivate, int disciplineId, string description, decimal latitude, decimal longitude);
      //   Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int disciplineId, decimal latitude, decimal longitude);
       //  Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, int admin, int disciplineId, decimal latitude, decimal longitude, string description);

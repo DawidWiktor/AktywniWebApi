@@ -91,6 +91,15 @@ namespace Aktywni.Infrastructure.Services
             await AddAdminLoginToEvents(listEventDto);
             return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
         }
+
+        public async Task<ReturnResponse> GetEventsWhereNotComments(int userId)
+        {
+               var events = await _eventRepository.GetEventsWhereNotComments(userId);
+            List<EventDTO> listEventDto = _mapper.Map<IEnumerable<Events>, List<EventDTO>>(events);
+            await AddAdminLoginToEvents(listEventDto);
+            return new ReturnResponse { Response = true.ToString(), Info = listEventDto };
+        }
+
   /*      public async Task<ReturnResponse> AddEventAsync(string name, int objectID, DateTime date, int whoCreatedID, string description)
         {
             var newEvent = await _eventRepository.GetEventAsync(name);

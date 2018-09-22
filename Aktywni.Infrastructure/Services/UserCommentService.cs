@@ -37,6 +37,12 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = userComments };
         }
 
+        public async Task<ReturnResponse> GetCommentsInEvent(int userId, int eventId)
+        {
+            var userComments = FillDto(await _userCommentRepository.GetCommentsInEvent(userId, eventId));
+            return new ReturnResponse { Response = true.ToString(), Info = userComments };
+        }
+
         public async Task<ReturnResponse> AddComment(int myId, int userIdRated, int eventId, int rate, string describe)
         {
             if(!await _userEventRepository.IsAdminInEvent(eventId, myId))

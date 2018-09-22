@@ -129,7 +129,10 @@ namespace Aktywni.Core.Model
 
         public bool SetVisibility(bool isPrivate)
         {
-            Visibility = TypeOfVisible.N.ToString();
+            if(isPrivate)
+                Visibility = TypeOfVisible.N.ToString();
+            else
+                Visibility = TypeOfVisible.W.ToString();
             return true;
         }
 

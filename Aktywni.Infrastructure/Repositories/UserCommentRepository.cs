@@ -37,6 +37,13 @@ namespace Aktywni.Infrastructure.Repositories
                                             z.Rate, z.Describe))
                                             .ToListAsync();
 
+        public async Task<List<Tuple<int, string, int, string, int, string>>> GetCommentsInEvent(int userId, int eventId)
+            => await _dbContext.UserComments.Where(x => x.EventId == eventId)
+                                            .Select(z => new Tuple<int, string, int, string, int, string>
+                                            (z.UserIdWhoComment, z.UserIdWhoCommentNavigation.Login, z.UserIdRated, z.UserIdRatedNavigation.Login,
+                                            z.Rate, z.Describe))
+                                            .ToListAsync();
+
         public async Task AddAsync(UserComments userComments)
         {
             _dbContext.UserComments.Add(userComments);

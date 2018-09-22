@@ -54,6 +54,10 @@ namespace Aktywni.Api.Controllers
          [HttpPost("searchNearest")]
         public async Task<IActionResult> SearchNearest([FromBody]SearchNearest command)
             => Json(await _eventService.SearchEventsNearest(command.Latitude, command.Longitude, UserId));     
+
+        [HttpGet("notComments")]
+        public async Task<IActionResult> GetEventsWhereNotComments()
+            => Json(await _eventService.GetEventsWhereNotComments(UserId));
             
         [HttpPost("add")]
         public async Task<IActionResult> AddEvent([FromBody]AddEvent command)

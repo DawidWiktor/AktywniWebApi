@@ -18,6 +18,7 @@ namespace Aktywni.Core.Repositories
         Task<IEnumerable<Events>> GetFromTextAndDisciplineAndDistanceAsync(string textInput, int disciplineID, double distance, double latitude, double longitude, int userId);
         Task<IEnumerable<Events>> GetNearestEvents(double latitude, double longitude, int userId);
         Task<IEnumerable<Events>> GetEventInDisciplineAsync(int disciplineID, int userId);
+        Task<IEnumerable<Events>> GetEventsWhereNotComments(int userId);
         Task AddAsync(Events obj);
         Task UpdateAsync(Events obj);
         Task DeleteAsync(int eventID);

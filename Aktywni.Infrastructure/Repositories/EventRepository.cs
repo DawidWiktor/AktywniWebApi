@@ -19,9 +19,9 @@ namespace Aktywni.Infrastructure.Repositories
             _userEventRepository = userEventRepository;
         }
 
-         public async Task<Events> GetEventAsync(int eventID)
-            => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
-                                    .FirstOrDefaultAsync(x => x.EventId == eventID);
+        public async Task<Events> GetEventAsync(int eventID)
+           => await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
+                                   .FirstOrDefaultAsync(x => x.EventId == eventID);
 
         public async Task<Events> GetEventAsync(int eventID, int userId)
          => await FillEvent(userId, await _dbContext.Events.Where(x => x.Visibility != Events.TypeOfVisible.U.ToString())
@@ -120,6 +120,11 @@ namespace Aktywni.Infrastructure.Repositories
         public async Task<IEnumerable<Events>> GetEventInDisciplineAsync(int disciplineID, int userId)
             => await FillListEvents(userId, await _dbContext.Events.Where(x => x.DisciplineId == disciplineID)
                                       .ToListAsync());
+
+        public async Task<IEnumerable<Events>> GetEventsWhereNotComments(int userId)
+            => await FillListEvents(userId, await _dbContext.Events
+                                                    .Where(x => x.Date < DateTime.Now)
+                                                    .Where(x => x.UserComments.Count < 1).ToListAsync());
 
         public async Task AddAsync(Events obj)
         {
