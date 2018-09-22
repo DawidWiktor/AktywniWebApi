@@ -27,9 +27,9 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetEvent(int eventId)
             => Json(await _eventService.GetEventAsync(eventId, UserId));
 
-        [HttpGet("name/{name}")]
-        public async Task<IActionResult> GetEvent(string name)
-            => Json(await _eventService.GetEventAsync(name, UserId));
+        [HttpGet("name")]
+        public async Task<IActionResult> GetEvent([FromBody]GetEventByName command)
+            => Json(await _eventService.GetEventAsync(command.Name, UserId));
 
         [HttpGet]
         public async Task<IActionResult> GetAllEvents()
