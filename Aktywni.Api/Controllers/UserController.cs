@@ -46,9 +46,16 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetMyActivity()
             => Json(await _userService.GetMyActivity(UserId));
 
+        [HttpGet("abonaments")]
+        public async Task<IActionResult> GetMyAbonaments()
+            => Json(await _userService.GetAbonaments(UserId));
 
- 
-        // TODO:
-        // oceń użytkownika
+        [HttpGet("lastAbonament")]
+        public async Task<IActionResult> GetMyLastAbonaments()
+            => Json(await _userService.GetLastAbonament(UserId));
+
+        [HttpGet("link")]
+        public IActionResult GetLink()
+            => Json(_userService.GetLink());
     }
 }

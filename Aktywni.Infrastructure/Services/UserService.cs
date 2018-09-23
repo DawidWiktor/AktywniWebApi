@@ -10,6 +10,7 @@ using CryptoHelper;
 using System.Collections.Generic;
 using Aktywni.Infrastructure.Commands;
 using Aktywni.Infrastructure.Commands.User;
+using Aktywni.Infrastructure.DTO.Abonament;
 
 namespace Aktywni.Infrastructure.Services
 {
@@ -72,7 +73,7 @@ namespace Aktywni.Infrastructure.Services
             {
                 return new ReturnResponse { Response = false.ToString(), Error = "Błąd wylogowania." };
             }
-
+            await CheckAndUpdateRoleUser(userID);
             return new ReturnResponse { Response = true.ToString(), Info = "Pomyślnie wylogowano." }; // TODO : usuń token
         }
         public async Task<IEnumerable<AccountDTO>> BrowseAsync(int myId)
@@ -181,5 +182,37 @@ namespace Aktywni.Infrastructure.Services
                 listActivity.Add(new MyActivity { EventId = item.Item1, EventName = item.Item2, Date = item.Item3, IsAccepted = item.Item4 });
             return new ReturnResponse { Response = true.ToString(), Info = listActivity };
         }
+
+        public async Task<ReturnResponse> GetAbonaments(int myId)
+        {
+            List<AbonamentDTO> listAbonaments = _mapper.Map<IEnumerable<Abonaments>, List<AbonamentDTO>>(await _userRepository.GetAbonaments(myId));
+            return new ReturnResponse { Response = true.ToString(), Info = listAbonaments };
+        }
+
+        public async Task<ReturnResponse> GetLastAbonament(int myId)
+        {
+            AbonamentDTO abonament = _mapper.Map<Abonaments, AbonamentDTO>(await _userRepository.GetLastAbonament(myId));
+            return new ReturnResponse { Response = true.ToString(), Info = abonament };
+        }
+
+        public ReturnResponse GetLink()
+            => new ReturnResponse { Response = true.ToString(), Info = @"http://localhost:49556/" };
+
+
+
+        private async Task CheckAndUpdateRoleUser(int myId)
+        {
+            Users user = await _userRepository.GetAsync(myId);
+            Abonaments abonamet = await _userRepository.GetLastAbonament(myId);
+            if(abonamet == null)
+                return;
+
+            if(user.Role == "biznes" && abonamet.DateEnd < DateTime.Now)
+            {
+                user.SetRole("uzytkownik");
+                await _userRepository.UpdateAsync(user);
+            }
+        } 
+
     }
 }

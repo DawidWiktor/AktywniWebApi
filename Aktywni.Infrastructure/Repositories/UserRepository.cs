@@ -19,38 +19,48 @@ namespace Aktywni.Infrastructure.Repositories
 
         public async Task<Users> GetAsync(int Id)
             => await _dbContext.Users.SingleOrDefaultAsync(x => x.UserId == Id);
- 
+
         public async Task<Users> GetAsync(string login)
            => await _dbContext.Users.SingleOrDefaultAsync(x => x.Login == login);
         public async Task<IEnumerable<Users>> GetAllAsync(int myId)
-            => await _dbContext.Users.Where(x=>x.IsActive == true)
-                                     .Where(x=>x.UserId != myId)
+            => await _dbContext.Users.Where(x => x.IsActive == true)
+                                     .Where(x => x.UserId != myId)
                                      .ToListAsync();
 
         public async Task<IEnumerable<Users>> GetAllAsync(int myId, string fragmentLogin)
             => await _dbContext.Users.Where(x => x.Login.Contains(fragmentLogin))
-                                      .Where(x=>x.IsActive == true)
-                                      .Where(x=>x.UserId != myId)
+                                      .Where(x => x.IsActive == true)
+                                      .Where(x => x.UserId != myId)
                                      .ToListAsync();
 
         public async Task<IEnumerable<Tuple<int, string, DateTime>>> GetUserActivity(int userId)
-            => await _dbContext.UsersEvents.Where(x=>x.UserId == userId)
-                                           .Where(x=>x.IsAccepted == true)
-                                           .Select(z => new Tuple<int, string, DateTime>(z.EventId, 
+            => await _dbContext.UsersEvents.Where(x => x.UserId == userId)
+                                           .Where(x => x.IsAccepted == true)
+                                           .Select(z => new Tuple<int, string, DateTime>(z.EventId,
                                                             z.Event.Name, (DateTime)z.Event.Date))
                                            .ToListAsync();
 
         public async Task<IEnumerable<Tuple<int, string, DateTime, bool>>> GetMyActivity(int myId)
-            => await _dbContext.UsersEvents.Where(x=>x.UserId == myId)
-                                           .Select(z => new Tuple<int, string, DateTime, bool>(z.EventId, 
+            => await _dbContext.UsersEvents.Where(x => x.UserId == myId)
+                                           .Select(z => new Tuple<int, string, DateTime, bool>(z.EventId,
                                                             z.Event.Name, (DateTime)z.Event.Date, (bool)z.IsAccepted))
                                            .ToListAsync();
 
 
         public async Task<string> GetLogin(int userId)
-            => await _dbContext.Users.Where(x=>x.UserId == userId)
-                                     .Select(x =>x.Login)
+            => await _dbContext.Users.Where(x => x.UserId == userId)
+                                     .Select(x => x.Login)
                                      .FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<Abonaments>> GetAbonaments(int myId)
+            => await _dbContext.Abonaments.Where(x => x.UserId == myId)
+                                          .Where(x=>x.IsPaid == true)
+                                          .ToListAsync();
+
+        public async Task<Abonaments> GetLastAbonament(int myId)
+            => await _dbContext.Abonaments.OrderByDescending(x=>x.OrderId)
+                                          .Where(x=>x.IsPaid == true)
+                                          .FirstOrDefaultAsync(x=>x.UserId == myId);
 
         public async Task AddAsync(Users user)
         {

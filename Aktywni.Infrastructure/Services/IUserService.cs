@@ -20,6 +20,9 @@ namespace Aktywni.Infrastructure.Services
         Task<ReturnResponse> GetAllUsers(int myId, string fragmentLogin);
         Task<ReturnResponse> GetUserActivity(int userId);
         Task<ReturnResponse> GetMyActivity(int myId);
+        Task<ReturnResponse> GetAbonaments(int myId);
+        Task<ReturnResponse> GetLastAbonament(int myId);
+        ReturnResponse GetLink();
 
     }
 }

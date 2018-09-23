@@ -15,6 +15,8 @@ namespace Aktywni.Core.Repositories
         Task<IEnumerable<Tuple<int, string, DateTime>>> GetUserActivity(int userId);
          // uzyskanie aktywności użytkownika, eventId, nazwa wydarzenia, data, czy zaakceptowano uczestnictwo
         Task<IEnumerable<Tuple<int, string, DateTime, bool>>> GetMyActivity(int myId);
+        Task<IEnumerable<Abonaments>> GetAbonaments(int myId);
+        Task<Abonaments> GetLastAbonament(int myId);
         Task<string> GetLogin(int userId); // uzyskanie loginu
         Task AddAsync(Users user);     // dodaj użytkownika
         Task UpdateAsync(Users user);  // zaktualizuj danego użytkownika
