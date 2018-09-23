@@ -64,7 +64,7 @@ namespace Aktywni.Infrastructure.Services
             List<HistoryDTO> listEventsUser = new List<HistoryDTO>();
             foreach (var item in eventsUser)
             {
-                listEventsUser.Add(new HistoryDTO { EventId = item.Item1, EventName = item.Item2, Date = item.Item3, Latitude = item.Item4, Longitude = item.Item5});
+                listEventsUser.Add(new HistoryDTO { EventId = item.Item1, EventName = item.Item2, Date = item.Item3, Latitude = item.Item4, Longitude = item.Item5, DisciplineID = item.Item6, Description = item.Item7});
             }
             return new ReturnResponse { Response = true.ToString(), Info = listEventsUser };
         }

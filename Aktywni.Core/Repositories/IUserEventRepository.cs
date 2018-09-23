@@ -15,7 +15,7 @@ namespace Aktywni.Core.Repositories
         // id wydarzenia, nazwa wydarzenia, data, czy zaakceptowano uczestnictwo
         Task<IEnumerable<Tuple<int, string, DateTime, bool>>> GetEventsInUser(int MyId); // uzyskanie listy wydarzeń gdzie należy użytkownik, id wydarzenia, nazwa wydarzenia, data wydarzenia
         Task<IEnumerable<Tuple<int, string, DateTime>>> GetMyInvitationsEvent(int myId); // uzyskanie wydarzeń gdzie jesteśmy zaproszeni, id wydarzenia, nazwa wydarzenia, data wydarzenia
-        Task<IEnumerable<Tuple<int, string, DateTime, decimal, decimal>>> GetHistoryEvents(int myId); // uzyskanie wydarzeń zakończonych, gdzie braliśmy udziasł, latitude, longitude,
+        Task<IEnumerable<Tuple<int, string, DateTime, decimal, decimal, int, string>>> GetHistoryEvents(int myId); // uzyskanie wydarzeń zakończonych, gdzie braliśmy udziasł, latitude, longitude; id dyscypliny; opis wydarzenia
         Task<bool> IsAdminInEvent(int eventId, int userId); // sprawdzenie czy użytkownik jest adminem wydarzenia
         Task<bool> IsUserInEvent(int eventId, int userId); // sprawdzenie czy użytkownik brał udział w wydarzeniu
         Task AddAsync(UsersEvents userEvent);
