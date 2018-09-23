@@ -11,6 +11,7 @@ namespace Aktywni.Core.Model
 
         public Users()
         {
+            Abonaments = new HashSet<Abonaments>();
             EventsAdminNavigation = new HashSet<Events>();
             EventsWhoCreated = new HashSet<Events>();
             FriendsFriendFromNavigation = new HashSet<Friends>();
@@ -28,6 +29,7 @@ namespace Aktywni.Core.Model
 
         public Users(string login, string email, string password)
         {
+            Abonaments = new HashSet<Abonaments>();
             EventsAdminNavigation = new HashSet<Events>();
             EventsWhoCreated = new HashSet<Events>();
             FriendsFriendFromNavigation = new HashSet<Friends>();
@@ -65,6 +67,7 @@ namespace Aktywni.Core.Model
         public int? NumOfRating { get; protected set; }
         public string Link { get; protected set; }
 
+        public ICollection<Abonaments> Abonaments { get; set; }
         public ICollection<Events> EventsAdminNavigation { get; set; }
         public ICollection<Events> EventsWhoCreated { get; set; }
         public ICollection<Friends> FriendsFriendFromNavigation { get; set; }

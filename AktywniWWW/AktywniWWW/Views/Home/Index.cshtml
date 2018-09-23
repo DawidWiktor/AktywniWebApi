@@ -1,0 +1,35 @@
+﻿@model AktywniWWW.Commands.Home.SignInCommand
+
+@{
+    ViewBag.Title = "Aktywni.pl";
+}
+
+<div class="container container--header">
+    <div class="row">
+        <div class="col-md-6 col-lg-6">
+        </div>
+        <div class="col-lg-12 offset-lg-5 col-xs-12 offset-0">
+            @{ if (User.Identity.Name == "")
+                {
+                    using (Html.BeginForm("SignIn", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken() <!-- Sprawdzenie danych w polach-->
+               //        @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+               //         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @id = "login", @placeholder = "Wpisz swój login" } })
+                                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "Password_login", @placeholder = "Wpisz hasło" } })
+                                <div class="col-md-2 col-sm-2 col-xs-8">
+                                    <input id="Button_login" type="submit" value="Zaloguj" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div> 
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+

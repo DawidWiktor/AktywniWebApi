@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="AktywniDBModelStoreContainer" CdmEntityContainer="AktywniDBEntities">
+    <EntitySetMapping Name="C__EFMigrationsHistory">
+      <EntityTypeMapping TypeName="AktywniDBModel.C__EFMigrationsHistory">
+        <MappingFragment StoreEntitySet="__EFMigrationsHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Abonaments">
+      <EntityTypeMapping TypeName="AktywniDBModel.Abonaments">
+        <MappingFragment StoreEntitySet="Abonaments">
+          <ScalarProperty Name="AbonamentId" ColumnName="AbonamentId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+          <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Disciplines">
+      <EntityTypeMapping TypeName="AktywniDBModel.Disciplines">
+        <MappingFragment StoreEntitySet="Disciplines">
+          <ScalarProperty Name="DisciplineID" ColumnName="DisciplineID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Visibility" ColumnName="Visibility" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="AktywniDBModel.Events">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+          <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+          <ScalarProperty Name="WhoCreatedID" ColumnName="WhoCreatedID" />
+          <ScalarProperty Name="DisciplineID" ColumnName="DisciplineID" />
+          <ScalarProperty Name="Admin" ColumnName="Admin" />
+          <ScalarProperty Name="Visibility" ColumnName="Visibility" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="GeographicalCoordinates" ColumnName="GeographicalCoordinates" />
+          <ScalarProperty Name="Commerce" ColumnName="Commerce" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Friends">
+      <EntityTypeMapping TypeName="AktywniDBModel.Friends">
+        <MappingFragment StoreEntitySet="Friends">
+          <ScalarProperty Name="FriendID" ColumnName="FriendID" />
+          <ScalarProperty Name="FriendFrom" ColumnName="FriendFrom" />
+          <ScalarProperty Name="FriendTo" ColumnName="FriendTo" />
+          <ScalarProperty Name="IsAccepted" ColumnName="IsAccepted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MessageEvent">
+      <EntityTypeMapping TypeName="AktywniDBModel.MessageEvent">
+        <MappingFragment StoreEntitySet="MessageEvent">
+          <ScalarProperty Name="MessageEventID" ColumnName="MessageEventID" />
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="UserFromID" ColumnName="UserFromID" />
+          <ScalarProperty Name="IsOpened" ColumnName="IsOpened" />
+          <ScalarProperty Name="UserToId" ColumnName="UserToId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Messages">
+      <EntityTypeMapping TypeName="AktywniDBModel.Messages">
+        <MappingFragment StoreEntitySet="Messages">
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MessageUser">
+      <EntityTypeMapping TypeName="AktywniDBModel.MessageUser">
+        <MappingFragment StoreEntitySet="MessageUser">
+          <ScalarProperty Name="MessageUserID" ColumnName="MessageUserID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+          <ScalarProperty Name="IsOpened" ColumnName="IsOpened" />
+          <ScalarProperty Name="UserFromID" ColumnName="UserFromID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ObjectComments">
+      <EntityTypeMapping TypeName="AktywniDBModel.ObjectComments">
+        <MappingFragment StoreEntitySet="ObjectComments">
+          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Objects">
+      <EntityTypeMapping TypeName="AktywniDBModel.Objects">
+        <MappingFragment StoreEntitySet="Objects">
+          <ScalarProperty Name="ObjectID" ColumnName="ObjectID" />
+          <ScalarProperty Name="Administrator" ColumnName="Administrator" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="NumOfRating" ColumnName="NumOfRating" />
+          <ScalarProperty Name="GeographicalCoordinates" ColumnName="GeographicalCoordinates" />
+          <ScalarProperty Name="Visitability" ColumnName="Visitability" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="AktywniDBModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserComments">
+      <EntityTypeMapping TypeName="AktywniDBModel.UserComments">
+        <MappingFragment StoreEntitySet="UserComments">
+          <ScalarProperty Name="UserCommentId" ColumnName="UserCommentId" />
+          <ScalarProperty Name="UserIdWhoComment" ColumnName="UserIdWhoComment" />
+          <ScalarProperty Name="UserIdRated" ColumnName="UserIdRated" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="Describe" ColumnName="Describe" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="AktywniDBModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="DateLastActive" ColumnName="DateLastActive" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+          <ScalarProperty Name="NumOfRating" ColumnName="NumOfRating" />
+          <ScalarProperty Name="Link" ColumnName="Link" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersEvents">
+      <EntityTypeMapping TypeName="AktywniDBModel.UsersEvents">
+        <MappingFragment StoreEntitySet="UsersEvents">
+          <ScalarProperty Name="UserEventID" ColumnName="UserEventID" />
+          <ScalarProperty Name="EventID" ColumnName="EventID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="IsAccepted" ColumnName="IsAccepted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetHistoryMessagesInEvent" FunctionName="AktywniDBModel.Store.GetHistoryMessagesInEvent" />
+    <FunctionImportMapping FunctionImportName="GetHistoryMessagesInFriend" FunctionName="AktywniDBModel.Store.GetHistoryMessagesInFriend" />
+    <FunctionImportMapping FunctionImportName="GetLatestMessageInFriend" FunctionName="AktywniDBModel.Store.GetLatestMessageInFriend" />
+    <FunctionImportMapping FunctionImportName="GetUnreadMessagesInFriend" FunctionName="AktywniDBModel.Store.GetUnreadMessagesInFriend" />
+    <FunctionImportMapping FunctionImportName="InsertMessage" FunctionName="AktywniDBModel.Store.InsertMessage" />
+    <FunctionImportMapping FunctionImportName="InsertMessageEvent" FunctionName="AktywniDBModel.Store.InsertMessageEvent" />
+    <FunctionImportMapping FunctionImportName="SelectLastMessageEvent" FunctionName="AktywniDBModel.Store.SelectLastMessageEvent" />
+    <FunctionImportMapping FunctionImportName="SelectMessageEvent" FunctionName="AktywniDBModel.Store.SelectMessageEvent" />
+    <FunctionImportMapping FunctionImportName="SelectUnreadMessageEvent" FunctionName="AktywniDBModel.Store.SelectUnreadMessageEvent" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="AktywniDBModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="AktywniDBModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="AktywniDBModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="AktywniDBModel.Store.sp_helpdiagramdefinition" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="AktywniDBModel.Store.sp_helpdiagrams" />
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="AktywniDBModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="AktywniDBModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

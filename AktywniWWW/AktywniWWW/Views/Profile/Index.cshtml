@@ -1,0 +1,98 @@
+﻿@model AktywniWWW.DTO.ProfileDTO
+@{
+    ViewBag.Title = "Profil";
+}
+
+<div class="row">
+    <div class="col-sm-8 offset-sm-4">
+        <h2>Profil użytkownika</h2>
+    </div>
+</div>
+<div class="row">
+    <form class="col-sm-8 offset-sm-4">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Imię</label>
+            <div class="col-sm-10 form-control-plaintext">
+                @Html.DisplayFor(x => x.Name, new { @class = "" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Nazwisko</label>
+            <div class="col-sm-10 form-control-plaintext">
+                @Html.DisplayFor(x => x.Surname, new { @class = "" })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Login</label>
+            <div class="col-sm-10 form-control-plaintext">
+                @Html.DisplayFor(x => x.Login, new { htmlAttributes = new { @class = "" } })
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Konto</label>
+            <div class="col-sm-10 form-control-plaintext">
+                @Html.DisplayFor(x => x.Role, new { @class = "" })
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-sm-8 offset-sm-4">
+        <h3>Wykupione abonamenty</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-9 offset-sm-3">
+        <table id="example" class="table table-striped table-responsive  ">
+            <thead>
+                <tr>
+                    <th scope="col">Data rozpoczęcia</th>
+                    <th scope="col">Data zakończenia</th>
+                    <th scope="col">Cena (brutto) zł</th>
+                    <th scope="col">ZamówienieId</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model.ListAbonaments)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(x => item.DateStart)</td>
+                        <td>@Html.DisplayFor(x => item.DateEnd)</td>
+                        <td> @Html.DisplayFor(x => item.Price)</td>
+                        <td>@Html.DisplayFor(x => item.OrderId)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="row">
+    @{ if (ViewBag.IsActive == false)
+        {
+            <div class="col-sm-2 offset-sm-2">
+                Wykup abonament
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-2 offset-sm-2">
+                Przedłuż abonament
+            </div>
+        }
+    }
+
+    <div class="auto summaryOrder_dataForOverflow_paypalButton  ">
+        <a href='@Url.Action("PaymentWithPaypal1", "Paypal", new { orderID = 123})' class="">
+            Zapłać za pomocą PayPal
+        </a>
+    </div>
+
+    <div class="col-sm-5">
+        Cena: 12,30 zł (z VAT) za jeden miesiąc abonamentu
+    </div>
+</div>

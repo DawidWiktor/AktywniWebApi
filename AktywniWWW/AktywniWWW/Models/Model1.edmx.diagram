@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a5d899907c3f49ed9053817df3fd9a87" Name="Diagram1">
+        <EntityTypeShape EntityType="AktywniDBModel.C__EFMigrationsHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.Abonaments" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.Disciplines" Width="1.5" PointX="3" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.Events" Width="1.5" PointX="5.25" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.Friends" Width="1.5" PointX="3" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.MessageEvent" Width="1.5" PointX="7.5" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.Messages" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.MessageUser" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.ObjectComments" Width="1.5" PointX="8.25" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.Objects" Width="1.5" PointX="3" PointY="28.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.UserComments" Width="1.5" PointX="10.5" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.Users" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AktywniDBModel.UsersEvents" Width="1.5" PointX="7.5" PointY="13.375" IsExpanded="true" />
+        <AssociationConnector Association="AktywniDBModel.FK_Abonaments_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_Events_Disciplines" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_Events_Objects" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_Events_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_Events_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_MessageEvent_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_UserComments_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_UsersEvents_Events" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_Friends_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_Friends_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_MessageEvent_Message" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_MessageEvent_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_MessageEvent_UserTo" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_MessageUser_Messages" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_MessageUser_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_MessageUser_UsersFrom" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_ObjectComments_Objects" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_ObjectComments_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_Objects_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_UserComments_UserRated" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_UserComments_UserWhoComment" ManuallyRouted="false" />
+        <AssociationConnector Association="AktywniDBModel.FK_UsersEvents_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

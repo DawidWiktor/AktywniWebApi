@@ -6,6 +6,7 @@ namespace Aktywni.Core.Model
 {
     public partial class AktywniDBContext : DbContext
     {
+        public virtual DbSet<Abonaments> Abonaments { get; set; }
         public virtual DbSet<Disciplines> Disciplines { get; set; }
         public virtual DbSet<Events> Events { get; set; }
         public virtual DbSet<Friends> Friends { get; set; }
@@ -33,6 +34,23 @@ namespace Aktywni.Core.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Abonaments>(entity =>
+                        {
+                            entity.HasKey(e => e.AbonamentId);
+
+                            entity.Property(e => e.DateEnd).HasColumnType("datetime");
+
+                            entity.Property(e => e.DateStart).HasColumnType("datetime");
+
+                            entity.Property(e => e.Price).HasColumnType("decimal(6, 2)");
+
+                            entity.HasOne(d => d.User)
+                                .WithMany(p => p.Abonaments)
+                                .HasForeignKey(d => d.UserId)
+                                .OnDelete(DeleteBehavior.ClientSetNull)
+                                .HasConstraintName("FK_Abonaments_Users");
+                        });
+
             modelBuilder.Entity<Disciplines>(entity =>
             {
                 entity.HasKey(e => e.DisciplineId);
@@ -53,7 +71,7 @@ namespace Aktywni.Core.Model
                 entity.HasKey(e => e.EventId);
 
                 entity.Property(e => e.EventId).HasColumnName("EventID");
-                
+
                 entity.Property(e => e.CreatedDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Date).HasColumnType("datetime");
