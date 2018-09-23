@@ -23,6 +23,11 @@ namespace Aktywni.Api.Controllers
             _configuration = configuration;
         }
 
+        [HttpGet("Ab")]
+        public async Task<IActionResult> About()
+        {
+            return Json("abcd");
+        }
         [HttpGet("{eventId}")]
         public async Task<IActionResult> GetEvent(int eventId)
             => Json(await _eventService.GetEventAsync(eventId, UserId));
@@ -51,14 +56,14 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> SearchEventsInDisciplineAndDistance([FromBody]SearchEventsInDisciplineAndDistance command)
             => Json(await _eventService.SearchEventsInDisciplineAndDistanceAsync(command.Name, command.DisciplineId, command.Distance, command.Latitude, command.Longitude, UserId));
 
-         [HttpPost("searchNearest")]
+        [HttpPost("searchNearest")]
         public async Task<IActionResult> SearchNearest([FromBody]SearchNearest command)
-            => Json(await _eventService.SearchEventsNearest(command.Latitude, command.Longitude, UserId));     
+           => Json(await _eventService.SearchEventsNearest(command.Latitude, command.Longitude, UserId));
 
         [HttpGet("notComments")]
         public async Task<IActionResult> GetEventsWhereNotComments()
             => Json(await _eventService.GetEventsWhereNotComments(UserId));
-            
+
         [HttpPost("add")]
         public async Task<IActionResult> AddEvent([FromBody]AddEvent command)
            => Json(await _eventService.AddEventAsync(command.Name, command.Date, UserId, IsCommerceUser, command.IsPrivate, command.DisciplineId, command.Description, command.Latitude, command.Longitude));
@@ -80,7 +85,7 @@ namespace Aktywni.Api.Controllers
             => Json(await _eventService.ChangeDescription(eventId, command.NewDescription));
 
         [HttpPut("changeDate/{eventId}")]
-         public async Task<IActionResult> ChangeDateEvent(int eventId, [FromBody]ChangeDateEvent command)
+        public async Task<IActionResult> ChangeDateEvent(int eventId, [FromBody]ChangeDateEvent command)
             => Json(await _eventService.ChangeDateEventAsync(eventId, Convert.ToDateTime(command.NewDate)));
 
         [HttpPut("changeGeographicalCoordinates/{eventId}")]

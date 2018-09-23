@@ -20,6 +20,7 @@ using Aktywni.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Aktywni.Core.Model;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace Aktywni.Api
 {
@@ -35,8 +36,12 @@ namespace Aktywni.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
+            services.AddMvc(options =>
+            {
+                options.RespectBrowserAcceptHeader = true; // false by default
+                options.OutputFormatters.RemoveType<TextOutputFormatter>();
+                options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
+            });
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFriendService, FriendService>();
             services.AddScoped<IObjectService, ObjectService>();

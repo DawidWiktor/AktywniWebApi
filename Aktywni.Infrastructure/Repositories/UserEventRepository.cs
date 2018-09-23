@@ -44,12 +44,12 @@ namespace Aktywni.Infrastructure.Repositories
                                                             z.Event.Name, (DateTime)z.Event.Date))
                                     .ToListAsync();
 
-        public async Task<IEnumerable<Tuple<int, string, DateTime>>> GetHistoryEvents(int myId)
+        public async Task<IEnumerable<Tuple<int, string, DateTime, decimal, decimal>>> GetHistoryEvents(int myId)
             => await _dbContext.UsersEvents.Where(x => x.UserId == myId)
                                             .Where(x => x.IsAccepted == true)
                                             .Where(x => x.Event.Date < DateTime.Now)
-                                    .Select(z => new Tuple<int, string, DateTime>(z.EventId,
-                                                            z.Event.Name, (DateTime)z.Event.Date))
+                                    .Select(z => new Tuple<int, string, DateTime, decimal, decimal>(z.EventId,
+                                                            z.Event.Name, (DateTime)z.Event.Date, (decimal)z.Event.Latitude, (decimal)z.Event.Longitude))
                                     .ToListAsync();
 
         public async Task<bool> IsAdminInEvent(int eventId, int userId)

@@ -61,10 +61,10 @@ namespace Aktywni.Infrastructure.Services
         public async Task<ReturnResponse> GetHistoryEvents(int myId)
         {
              var eventsUser = await _userEventRepository.GetHistoryEvents(myId);
-            List<InvitationsDTO> listEventsUser = new List<InvitationsDTO>();
+            List<HistoryDTO> listEventsUser = new List<HistoryDTO>();
             foreach (var item in eventsUser)
             {
-                listEventsUser.Add(new InvitationsDTO { EventId = item.Item1, EventName = item.Item2, Date = item.Item3});
+                listEventsUser.Add(new HistoryDTO { EventId = item.Item1, EventName = item.Item2, Date = item.Item3, Latitude = item.Item4, Longitude = item.Item5});
             }
             return new ReturnResponse { Response = true.ToString(), Info = listEventsUser };
         }
