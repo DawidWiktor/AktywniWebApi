@@ -37,6 +37,10 @@ namespace Aktywni.Api.Controllers
         public async Task<IActionResult> GetCommentsInEvent(int eventId)
             => Json(await _userCommentService.GetCommentsInEvent(UserId, eventId));
 
+        [HttpGet("eventWithUncomment/{eventId}")]
+        public async Task<IActionResult> GetCommentsWithUncommentUsersInEvent(int eventId)
+            => Json(await _userCommentService.GetCommentsWithUncommentUsersInEvent(UserId, eventId));
+
         [HttpPost("add")]
         public async Task<IActionResult> AddComment([FromBody]AddComment command)
             => Json(await _userCommentService.AddComment(UserId, command.UserIdRated, command.EventId, command.Rate, command.Describe));

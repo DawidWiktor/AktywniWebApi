@@ -14,14 +14,16 @@ namespace Aktywni.Infrastructure.Services
     {
         private readonly IUserCommentRepository _userCommentRepository;
         private readonly IUserEventRepository _userEventRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
         public UserCommentService(IUserCommentRepository userCommentRepository, IUserEventRepository userEventRepository,
-                                    IEventRepository eventRepository, IMapper mapper)
+                                    IEventRepository eventRepository, IUserRepository userRepository, IMapper mapper)
         {
             _userCommentRepository = userCommentRepository;
             _userEventRepository = userEventRepository;
             _eventRepository = eventRepository;
+            _userRepository = userRepository;
             _mapper = mapper;
         }
 
@@ -43,17 +45,25 @@ namespace Aktywni.Infrastructure.Services
             return new ReturnResponse { Response = true.ToString(), Info = userComments };
         }
 
+        public async Task<ReturnResponse> GetCommentsWithUncommentUsersInEvent(int userId, int eventId)
+        {
+            var userComments = FillDto(await _userCommentRepository.GetCommentsInEvent(userId, eventId));
+            var usersInEvent = await _userEventRepository.GetUsersInEvent(eventId);
+            await AddNullToUncommentUsers(userComments, usersInEvent.ToList(), userId);
+            return new ReturnResponse { Response = true.ToString(), Info = userComments };
+        }
+
         public async Task<ReturnResponse> AddComment(int myId, int userIdRated, int eventId, int rate, string describe)
         {
-            if(!await _userEventRepository.IsAdminInEvent(eventId, myId))
+            if (!await _userEventRepository.IsAdminInEvent(eventId, myId))
                 return new ReturnResponse { Response = false.ToString(), Error = "Nie możesz ocenić uczestnika." };
 
-            if(!await _userEventRepository.IsUserInEvent(eventId, userIdRated))
+            if (!await _userEventRepository.IsUserInEvent(eventId, userIdRated))
                 return new ReturnResponse { Response = false.ToString(), Error = "Uczestnik nie brał udziału w wydarzeniu." };
-        
+
             UserComments userComment = await _userCommentRepository.GetComment(myId, userIdRated, eventId);
-            if(userComment != null)
-                  return new ReturnResponse { Response = false.ToString(), Info = "Nie możesz drugi raz ocenić użytkownika." };
+            if (userComment != null)
+                return new ReturnResponse { Response = false.ToString(), Info = "Nie możesz drugi raz ocenić użytkownika." };
             await _userCommentRepository.AddAsync(userComment);
             return new ReturnResponse { Response = true.ToString(), Info = "Dodano ocenę." };
         }
@@ -89,6 +99,21 @@ namespace Aktywni.Infrastructure.Services
                 });
 
             return listUserComments;
+        }
+
+        private async Task<List<UserCommentDTO>> AddNullToUncommentUsers(List<UserCommentDTO> listUserDTO, List<UsersEvents> listAllUsersInEvent, int myId)
+        {
+            foreach (var item in listAllUsersInEvent.Where(x=>x.UserId != myId))
+            {
+                if (listUserDTO.Where(x => x.UserIdRated == item.UserId).Any())
+                {
+                    continue;
+                }
+                string login = await _userRepository.GetLogin(item.UserId);
+                listUserDTO.Add(new UserCommentDTO { UserIdRated = item.UserId, UserLoginRated = login});
+            }
+
+            return listUserDTO;
         }
     }
 }
