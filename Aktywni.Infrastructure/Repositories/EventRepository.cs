@@ -124,6 +124,7 @@ namespace Aktywni.Infrastructure.Repositories
         public async Task<IEnumerable<Events>> GetEventsWhereNotComments(int userId)
             => await FillListEvents(userId, await _dbContext.Events
                                                     .Where(x => x.Date < DateTime.Now)
+                                                    .Where(x => x.Admin == userId)
                                                     .Where(x => x.UserComments.Count < 1).ToListAsync());
 
         public async Task AddAsync(Events obj)

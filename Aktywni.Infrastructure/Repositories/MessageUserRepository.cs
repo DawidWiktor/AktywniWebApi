@@ -35,7 +35,7 @@ namespace Aktywni.Infrastructure.Repositories
             await AddUserHeaderToList(listUsersMessage, messagesToUser);
             await AddUserHeaderToList(listUsersMessage, messagesFromUser);
 
-            RemoveDuplicateFromList(listUsersMessage);
+            RemoveDuplicateAndMyIdFromList(listUsersMessage, myId);
             return listUsersMessage;
             //          await _dbContext.MessageUser.Where(x => (x.UserFromId == myId || x.UserId == myId)).GroupBy(x=>x.)
             //                                     .Select(z => new Tuple<int, int, DateTime, string>((int)z.UserFromId, z.UserId, z.Message.Date, z.Message.Content)).Distinct(z =>z.).ToListAsync();
@@ -119,7 +119,7 @@ namespace Aktywni.Infrastructure.Repositories
             return listUsersMessage;
         }
 
-        private List<Tuple<int, string>> RemoveDuplicateFromList(List<Tuple<int, string>> listUsersMessage)
+        private List<Tuple<int, string>> RemoveDuplicateAndMyIdFromList(List<Tuple<int, string>> listUsersMessage, int myId)
         {
             for (int i = 0; i < listUsersMessage.Count; i++)   // usuniecie duplikatow
             {
@@ -129,6 +129,13 @@ namespace Aktywni.Infrastructure.Repositories
                         listUsersMessage.Remove(listUsersMessage[j]);
                 }
             }
+
+            if(listUsersMessage.Any(x=>x.Item1 == myId))
+            {
+                Tuple<int, string> tempMyUser = listUsersMessage.FirstOrDefault(x=>x.Item1 == myId);
+                listUsersMessage.Remove(tempMyUser);
+            }
+                
             return listUsersMessage;
         }
 

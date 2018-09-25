@@ -64,6 +64,7 @@ namespace Aktywni.Infrastructure.Services
             UserComments userComment = await _userCommentRepository.GetComment(myId, userIdRated, eventId);
             if (userComment != null)
                 return new ReturnResponse { Response = false.ToString(), Info = "Nie możesz drugi raz ocenić użytkownika." };
+            userComment = new UserComments { UserIdWhoComment = myId, UserIdRated = userIdRated, EventId = eventId, Rate = rate, Describe = describe };
             await _userCommentRepository.AddAsync(userComment);
             return new ReturnResponse { Response = true.ToString(), Info = "Dodano ocenę." };
         }
@@ -103,14 +104,14 @@ namespace Aktywni.Infrastructure.Services
 
         private async Task<List<UserCommentDTO>> AddNullToUncommentUsers(List<UserCommentDTO> listUserDTO, List<UsersEvents> listAllUsersInEvent, int myId)
         {
-            foreach (var item in listAllUsersInEvent.Where(x=>x.UserId != myId))
+            foreach (var item in listAllUsersInEvent.Where(x => x.UserId != myId))
             {
                 if (listUserDTO.Where(x => x.UserIdRated == item.UserId).Any())
                 {
                     continue;
                 }
                 string login = await _userRepository.GetLogin(item.UserId);
-                listUserDTO.Add(new UserCommentDTO { UserIdRated = item.UserId, UserLoginRated = login});
+                listUserDTO.Add(new UserCommentDTO { UserIdRated = item.UserId, UserLoginRated = login });
             }
 
             return listUserDTO;
