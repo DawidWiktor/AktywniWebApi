@@ -54,13 +54,18 @@ namespace Aktywni.Infrastructure.Repositories
 
         public async Task<IEnumerable<Abonaments>> GetAbonaments(int myId)
             => await _dbContext.Abonaments.Where(x => x.UserId == myId)
-                                          .Where(x=>x.IsPaid == true)
+                                          .Where(x => x.IsPaid == true)
                                           .ToListAsync();
 
         public async Task<Abonaments> GetLastAbonament(int myId)
-            => await _dbContext.Abonaments.OrderByDescending(x=>x.OrderId)
-                                          .Where(x=>x.IsPaid == true)
-                                          .FirstOrDefaultAsync(x=>x.UserId == myId);
+            => await _dbContext.Abonaments.OrderByDescending(x => x.OrderId)
+                                          .Where(x => x.IsPaid == true)
+                                          .FirstOrDefaultAsync(x => x.UserId == myId);
+
+
+        public async Task<List<UserComments>> GetComments(int userId)
+            => await _dbContext.UserComments.Where(x => x.UserIdRated == userId)
+                                            .ToListAsync();
 
         public async Task AddAsync(Users user)
         {

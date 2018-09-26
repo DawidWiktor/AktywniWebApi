@@ -1,0 +1,12 @@
+C:\AktywniWebApi\Aktywni.Infrastructure\bin\Release\netstandard2.0\Aktywni.Infrastructure.deps.json
+C:\AktywniWebApi\Aktywni.Infrastructure\bin\Release\netstandard2.0\Aktywni.Infrastructure.dll
+C:\AktywniWebApi\Aktywni.Infrastructure\bin\Release\netstandard2.0\Aktywni.Infrastructure.pdb
+C:\AktywniWebApi\Aktywni.Infrastructure\bin\Release\netstandard2.0\Aktywni.Core.dll
+C:\AktywniWebApi\Aktywni.Infrastructure\bin\Release\netstandard2.0\Aktywni.Core.pdb
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Release\netstandard2.0\Aktywni.Infrastructure.csprojAssemblyReference.cache
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Release\netstandard2.0\Aktywni.Infrastructure.csproj.CoreCompileInputs.cache
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Release\netstandard2.0\Aktywni.Infrastructure.AssemblyInfoInputs.cache
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Release\netstandard2.0\Aktywni.Infrastructure.AssemblyInfo.cs
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Release\netstandard2.0\Aktywni.Infrastructure.csproj.CopyComplete
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Release\netstandard2.0\Aktywni.Infrastructure.dll
+C:\AktywniWebApi\Aktywni.Infrastructure\obj\Release\netstandard2.0\Aktywni.Infrastructure.pdb

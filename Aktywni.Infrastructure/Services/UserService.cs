@@ -29,7 +29,14 @@ namespace Aktywni.Infrastructure.Services
         public async Task<AccountDTO> GetAccountAsync(int userId)
         {
             var user = await _userRepository.GetAsync(userId);
-            return _mapper.Map<Users, AccountDTO>(user);
+            AccountDTO us = _mapper.Map<Users, AccountDTO>(user);
+            List<UserComments> listUserComments = await _userRepository.GetComments(userId);
+            decimal sum = 0;
+            foreach(var item in listUserComments)
+                sum += item.Rate;
+
+            us.Rate = sum / listUserComments.Count;
+            return us;
         }
 
         public async Task<ReturnResponse> RegisterAsync(string login, string email, string password)

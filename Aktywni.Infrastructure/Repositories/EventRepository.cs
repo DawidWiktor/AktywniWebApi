@@ -69,19 +69,24 @@ namespace Aktywni.Infrastructure.Repositories
         {
             var coord = new GeoCoordinate(latitude, longitude);
             List<GeoCoordinate> nearestEvents = new List<GeoCoordinate>();
-            if (string.IsNullOrEmpty(textInput))
+            if (string.IsNullOrEmpty(textInput) && (disciplineID == null || disciplineID < 2))
                 nearestEvents = await _dbContext.Events
-                                   .Where(x => x.DisciplineId == disciplineID)
                                    .Select(x => new GeoCoordinate((double)x.Latitude, (double)x.Longitude))
                                    .OrderBy(x => x.GetDistanceTo(coord))
                                    .ToListAsync();
-            else
+            else if (!string.IsNullOrEmpty(textInput) && disciplineID != null && disciplineID > 1)
                 nearestEvents = await _dbContext.Events
                                    .Where(x => x.Name.Contains(textInput))
                                    .Where(x => x.DisciplineId == disciplineID)
                                    .Select(x => new GeoCoordinate((double)x.Latitude, (double)x.Longitude))
                                    .OrderBy(x => x.GetDistanceTo(coord))
                                    .ToListAsync();
+            else
+                nearestEvents = await _dbContext.Events
+                                      .Where(x => x.DisciplineId == disciplineID)
+                                      .Select(x => new GeoCoordinate((double)x.Latitude, (double)x.Longitude))
+                                      .OrderBy(x => x.GetDistanceTo(coord))
+                                      .ToListAsync();
 
             List<Events> events = new List<Events>();
             foreach (var item in nearestEvents)
